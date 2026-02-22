@@ -22,7 +22,7 @@ function Group1() {
 
 function Frame18() {
   return (
-    <div className="-translate-x-1/2 absolute bg-black left-1/2 flex items-center justify-center z-10" style={{ height: '39.67vh', top: '47.33vh', width: '51.81vw' }}>
+    <div className="-translate-x-1/2 absolute bg-black left-1/2 flex items-center justify-center z-0" style={{ height: '39.67vh', top: '47.33vh', width: '51.81vw' }}>
       <div className="font-['Helvetica_Neue',_'Helvetica',_sans-serif] font-bold not-italic flex flex-col items-center justify-center h-full w-full text-center text-white uppercase whitespace-pre-wrap" style={{ fontSize: '5.556vw', lineHeight: '90%', letterSpacing: '-4%' }}>
         <p className="m-0 text-center">
           Design <br />
@@ -284,59 +284,80 @@ function Group() {
   );
 }
 
-function Frame9() {
-  return (
-    <div className="-translate-x-1/2 absolute bg-[#121212] overflow-clip" style={{ height: '12.11vh', left: 'calc(50% - 25.486vw)', top: '29.11vh', width: '12.5vw' }}>
-      <div className="-translate-x-1/2 absolute left-1/2 top-0" style={{ height: '12.11vh', width: '12.5vw' }} data-name="Free_Hand_Holding_iPhone_16_Pro_Mockup 2">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <img alt="iPhone mockup" className="absolute left-[-0.04%] max-w-none pointer-events-none" style={{ height: '123.92%', top: '-6.46%', width: '100.41%' }} src={imgFreeHandHoldingIPhone16ProMockup2} />
+// Mathematically matched to original Figma positioning:
+// Slot 0 (Far Left): Original Frame10
+// Slot 1 (Mid Left): Original Frame9
+// Slot 2 (Center):  Original Frame13
+// Slot 3 (Mid Right): Original Frame11
+// Slot 4 (Far Right): Original Frame12
+
+const SLOTS = [
+  { left: 'calc(50% - 39.34vw)', top: '49.43vh', scale: 0.33, zIndex: 1 },
+  { left: 'calc(50% - 25.5vw)', top: '35.16vh', scale: 0.45, zIndex: 5 },
+  { left: '43.96vw', top: '13.78vh', scale: 1, zIndex: 10 },
+  { left: 'calc(50% + 25.5vw)', top: '35.16vh', scale: 0.45, zIndex: 5 },
+  { left: 'calc(50% + 39.34vw)', top: '49.43vh', scale: 0.33, zIndex: 1 },
+];
+
+const CAROUSEL_ITEMS = [
+  {
+    id: 0,
+    srNo: "00",
+    title: "PROJECT ONE",
+    categories: ["UX", "UI"],
+    content: (
+      <img alt="Project mockup" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgShotsMockups21} />
+    )
+  },
+  {
+    id: 1,
+    srNo: "01",
+    title: "IPHONE APP",
+    categories: ["Mobile", "Concept"],
+    content: (
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <img alt="iPhone mockup" className="absolute left-[-0.04%] max-w-none pointer-events-none" style={{ height: '123.92%', top: '-6.46%', width: '100.41%' }} src={imgFreeHandHoldingIPhone16ProMockup2} />
+      </div>
+    )
+  },
+  {
+    id: 2,
+    srNo: "02",
+    title: "SCORECRIC",
+    categories: ["Brand", "Product"],
+    content: (
+      <img alt="Project mockup" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgShotsMockups131} />
+    )
+  },
+  {
+    id: 3,
+    srNo: "03",
+    title: "LUCRENTE",
+    categories: ["Web", "Design"],
+    content: (
+      <img alt="Lucrente homepage" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgLucrenteHomepage1} />
+    )
+  },
+  {
+    id: 4,
+    srNo: "04",
+    title: "MY PLAYGROUND",
+    categories: ["Experimental", "Play"],
+    content: (
+      <div className="w-full h-full bg-[#ff4c11] relative overflow-clip">
+        <div className="absolute flex flex-col items-end leading-[0.98] text-white whitespace-pre-wrap" style={{ left: '7.4vw', top: '13vh', width: '19.1vw' }}>
+          <p className="font-['Times_New_Roman',serif] italic relative shrink-0 text-right w-full" style={{ fontSize: '3.08vw', letterSpacing: '-0.031vw' }}>My</p>
+          <p className="font-['Helvetica_Neue',_'Helvetica',_sans-serif] font-bold not-italic opacity-40 relative shrink-0 w-full" style={{ fontSize: '3.7vw', letterSpacing: '-0.0375vw' }}>Playground</p>
         </div>
       </div>
-    </div>
-  );
-}
+    )
+  }
+];
 
-function Frame11() {
-  return (
-    <div className="-translate-x-1/2 absolute bg-[#121212] overflow-clip" style={{ height: '12.11vh', left: 'calc(50% + 25.556vw)', top: '29.11vh', width: '12.5vw' }}>
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute left-1/2" style={{ height: '13.33vh', top: 'calc(50% - 0.611vh)', width: '12.5vw' }} data-name="Lucrente Homepage 1">
-        <img alt="Lucrente homepage" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgLucrenteHomepage1} />
-      </div>
-    </div>
-  );
-}
-
-function Frame10() {
-  return (
-    <div className="-translate-x-1/2 absolute bg-[#121212] overflow-clip" style={{ height: '9.083vh', left: 'calc(50% - 39.34vw)', top: '44.89vh', width: '9.375vw' }}>
-      <div className="absolute left-0" style={{ height: '10vh', top: '-0.417vh', width: '9.375vw' }} data-name="Shots Mockups (2) 1">
-        <img alt="Project mockup" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgShotsMockups21} />
-      </div>
-    </div>
-  );
-}
-
-function Frame20() {
-  return (
-    <div className="absolute content-stretch flex flex-col items-end leading-[0.98] text-white whitespace-pre-wrap" style={{ left: '2.5vw', paddingBottom: '0.167vh', top: '4.833vh', width: '6.458vw' }}>
-      <p className="font-['Times_New_Roman',serif] italic relative shrink-0 text-right w-full" style={{ fontSize: '1.042vw', letterSpacing: '-0.031vw' }}>My</p>
-      <p className="font-['Helvetica_Neue',_'Helvetica',_sans-serif] font-bold not-italic opacity-40 relative shrink-0 w-full" style={{ fontSize: '1.25vw', letterSpacing: '-0.0375vw' }}>Playground</p>
-    </div>
-  );
-}
-
-function Frame12() {
-  return (
-    <div className="-translate-x-1/2 absolute bg-[#ff4c11] overflow-clip" style={{ height: '9.083vh', left: 'calc(50% + 39.34vw)', top: '44.89vh', width: '9.375vw' }}>
-      <Frame20 />
-    </div>
-  );
-}
-
-function Frame27() {
+function Frame27({ srNo }: { srNo: string }) {
   return (
     <div className="content-stretch flex items-start justify-end relative shrink-0" style={{ paddingTop: '5.333vh', width: '3.056vw' }}>
-      <p className="font-['Geist_Mono',sans-serif] font-normal leading-[0.98] opacity-30 relative shrink-0 text-right text-white" style={{ fontSize: '0.833vw' }}>02</p>
+      <p className="font-['Geist_Mono',sans-serif] font-normal leading-[0.98] opacity-30 relative shrink-0 text-right text-white" style={{ fontSize: '0.833vw' }}>{srNo}</p>
     </div>
   );
 }
@@ -399,31 +420,39 @@ function Frame14() {
   );
 }
 
-function Frame24() {
+function Frame24({ isHovered }: { isHovered: boolean }) {
   return (
     <div className="content-stretch flex flex-col items-start relative shrink-0" style={{ gap: '23.778vh', marginRight: '-0.208vw', width: '1.181vw' }}>
-      <div className="flex items-center justify-center relative shrink-0 w-full" style={{ height: '1.889vh' }}>
+      <motion.div
+        className="flex items-center justify-center relative shrink-0 w-full"
+        style={{ height: '1.889vh' }}
+        animate={{ x: isHovered ? -8 : 0, y: isHovered ? -8 : 0 }}
+        transition={{ duration: 0.3, ease: 'easeOut' }}
+      >
         <div className="-scale-y-100 flex-none rotate-90 w-full">
           <Frame15 />
         </div>
-      </div>
-      <div className="flex items-center justify-center relative shrink-0 w-full" style={{ height: '1.889vh' }}>
+      </motion.div>
+      <motion.div
+        className="flex items-center justify-center relative shrink-0 w-full"
+        style={{ height: '1.889vh' }}
+        animate={{ x: isHovered ? -8 : 0, y: isHovered ? 8 : 0 }}
+        transition={{ duration: 0.3, ease: 'easeOut' }}
+      >
         <div className="-rotate-90 flex-none w-full">
           <Frame14 />
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
 
 function Frame13() {
   return (
-    <div className="bg-[#121212] overflow-clip relative shrink-0" style={{ height: '24.444vh', marginRight: '-0.208vw', width: '27.778vw' }}>
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute left-[calc(50%-0.03vw)]" style={{ height: '55.778vh', top: 'calc(50% + 13.556vh)', width: '27.847vw' }} data-name="Shots Mockups (13) 1">
-        <img alt="ScoreCric mockup" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgShotsMockups131} />
-      </div>
-      <div className="-translate-x-1/2 absolute" style={{ height: '24.556vh', left: 'calc(50% - 7.778vw)', top: '-2vh', width: '20.417vw' }} data-name="Free_Hand_Holding_iPhone_16_Pro_Mockup 1" />
-    </div>
+    <div
+      className="relative shrink-0"
+      style={{ height: '24.444vh', marginRight: '-0.208vw', width: '27.778vw' }}
+    />
   );
 }
 
@@ -485,69 +514,157 @@ function Frame16() {
   );
 }
 
-function Frame25() {
+function Frame25({ isHovered }: { isHovered: boolean }) {
   return (
     <div className="content-stretch flex flex-col items-start relative shrink-0" style={{ gap: '23.778vh', marginRight: '-0.208vw', width: '1.181vw' }}>
-      <div className="flex items-center justify-center relative shrink-0 w-full" style={{ height: '1.889vh' }}>
+      <motion.div
+        className="flex items-center justify-center relative shrink-0 w-full"
+        style={{ height: '1.889vh' }}
+        animate={{ x: isHovered ? 8 : 0, y: isHovered ? -8 : 0 }}
+        transition={{ duration: 0.3, ease: 'easeOut' }}
+      >
         <div className="flex-none rotate-90 w-full">
           <Frame17 />
         </div>
-      </div>
-      <div className="flex items-center justify-center relative shrink-0 w-full" style={{ height: '1.889vh' }}>
+      </motion.div>
+      <motion.div
+        className="flex items-center justify-center relative shrink-0 w-full"
+        style={{ height: '1.889vh' }}
+        animate={{ x: isHovered ? 8 : 0, y: isHovered ? 8 : 0 }}
+        transition={{ duration: 0.3, ease: 'easeOut' }}
+      >
         <div className="-rotate-90 -scale-y-100 flex-none w-full">
           <Frame16 />
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
 
-function Frame26() {
+function Frame26({ isHovered }: { isHovered: boolean }) {
   return (
     <div className="content-stretch flex items-center relative shrink-0" style={{ paddingRight: '0.208vw', width: '29.722vw' }}>
-      <Frame24 />
+      <Frame24 isHovered={isHovered} />
       <Frame13 />
-      <Frame25 />
+      <Frame25 isHovered={isHovered} />
     </div>
   );
 }
 
-function Frame19() {
+function Frame19({ categories }: { categories: string[] }) {
   return (
     <div className="content-stretch flex flex-col font-['Geist',sans-serif] font-normal items-start leading-[0.98] opacity-40 relative shrink-0 text-white whitespace-pre-wrap" style={{ gap: '0.444vh', paddingTop: '5.333vh', fontSize: '0.833vw', width: '3.056vw' }}>
-      <p className="relative shrink-0 w-full">Brand</p>
-      <p className="relative shrink-0 w-full">Product</p>
+      {categories.map((cat, i) => (
+        <p key={i} className="relative shrink-0 w-full">{cat}</p>
+      ))}
     </div>
   );
 }
 
-function Frame28() {
+interface CaseStudyProps {
+  srNo: string;
+  categories: string[];
+  title: string;
+}
+
+function Frame28({ srNo, categories, onHover, onLeave, isHovered }: Omit<CaseStudyProps, 'title'> & { onHover: () => void, onLeave: () => void, isHovered: boolean }) {
   return (
-    <div className="content-stretch flex items-start relative shrink-0 w-full">
-      <Frame27 />
-      <Frame26 />
-      <Frame19 />
+    <div
+      className="content-stretch flex items-start relative shrink-0 w-full cursor-pointer z-20 pointer-events-auto"
+      onMouseEnter={onHover}
+      onMouseLeave={onLeave}
+    >
+      <Frame27 srNo={srNo} />
+      <Frame26 isHovered={isHovered} />
+      <Frame19 categories={categories} />
     </div>
   );
 }
 
-function Frame29() {
+function Frame29({ srNo, categories, title, onHover, onLeave, isHovered }: CaseStudyProps & { onHover: () => void, onLeave: () => void, isHovered: boolean }) {
   return (
-    <div className="absolute content-stretch flex flex-col items-center top-0" style={{ left: '26.042vw', width: '35.833vw' }}>
-      <Frame28 />
-      <p className="font-['Geist_Mono',sans-serif] font-normal leading-[0.98] relative shrink-0 text-center text-white w-full whitespace-pre-wrap" style={{ fontSize: '0.833vw' }}>SCORECRIC</p>
+    <div className="absolute content-stretch flex flex-col items-center top-0 pointer-events-none z-20" style={{ left: '26.042vw', width: '35.833vw' }}>
+      <Frame28 srNo={srNo} categories={categories} onHover={onHover} onLeave={onLeave} isHovered={isHovered} />
+      <p className="font-['Geist_Mono',sans-serif] font-normal leading-[0.98] relative shrink-0 text-center text-white w-full whitespace-pre-wrap uppercase" style={{ fontSize: '0.833vw' }}>{title}</p>
     </div>
   );
 }
 
 function Frame30() {
+  const [activeIndex, setActiveIndex] = useState(2);
+  const [isHovered, setIsHovered] = useState(false);
+
+  useEffect(() => {
+    let lastTime = 0;
+    const handleWheel = (e: WheelEvent) => {
+      // Prevent the page from scrolling down/up
+      e.preventDefault();
+
+      const now = Date.now();
+      if (now - lastTime < 500) return;
+      if (Math.abs(e.deltaY) > 20 || Math.abs(e.deltaX) > 20) {
+        lastTime = now;
+        if (e.deltaY > 0 || e.deltaX > 0) {
+          setActiveIndex((prev) => (prev + 1) % 5);
+        } else {
+          setActiveIndex((prev) => (prev - 1 + 5) % 5);
+        }
+      }
+    };
+
+    // We must pass { passive: false } to allow e.preventDefault()
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    return () => window.removeEventListener('wheel', handleWheel);
+  }, []);
+
+  const activeItem = CAROUSEL_ITEMS[activeIndex];
+
   return (
     <div className="-translate-x-1/2 absolute left-1/2" style={{ height: '53.972vh', top: '7.222vh', width: '88.056vw' }}>
-      <Frame9 />
-      <Frame11 />
-      <Frame10 />
-      <Frame12 />
-      <Frame29 />
+      {CAROUSEL_ITEMS.map((item, i) => {
+        const slotIndex = (i - activeIndex + 2 + 5) % 5;
+        const slot = SLOTS[slotIndex];
+        const isCenter = slotIndex === 2;
+
+        return (
+          <motion.div
+            key={item.id}
+            className="absolute overflow-visible"
+            style={{
+              width: '27.778vw', height: '24.444vh',
+              transformOrigin: 'center center',
+              pointerEvents: 'none',
+              x: '-50%',
+              y: '-50%'
+            }}
+            initial={slot}
+            animate={{
+              left: slot.left,
+              top: slot.top,
+              scale: isCenter && isHovered ? 0.9 : slot.scale,
+              zIndex: slot.zIndex
+            }}
+            transition={{
+              type: "spring",
+              stiffness: 120,
+              damping: 20
+            }}
+          >
+            <div className="w-full h-full relative overflow-clip bg-[#121212]">
+              {item.content}
+            </div>
+          </motion.div>
+        );
+      })}
+
+      <Frame29
+        srNo={activeItem.srNo}
+        categories={activeItem.categories}
+        title={activeItem.title}
+        onHover={() => setIsHovered(true)}
+        onLeave={() => setIsHovered(false)}
+        isHovered={isHovered}
+      />
     </div>
   );
 }

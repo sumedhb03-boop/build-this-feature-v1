@@ -26,6 +26,7 @@ export default function CaseStudy() {
     const [activeBgColor, setActiveBgColor] = useState("#9a054e");
     const [activeIndicatorColor, setActiveIndicatorColor] = useState("#ffffff");
     const [activeHeaderColor, setActiveHeaderColor] = useState("#ffffff");
+    const [scrollYPos, setScrollYPos] = useState(0);
 
     const section1Ref = useRef<HTMLElement>(null);
     const section2Ref = useRef<HTMLElement>(null);
@@ -80,6 +81,8 @@ export default function CaseStudy() {
                 const isCream = sectionForHeader.color === "#fbf9ef";
                 setActiveHeaderColor(isCream ? "#171412" : "#ffffff");
             }
+
+            setScrollYPos(scrollY);
         };
 
         window.addEventListener("scroll", handleScroll);
@@ -116,7 +119,7 @@ export default function CaseStudy() {
             {/* --- FIXED NAVIGATION ELEMENTS --- */}
 
             {/* 1. Header (Logo + Links) - Fixed from shared component */}
-            <Header color={activeHeaderColor} />
+            <Header color={activeHeaderColor} scrollY={scrollYPos} showScrollAnimation={true} />
 
             {/* 2. Left Nav (Home + Next Project) - Fixed at left-center */}
             <div className="fixed left-[32px] top-1/2 -translate-y-1/2 flex flex-col gap-[10px] z-50">
@@ -195,7 +198,18 @@ export default function CaseStudy() {
                     </div>
 
                     {/* Hero Sub-description */}
-                    <p className="text-[20px] text-center max-w-[490px] leading-[1.4] whitespace-pre-wrap">
+                    <p
+                        className="text-center whitespace-pre-wrap max-w-[490px]"
+                        style={{
+                            color: '#FFF',
+                            fontFamily: 'Geist, sans-serif',
+                            fontSize: '20px',
+                            fontStyle: 'normal',
+                            fontWeight: 300,
+                            lineHeight: '140%',
+                            letterSpacing: '-0.2px'
+                        }}
+                    >
                         {heroDescription}
                     </p>
                 </div>

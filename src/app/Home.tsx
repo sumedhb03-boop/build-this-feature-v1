@@ -4,6 +4,7 @@ import imgShotsMockups21 from "../assets/f0cf51fe902c49e33273901f4d5947d40e8551e
 import imgShotsMockups131 from "../assets/8b29ebd34c3524dbc7989b4884ebd904c19ff803.png";
 import { motion } from "motion/react";
 import { useState, useEffect } from "react";
+import Header from "./components/Header";
 
 function Group1() {
   return (
@@ -35,137 +36,7 @@ function Frame18() {
   );
 }
 
-function Frame21() {
-  return (
-    <div className="content-stretch flex items-end relative shrink-0" style={{ gap: '0.417vw' }}>
-      <p className="font-['Geist',sans-serif] font-normal leading-[1.2] opacity-80 relative shrink-0 text-[#fbf9ef] tracking-[-0.009vw]" style={{ fontSize: '0.903vw' }}>Hello, I'm Sumedh</p>
-      <div className="relative shrink-0" style={{ width: '1.389vw', height: '2.222vh' }}>
-        <svg className="absolute block inset-0" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
-          <circle cx="10" cy="10" fill="#2C217D" id="Ellipse 652" r="10" />
-        </svg>
-      </div>
-    </div>
-  );
-}
 
-function Frame22() {
-  return (
-    <div className="content-stretch flex flex-col items-start relative shrink-0" style={{ gap: '0.333vh', width: '18.472vw' }}>
-      <Frame21 />
-      <p className="font-['Geist',sans-serif] font-normal leading-[1.2] min-w-full opacity-60 relative shrink-0 text-white tracking-[-0.009vw] w-[min-content] whitespace-pre-wrap" style={{ fontSize: '0.903vw' }}>Product designer, currently working freelance.</p>
-    </div>
-  );
-}
-
-function Frame23() {
-  const [isHoveredAbout, setIsHoveredAbout] = useState(false);
-  const [isHoveredContact, setIsHoveredContact] = useState(false);
-  const aboutText = "About";
-  const contactText = "Contact";
-  const aboutLetters = aboutText.split("");
-  const contactLetters = contactText.split("");
-
-  return (
-    <div className="content-stretch flex font-normal items-center leading-[0.98] relative shrink-0 text-white" style={{ gap: '0.556vw', fontSize: '0.833vw' }}>
-      {/* About Link */}
-      <p
-        className="font-['Geist_Mono',sans-serif] relative shrink-0 uppercase inline-flex overflow-hidden cursor-pointer"
-        onMouseEnter={() => setIsHoveredAbout(true)}
-        onMouseLeave={() => setIsHoveredAbout(false)}
-      >
-        {aboutLetters.map((letter, index) => (
-          <span key={index} className="inline-block relative" style={{ display: 'inline-block' }}>
-            {/* Original letter that slides out */}
-            <motion.span
-              className="inline-block"
-              initial={{ y: 0, opacity: 1 }}
-              animate={{
-                y: isHoveredAbout ? (index % 2 === 0 ? -20 : 20) : 0,
-                opacity: isHoveredAbout ? 0 : 1
-              }}
-              transition={{
-                duration: 0.4,
-                delay: index * 0.04,
-                ease: [0.4, 0, 0.2, 1]
-              }}
-            >
-              {letter}
-            </motion.span>
-            {/* New letter that slides in */}
-            <motion.span
-              className="inline-block absolute inset-0"
-              initial={{ y: index % 2 === 0 ? 20 : -20, opacity: 0 }}
-              animate={{
-                y: isHoveredAbout ? 0 : (index % 2 === 0 ? 20 : -20),
-                opacity: isHoveredAbout ? 1 : 0
-              }}
-              transition={{
-                duration: 0.4,
-                delay: index * 0.04,
-                ease: [0.4, 0, 0.2, 1]
-              }}
-            >
-              {letter}
-            </motion.span>
-          </span>
-        ))}
-      </p>
-
-      <p className="font-['Geist',sans-serif] relative shrink-0"> //</p>
-
-      {/* Contact Link - Same pattern */}
-      <p
-        className="font-['Geist_Mono',sans-serif] relative shrink-0 uppercase inline-flex overflow-hidden cursor-pointer"
-        onMouseEnter={() => setIsHoveredContact(true)}
-        onMouseLeave={() => setIsHoveredContact(false)}
-      >
-        {contactLetters.map((letter, index) => (
-          <span key={index} className="inline-block relative" style={{ display: 'inline-block' }}>
-            <motion.span
-              className="inline-block"
-              initial={{ y: 0, opacity: 1 }}
-              animate={{
-                y: isHoveredContact ? (index % 2 === 0 ? -20 : 20) : 0,
-                opacity: isHoveredContact ? 0 : 1
-              }}
-              transition={{
-                duration: 0.4,
-                delay: index * 0.04,
-                ease: [0.4, 0, 0.2, 1]
-              }}
-            >
-              {letter}
-            </motion.span>
-            <motion.span
-              className="inline-block absolute inset-0"
-              initial={{ y: index % 2 === 0 ? 20 : -20, opacity: 0 }}
-              animate={{
-                y: isHoveredContact ? 0 : (index % 2 === 0 ? 20 : -20),
-                opacity: isHoveredContact ? 1 : 0
-              }}
-              transition={{
-                duration: 0.4,
-                delay: index * 0.04,
-                ease: [0.4, 0, 0.2, 1]
-              }}
-            >
-              {letter}
-            </motion.span>
-          </span>
-        ))}
-      </p>
-    </div>
-  );
-}
-
-function Frame() {
-  return (
-    <div className="absolute content-stretch flex items-start justify-between left-0 right-0 top-0" style={{ paddingTop: '2.667vh', paddingLeft: '2.222vw', paddingRight: '2.222vw' }}>
-      <Frame22 />
-      <Frame23 />
-    </div>
-  );
-}
 
 function Frame8() {
   return (
@@ -655,7 +526,7 @@ export default function App() {
     <div className="bg-black relative overflow-hidden" style={{ width: '100vw', height: '100vh' }} data-name="51">
       <Group1 />
       <Frame18 />
-      <Frame />
+      <Header color="#ffffff" />
       <Frame5 />
       <Group />
       <Frame30 />

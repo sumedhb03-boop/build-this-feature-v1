@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
+import Header from "./components/Header";
 
 import imgLucrenteHomepage2 from "../assets/1d77d66ff6b45fa2d2226a141a9e634ce5327a61.png";
 import imgShotsMockups171 from "../assets/fcb9c5216992368da81368867fa77e03f1e9618e.png";
@@ -114,24 +115,8 @@ export default function CaseStudy() {
         <div className="bg-[#fbf9ef] relative w-full font-['Geist',sans-serif] min-h-screen">
             {/* --- FIXED NAVIGATION ELEMENTS --- */}
 
-            {/* 1. Header (Logo + Links) - Fixed at top */}
-            <div
-                className="fixed top-0 left-0 w-full flex justify-between items-start px-8 pt-6 z-50 pointer-events-none transition-colors duration-200"
-                style={{ color: activeHeaderColor }}
-            >
-                <div className="flex flex-col gap-1 pointer-events-auto">
-                    <div className="flex items-end gap-[6px]">
-                        <p className="opacity-80 text-[13px] leading-[1.2] tracking-[-0.13px]">Hello, I'm Sumedh</p>
-                        <div className="w-5 h-5 rounded-full bg-[#2C217D]" />
-                    </div>
-                    <p className="opacity-60 text-[13px] leading-[1.2] tracking-[-0.13px]">Product designer, currently<br />working freelance.</p>
-                </div>
-                <div className="flex items-center gap-2 text-[12px] uppercase font-['Geist_Mono',sans-serif] pointer-events-auto">
-                    <span className="cursor-pointer">About</span>
-                    <span className="normal-case font-['Geist',sans-serif]">//</span>
-                    <span className="cursor-pointer">Contact</span>
-                </div>
-            </div>
+            {/* 1. Header (Logo + Links) - Fixed from shared component */}
+            <Header color={activeHeaderColor} />
 
             {/* 2. Left Nav (Home + Next Project) - Fixed at left-center */}
             <div className="fixed left-[32px] top-1/2 -translate-y-1/2 flex flex-col gap-[10px] z-50">

@@ -2,7 +2,8 @@
 @import './tailwind.css';
 @import './theme.css';
 
-html, body, #root {
-  overflow: hidden;
+html,
+body,
+#root {
   height: 100%;
 }

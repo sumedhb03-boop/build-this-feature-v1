@@ -1,7 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import Header from "./components/Header";
+import CaseStudyHero from "./components/CaseStudyHero";
 
 import imgLucrenteHomepage2 from "../assets/1d77d66ff6b45fa2d2226a141a9e634ce5327a61.png";
 import imgShotsMockups171 from "../assets/fcb9c5216992368da81368867fa77e03f1e9618e.png";
@@ -16,6 +17,7 @@ import img73 from "../assets/bfe61e94ef2acd77eb43463530da3d3698e50670.png";
 import imgMouseWireless from "../assets/0248826545f879f670bc16bf4f920e0d8f90d596.svg";
 import imgLeftArrow from "../assets/64bd323606e5dac218af5d5952719a257afc6531.svg";
 import imgGlobe from "../assets/9494c29dcac4f541872683dc0aee3d066f10498e.svg";
+import imgLucrenteVisual1 from "../assets/Lucrente visuaal 1.webp";
 
 export default function CaseStudy() {
     const { id } = useParams();
@@ -31,6 +33,8 @@ export default function CaseStudy() {
     const section1Ref = useRef<HTMLElement>(null);
     const section2Ref = useRef<HTMLElement>(null);
     const section3Ref = useRef<HTMLElement>(null);
+
+    const [hoveredIcon, setHoveredIcon] = useState<"home" | "next" | null>(null);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -124,19 +128,49 @@ export default function CaseStudy() {
             {/* 2. Left Nav (Home + Next Project) - Fixed at left-center */}
             <div className="fixed left-[32px] top-1/2 -translate-y-1/2 flex flex-col gap-[10px] z-50">
                 {/* Home (Globe) */}
-                <div onClick={() => navigate('/')} className="w-[52px] h-[52px] bg-[#f1e1df] rounded-full flex items-center justify-center cursor-pointer text-[#9a054e]">
-                    <img src={imgGlobe} alt="Home" className="w-[24px] h-[24px]" />
+                <div
+                    className="relative flex items-center group cursor-pointer"
+                    onClick={() => navigate('/')}
+                    onMouseEnter={() => setHoveredIcon("home")}
+                    onMouseLeave={() => setHoveredIcon(null)}
+                >
+                    <motion.div
+                        animate={{
+                            y: hoveredIcon === "next" ? -5 : 0,
+                        }}
+                        transition={{ duration: 0.2, ease: "easeOut" }}
+                        className="w-[52px] h-[52px] bg-[#f1e1df] rounded-full flex items-center justify-center text-[#9a054e] z-10 transition-transform duration-200 group-hover:scale-[1.12]"
+                    >
+                        <img src={imgGlobe} alt="Home" className="w-[24px] h-[24px]" />
+                    </motion.div>
+                    <div className="absolute left-[64px] bg-[#f1e1df] px-[12px] py-[6px] rounded-[6px] pointer-events-none opacity-0 group-hover:opacity-100 translate-x-[-10px] group-hover:translate-x-0 transition-all duration-200 whitespace-nowrap">
+                        <span className="text-[#9a054e] font-['Helvetica_Neue',_Helvetica,_sans-serif] font-bold text-[14px] tracking-[0.5px]">HOME</span>
+                    </div>
                 </div>
+
                 {/* Next Project (Arrow) */}
                 <div
+                    className="relative flex items-center group cursor-pointer"
                     onClick={() => {
                         const nextId = id === "lucrente" ? "scorecric" : "lucrente";
                         navigate(`/case-study/${nextId}`);
                         window.scrollTo(0, 0);
                     }}
-                    className="w-[52px] h-[52px] bg-[#f1e1df] rounded-full flex items-center justify-center cursor-pointer text-[#9a054e]"
+                    onMouseEnter={() => setHoveredIcon("next")}
+                    onMouseLeave={() => setHoveredIcon(null)}
                 >
-                    <img src={imgLeftArrow} alt="Next Project" className="w-[24px] h-[24px] rotate-180" />
+                    <motion.div
+                        animate={{
+                            y: hoveredIcon === "home" ? 5 : 0,
+                        }}
+                        transition={{ duration: 0.2, ease: "easeOut" }}
+                        className="w-[52px] h-[52px] bg-[#f1e1df] rounded-full flex items-center justify-center text-[#9a054e] z-10 transition-transform duration-200 group-hover:scale-[1.12]"
+                    >
+                        <img src={imgLeftArrow} alt="Next Project" className="w-[24px] h-[24px]" />
+                    </motion.div>
+                    <div className="absolute left-[64px] bg-[#f1e1df] px-[12px] py-[6px] rounded-[6px] pointer-events-none opacity-0 group-hover:opacity-100 translate-x-[-10px] group-hover:translate-x-0 transition-all duration-200 whitespace-nowrap">
+                        <span className="text-[#9a054e] font-['Helvetica_Neue',_Helvetica,_sans-serif] font-bold text-[14px] tracking-[0.5px]">NEXT PROJECT</span>
+                    </div>
                 </div>
             </div>
 
@@ -173,55 +207,14 @@ export default function CaseStudy() {
 
             {/* --- SECTIONS --- */}
 
-            {/* 1. Hero Section (Maroon Background) */}
-            <section ref={section1Ref} className="relative bg-[#9a054e] w-full min-h-[100vh] flex flex-col items-center justify-between text-white overflow-hidden pb-[40px]">
-                {/* Empty spacer for fixed header overlay */}
-                <div className="w-full h-[100px] shrink-0" />
-
-                {/* Hero Content */}
-                <div className="flex flex-col items-center w-full max-w-[968px] mx-auto z-10">
-                    {/* Title */}
-                    <h1 className="font-['Helvetica_Neue',_'Helvetica',_sans-serif] text-[8vw] leading-none mb-20 md:text-[128px] font-bold tracking-[-5.12px] uppercase text-center w-full">
-                        {projectTitle}
-                    </h1>
-
-                    {/* Project Info (Year & Industry) */}
-                    <div className="flex justify-center items-center w-full max-w-[400px] mb-24">
-                        <div className="flex flex-col items-center flex-1">
-                            <span className="font-['Geist_Mono',sans-serif] text-[10px] text-white/50 uppercase tracking-[1.12px] mb-1">Year</span>
-                            <span className="text-[14px]">{projectYear}</span>
-                        </div>
-                        <div className="flex flex-col items-center flex-1">
-                            <span className="font-['Geist_Mono',sans-serif] text-[10px] text-white/50 uppercase tracking-[1.12px] mb-1">Industry</span>
-                            <span className="text-[14px]">{projectIndustry}</span>
-                        </div>
-                    </div>
-
-                    {/* Hero Sub-description */}
-                    <p
-                        className="text-center whitespace-pre-wrap max-w-[490px]"
-                        style={{
-                            color: '#FFF',
-                            fontFamily: 'Geist, sans-serif',
-                            fontSize: '20px',
-                            fontStyle: 'normal',
-                            fontWeight: 300,
-                            lineHeight: '140%',
-                            letterSpacing: '-0.2px'
-                        }}
-                    >
-                        {heroDescription}
-                    </p>
-                </div>
-
-                {/* Scroll Down Indicator */}
-                <div className="flex flex-col items-center gap-2 opacity-70 mb-4 z-10">
-                    <div className="w-6 h-6 flex justify-center items-center">
-                        <img src={imgMouseWireless} className="w-full h-full object-contain" alt="Scroll" />
-                    </div>
-                    <span className="text-[12px] font-['Arial',sans-serif]">(Scroll down)</span>
-                </div>
-            </section>
+            {/* 1. Hero Section (Refactored Component) */}
+            <CaseStudyHero
+                sectionRef={section1Ref}
+                projectTitle={projectTitle}
+                projectYear={projectYear}
+                projectIndustry={projectIndustry}
+                heroDescription={heroDescription}
+            />
 
             {/* 2. Main Content Section (Cream Background) */}
             <section ref={section2Ref} className="relative w-full py-[140px] flex flex-col items-center text-[#171412]">
@@ -244,12 +237,9 @@ export default function CaseStudy() {
 
                 {/* Visuals Grid */}
                 <div className="w-full max-w-[905px] flex flex-col gap-[32px] items-center">
-                    {/* Visual 1 */}
-                    <div className="w-full h-[600px] bg-[#171412] flex items-center justify-center relative overflow-hidden">
-                        <div className="absolute flex flex-col items-center justify-center gap-4">
-                            <div className="w-[32px] h-[130px] bg-[#ff4c11]" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)' }} />
-                            <div className="w-[69px] h-[30px] bg-[#ff4c11]" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)' }} />
-                        </div>
+                    {/* Visual 1 (New WebP) */}
+                    <div className="w-[900px] h-auto bg-[#fbf9ef] relative overflow-hidden">
+                        <img src={imgLucrenteVisual1} alt="Lucrente Visual 1" className="w-full h-full object-contain" />
                     </div>
                     {/* Visual 2 */}
                     <div className="w-[900px] h-[675px] bg-[#f2e7f0] relative overflow-hidden">

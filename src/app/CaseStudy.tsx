@@ -1,8 +1,9 @@
 import { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 import Header from "./components/Header";
 import CaseStudyHero from "./components/CaseStudyHero";
+import SidebarNav from "./components/SidebarNav";
 
 import imgLucrenteHomepage2 from "../assets/1d77d66ff6b45fa2d2226a141a9e634ce5327a61.png";
 import imgShotsMockups171 from "../assets/fcb9c5216992368da81368867fa77e03f1e9618e.png";
@@ -19,6 +20,8 @@ import imgLeftArrow from "../assets/64bd323606e5dac218af5d5952719a257afc6531.svg
 import imgGlobe from "../assets/9494c29dcac4f541872683dc0aee3d066f10498e.svg";
 import imgLucrenteVisual1 from "../assets/Lucrente visuaal 1.webp";
 
+import Lenis from 'lenis';
+
 export default function CaseStudy() {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -34,21 +37,25 @@ export default function CaseStudy() {
     const section2Ref = useRef<HTMLElement>(null);
     const section3Ref = useRef<HTMLElement>(null);
 
-    const [hoveredIcon, setHoveredIcon] = useState<"home" | "next" | null>(null);
-
     useEffect(() => {
+        const lenis = new Lenis();
+
+        function raf(time: number) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+
+        requestAnimationFrame(raf);
+
         const handleScroll = () => {
-            const scrollY = window.scrollY;
-            const maxScroll = document.body.scrollHeight - window.innerHeight;
+            const scrollY = lenis.scroll;
+            const maxScroll = lenis.limit;
             const progress = maxScroll > 0 ? scrollY / maxScroll : 0;
             setScrollProgress(progress);
 
-            // Calculate indicator's absolute Y position in the viewport
-            // The container is fixed at top-1/2 -translate-y-1/2, height 270px
             const viewportCenter = window.innerHeight / 2;
             const trackHeight = 270;
             const trackTop = viewportCenter - (trackHeight / 2);
-            // The dot moves 90% of the track height (as seen in the style top: scrollProgress * 90%)
             const indicatorY = trackTop + (progress * trackHeight * 0.9);
 
             const getSection = (yPos: number) => {
@@ -61,7 +68,6 @@ export default function CaseStudy() {
                 for (const section of sections) {
                     if (section.ref.current) {
                         const rect = section.ref.current.getBoundingClientRect();
-                        // Get absolute Y of the section relative to viewport top
                         if (yPos >= rect.top && yPos <= rect.bottom) {
                             return section;
                         }
@@ -70,7 +76,6 @@ export default function CaseStudy() {
                 return null;
             };
 
-            // Calculate active color for the scroll indicator based on its specific Y position
             const sectionForIndicator = getSection(indicatorY);
             if (sectionForIndicator) {
                 const isCream = sectionForIndicator.color === "#fbf9ef";
@@ -78,8 +83,6 @@ export default function CaseStudy() {
                 setActiveIndicatorColor(isCream ? "#171412" : "#ffffff");
             }
 
-            // Calculate active color for the header based on the top of the viewport
-            // The header is at the very top (fixed top-0), so we check which section is at the header's vertical position (y=40 in viewport).
             const sectionForHeader = getSection(40);
             if (sectionForHeader) {
                 const isCream = sectionForHeader.color === "#fbf9ef";
@@ -89,9 +92,14 @@ export default function CaseStudy() {
             setScrollYPos(scrollY);
         };
 
-        window.addEventListener("scroll", handleScroll);
-        handleScroll(); // Initial check
-        return () => window.removeEventListener("scroll", handleScroll);
+        lenis.on('scroll', handleScroll);
+
+        // Initial check
+        handleScroll();
+
+        return () => {
+            lenis.destroy();
+        };
     }, []);
 
     const PROJECT_DATA: Record<string, any> = {
@@ -125,54 +133,8 @@ export default function CaseStudy() {
             {/* 1. Header (Logo + Links) - Fixed from shared component */}
             <Header color={activeHeaderColor} scrollY={scrollYPos} showScrollAnimation={true} />
 
-            {/* 2. Left Nav (Home + Next Project) - Fixed at left-center */}
-            <div className="fixed left-[32px] top-1/2 -translate-y-1/2 flex flex-col gap-[10px] z-50">
-                {/* Home (Globe) */}
-                <div
-                    className="relative flex items-center group cursor-pointer"
-                    onClick={() => navigate('/')}
-                    onMouseEnter={() => setHoveredIcon("home")}
-                    onMouseLeave={() => setHoveredIcon(null)}
-                >
-                    <motion.div
-                        animate={{
-                            y: hoveredIcon === "next" ? -5 : 0,
-                        }}
-                        transition={{ duration: 0.2, ease: "easeOut" }}
-                        className="w-[52px] h-[52px] bg-[#f1e1df] rounded-full flex items-center justify-center text-[#9a054e] z-10 transition-transform duration-200 group-hover:scale-[1.12]"
-                    >
-                        <img src={imgGlobe} alt="Home" className="w-[24px] h-[24px]" />
-                    </motion.div>
-                    <div className="absolute left-[64px] bg-[#f1e1df] px-[12px] py-[6px] rounded-[6px] pointer-events-none opacity-0 group-hover:opacity-100 translate-x-[-10px] group-hover:translate-x-0 transition-all duration-200 whitespace-nowrap">
-                        <span className="text-[#9a054e] font-['Helvetica_Neue',_Helvetica,_sans-serif] font-bold text-[14px] tracking-[0.5px]">HOME</span>
-                    </div>
-                </div>
-
-                {/* Next Project (Arrow) */}
-                <div
-                    className="relative flex items-center group cursor-pointer"
-                    onClick={() => {
-                        const nextId = id === "lucrente" ? "scorecric" : "lucrente";
-                        navigate(`/case-study/${nextId}`);
-                        window.scrollTo(0, 0);
-                    }}
-                    onMouseEnter={() => setHoveredIcon("next")}
-                    onMouseLeave={() => setHoveredIcon(null)}
-                >
-                    <motion.div
-                        animate={{
-                            y: hoveredIcon === "home" ? 5 : 0,
-                        }}
-                        transition={{ duration: 0.2, ease: "easeOut" }}
-                        className="w-[52px] h-[52px] bg-[#f1e1df] rounded-full flex items-center justify-center text-[#9a054e] z-10 transition-transform duration-200 group-hover:scale-[1.12]"
-                    >
-                        <img src={imgLeftArrow} alt="Next Project" className="w-[24px] h-[24px]" />
-                    </motion.div>
-                    <div className="absolute left-[64px] bg-[#f1e1df] px-[12px] py-[6px] rounded-[6px] pointer-events-none opacity-0 group-hover:opacity-100 translate-x-[-10px] group-hover:translate-x-0 transition-all duration-200 whitespace-nowrap">
-                        <span className="text-[#9a054e] font-['Helvetica_Neue',_Helvetica,_sans-serif] font-bold text-[14px] tracking-[0.5px]">NEXT PROJECT</span>
-                    </div>
-                </div>
-            </div>
+            {/* 2. Left Nav (Home + Next Project) - Refactored Component */}
+            <SidebarNav id={id} imgGlobe={imgGlobe} imgLeftArrow={imgLeftArrow} />
 
             {/* 3. Scroll Bar Progress - Fixed at right-center */}
             <div className="fixed right-[32px] top-1/2 -translate-y-1/2 h-[270px] w-[52px] flex flex-col items-center justify-center z-50">

@@ -8,7 +8,7 @@ import Header from "./components/Header";
 
 function Group1() {
   return (
-    <div className="-translate-x-1/2 absolute left-[calc(50%-0.03vw)]" style={{ top: '37.44vh', width: '2.15vw', bottom: '-5vh' }}>
+    <div className="-translate-x-1/2 absolute left-[calc(50%-0.03vw)]" style={{ top: '38vh', width: '2.15vw', bottom: '-5vh' }}>
       <div className="absolute inset-[-0.19%_0_0_0]">
         <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 31 516">
           <g id="Group 4353" opacity="0.2">
@@ -22,15 +22,35 @@ function Group1() {
 }
 
 function Frame18() {
+  const lines = [
+    { text: "Design" },
+    { highlight: "Partner", suffix: " for" },
+    { text: "Early-Stage" },
+    { text: "Startups & Teams" }
+  ];
+
   return (
-    <div className="-translate-x-1/2 absolute bg-black left-1/2 flex items-center justify-center z-0" style={{ height: '39.67vh', top: '55.33vh', width: '51.81vw' }}>
+    <div className="-translate-x-1/2 absolute bg-black left-1/2 flex items-center justify-center z-10" style={{ height: '39.67vh', top: '55.33vh', width: '51.81vw' }}>
       <div className="font-['Helvetica_Neue',_'Helvetica',_sans-serif] font-bold not-italic flex flex-col items-center justify-center h-full w-full text-center text-white uppercase whitespace-pre-wrap" style={{ fontSize: '5.556vw', lineHeight: '90%', letterSpacing: '-4%' }}>
-        <p className="m-0 text-center">
-          Design <br />
-          <span className="text-[#ff4c11]">Partner</span> for <br />
-          Early-Stage <br />
-          Startups & Teams
-        </p>
+        <div className="m-0 text-center">
+          {lines.map((line, i) => (
+            <div key={i} className="overflow-hidden py-[0.1em] -my-[0.1em]">
+              <motion.div
+                initial={{ y: "120%" }}
+                animate={{ y: 0 }}
+                transition={{
+                  duration: 1.2,
+                  delay: 0.2 + (i * 0.12),
+                  ease: [0.33, 1, 0.68, 1]
+                }}
+              >
+                {line.text}
+                {line.highlight && <span className="text-[#ff4c11]">{line.highlight}</span>}
+                {line.suffix && <span>{line.suffix}</span>}
+              </motion.div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -40,19 +60,47 @@ function Frame18() {
 
 function Frame8() {
   return (
-    <div className="relative shrink-0" style={{ width: '1.806vw', height: '2.889vh' }}>
-      <svg className="absolute block inset-0" fill="none" preserveAspectRatio="none" viewBox="0 0 26 26">
-        <g clipPath="url(#clip0_1_104)" id="Frame 2085663155">
-          <circle cx="13" cy="13" fill="#FF4C11" id="Ellipse 650" opacity="0.2" r="13" />
-          <circle cx="13" cy="13" fill="#FF4C11" id="Ellipse 649" opacity="0.4" r="8.125" />
-          <circle cx="13" cy="13" fill="#FF4C11" id="Ellipse 648" r="3.25" />
-        </g>
-        <defs>
-          <clipPath id="clip0_1_104">
-            <rect fill="white" height="26" width="26" />
-          </clipPath>
-        </defs>
-      </svg>
+    <div className="relative shrink-0 flex items-center justify-center overflow-visible" style={{ width: '1.2vw', height: '1.2vw' }}>
+      {/* Central static core */}
+      <div className="absolute w-[0.4vw] h-[0.4vw] rounded-full bg-[#FF4C11] z-10" />
+
+      {/* Liquid sonar ripples */}
+      {[0, 1].map((i) => (
+        <motion.div
+          key={i}
+          className="absolute rounded-full border border-[#FF4C11]/30"
+          style={{
+            width: '0.4vw',
+            height: '0.4vw',
+            filter: 'blur(1.5px)'
+          }}
+          initial={{ scale: 1, opacity: 0 }}
+          animate={{
+            scale: 40,
+            opacity: [0, 0.5, 0],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            delay: i * 1,
+            ease: [0.25, 1, 0.5, 1],
+          }}
+        />
+      ))}
+
+      {/* Breathing core glow */}
+      <motion.div
+        className="absolute w-[0.4vw] h-[0.4vw] rounded-full bg-[#FF4C11]"
+        animate={{
+          scale: [1, 2.5, 1],
+          opacity: [0.2, 0.6, 0.2],
+        }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
     </div>
   );
 }
@@ -127,15 +175,6 @@ function Frame2() {
     <div className="content-stretch flex flex-col font-['Geist',sans-serif] font-medium items-end justify-end leading-none relative shrink-0 text-[#fbf9ef]" style={{ gap: '0.222vh', fontSize: '0.833vw', width: '7.431vw' }}>
       <Frame3 />
       <p className="opacity-40 relative shrink-0 tracking-[-0.025vw]">Mumbai, India</p>
-    </div>
-  );
-}
-
-function Frame5() {
-  return (
-    <div className="absolute content-stretch flex items-center justify-between left-0 right-0 bottom-0" style={{ paddingBottom: '2.667vh', paddingLeft: '2.222vw', paddingRight: '2.222vw' }}>
-      <Frame7 />
-      <Frame2 />
     </div>
   );
 }
@@ -254,17 +293,44 @@ const CAROUSEL_ITEMS = [
   ...BASE_ITEMS.map((item) => ({ ...item, id: `${item.id}-2` }))
 ];
 
+function LetterReveal({ text, value, className, delay = 0, duration = 0.4, style }: { text: string, value: any, className?: string, delay?: number, duration?: number, style?: React.CSSProperties }) {
+  return (
+    <div className={`flex overflow-hidden ${className}`} style={style}>
+      {text.split('').map((char, i) => (
+        <motion.span
+          key={`${value}-${i}`}
+          initial={{ y: "100%" }}
+          animate={{ y: 0 }}
+          transition={{
+            duration,
+            delay: delay + (i * 0.03),
+            ease: [0.33, 1, 0.68, 1]
+          }}
+          className="inline-block"
+        >
+          {char === ' ' ? '\u00A0' : char}
+        </motion.span>
+      ))}
+    </div>
+  );
+}
+
 function Frame27({ srNo }: { srNo: string }) {
   return (
     <div className="content-stretch flex items-start justify-end relative shrink-0" style={{ paddingTop: '5.333vh', width: '3.056vw' }}>
-      <p className="font-['Geist_Mono',sans-serif] font-normal leading-[0.98] opacity-30 relative shrink-0 text-right text-white" style={{ fontSize: '0.833vw' }}>{srNo}</p>
+      <LetterReveal
+        text={srNo}
+        value={srNo}
+        className="justify-end w-full font-['Geist_Mono',sans-serif] font-normal leading-[0.98] opacity-40 text-right text-white"
+        style={{ fontSize: '0.833vw' }}
+      />
     </div>
   );
 }
 
 function Frame15() {
   return (
-    <div className="opacity-20 relative w-full h-full flex items-center justify-center">
+    <div className="opacity-40 relative w-full h-full flex items-center justify-center">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16" className="w-[1vw] h-[1vw]">
         <g id="Chevron-Corner-Top-Left">
           <path id="Vector" fill="white" d="M12.666666666666666 3.333333333333333v1.3333333333333333H4.666666666666666v8H3.333333333333333V4c0 -0.36818666666666666 0.29847999999999997 -0.6666666666666666 0.6666666666666666 -0.6666666666666666z" strokeWidth="0.6667"></path>
@@ -276,7 +342,7 @@ function Frame15() {
 
 function Frame14() {
   return (
-    <div className="opacity-20 relative w-full h-full flex items-center justify-center">
+    <div className="opacity-40 relative w-full h-full flex items-center justify-center">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16" className="w-[1vw] h-[1vw]">
         <g id="Chevron-Corner-Top-Left">
           <path id="Vector" fill="white" d="M12.666666666666666 3.333333333333333v1.3333333333333333H4.666666666666666v8H3.333333333333333V4c0 -0.36818666666666666 0.29847999999999997 -0.6666666666666666 0.6666666666666666 -0.6666666666666666z" strokeWidth="0.6667"></path>
@@ -324,7 +390,7 @@ function Frame13() {
 
 function Frame17() {
   return (
-    <div className="opacity-20 relative w-full h-full flex items-center justify-center">
+    <div className="opacity-40 relative w-full h-full flex items-center justify-center">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16" className="w-[1vw] h-[1vw]">
         <g id="Chevron-Corner-Top-Left">
           <path id="Vector" fill="white" d="M12.666666666666666 3.333333333333333v1.3333333333333333H4.666666666666666v8H3.333333333333333V4c0 -0.36818666666666666 0.29847999999999997 -0.6666666666666666 0.6666666666666666 -0.6666666666666666z" strokeWidth="0.6667"></path>
@@ -336,7 +402,7 @@ function Frame17() {
 
 function Frame16() {
   return (
-    <div className="opacity-20 relative w-full h-full flex items-center justify-center">
+    <div className="opacity-40 relative w-full h-full flex items-center justify-center">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16" className="w-[1vw] h-[1vw]">
         <g id="Chevron-Corner-Top-Left">
           <path id="Vector" fill="white" d="M12.666666666666666 3.333333333333333v1.3333333333333333H4.666666666666666v8H3.333333333333333V4c0 -0.36818666666666666 0.29847999999999997 -0.6666666666666666 0.6666666666666666 -0.6666666666666666z" strokeWidth="0.6667"></path>
@@ -387,7 +453,7 @@ function Frame19({ categories }: { categories: string[] }) {
   return (
     <div className="content-stretch flex flex-col font-['Geist',sans-serif] font-normal items-start leading-[0.98] opacity-40 relative shrink-0 text-white whitespace-pre-wrap" style={{ gap: '0.444vh', paddingTop: '5.333vh', fontSize: '0.833vw', width: '8vw' }}>
       {categories.map((cat, i) => (
-        <p key={i} className="relative shrink-0 w-full whitespace-nowrap">{cat}</p>
+        <LetterReveal key={i} text={cat} value={cat} delay={0.05 + (i * 0.05)} />
       ))}
     </div>
   );
@@ -417,37 +483,65 @@ function Frame29({ srNo, categories, title, onHover, onLeave, isHovered }: CaseS
   return (
     <div className="absolute content-stretch flex flex-col items-center top-0 pointer-events-none z-20" style={{ left: '26.042vw', width: '35.833vw' }}>
       <Frame28 srNo={srNo} categories={categories} onHover={onHover} onLeave={onLeave} isHovered={isHovered} />
-      <p className="font-['Geist_Mono',sans-serif] font-normal leading-[0.98] relative shrink-0 text-center text-white w-full whitespace-pre-wrap uppercase" style={{ fontSize: '0.833vw', marginTop: '1.481vh' }}>{title}</p>
+      <div className="w-full text-center overflow-hidden flex justify-center" style={{ marginTop: 0, marginBottom: '2vh' }}>
+        <LetterReveal
+          text={title}
+          value={title}
+          delay={0.1}
+          className="font-['Geist_Mono',sans-serif] font-normal leading-[0.98] relative shrink-0 text-white whitespace-pre-wrap uppercase"
+          style={{ fontSize: '0.833vw' }}
+        />
+      </div>
     </div>
   );
 }
 
 import { useNavigate } from "react-router-dom";
 
+import { useRef } from "react";
+
 function Frame30() {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(2);
   const [isHovered, setIsHovered] = useState(false);
+  const [isEntranceDone, setIsEntranceDone] = useState(false);
+  const lastScrollTime = useRef(0);
+  const isScrollingLock = useRef(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    let lastTime = 0;
+    const timer = setTimeout(() => {
+      setIsEntranceDone(true);
+    }, 2500); // 2.5s covers the staggered entrance
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
-      // Prevent the page from scrolling down/up
       e.preventDefault();
 
       const now = Date.now();
-      if (now - lastTime < 500) return;
-      if (Math.abs(e.deltaY) > 20 || Math.abs(e.deltaX) > 20) {
-        lastTime = now;
-        if (e.deltaY > 0 || e.deltaX > 0) {
+      // Use 700ms cooldown to ensure momentum scrolls on trackpads don't trigger dual steps
+      if (now - lastScrollTime.current < 700 || isScrollingLock.current) return;
+
+      const delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+
+      if (Math.abs(delta) > 20) {
+        isScrollingLock.current = true;
+        lastScrollTime.current = now;
+
+        if (delta > 0) {
           setActiveIndex((prev) => (prev + 1) % 10);
         } else {
           setActiveIndex((prev) => (prev - 1 + 10) % 10);
         }
+
+        // Release the lock after the cooldown period
+        setTimeout(() => {
+          isScrollingLock.current = false;
+        }, 700);
       }
     };
 
-    // We must pass { passive: false } to allow e.preventDefault()
     window.addEventListener('wheel', handleWheel, { passive: false });
     return () => window.removeEventListener('wheel', handleWheel);
   }, []);
@@ -473,12 +567,15 @@ function Frame30() {
               x: '-50%',
               y: '-50%'
             }}
-            initial={slot}
+            initial={!isEntranceDone ? {
+              ...slot,
+              opacity: 0,
+              y: '50%' // Start slightly lower for a slide-up effect
+            } : false}
             onClick={() => {
               if (isCenter) {
-                // Remove the "-1" or "-2" suffix duplicate tag if present
-                const routeId = item.title.toLowerCase().replace(/\s+/g, '-');
-                navigate(`/case-study/${routeId}`);
+                // Hardcode navigation to lucrente as requested
+                navigate(`/case-study/lucrente`);
               }
             }}
             animate={{
@@ -486,12 +583,15 @@ function Frame30() {
               top: slot.top,
               scale: isCenter && isHovered ? 0.9 : slot.scale,
               zIndex: slot.zIndex,
-              opacity: slot.opacity
+              opacity: slot.opacity,
+              y: '-50%' // Animate to its correct centered Y position
             }}
             transition={{
               type: "spring",
               stiffness: 120,
-              damping: 20
+              damping: 20,
+              // Stagger delay based on distance from center slot (slotIndex 2)
+              delay: isEntranceDone ? 0 : (0.6 + Math.abs(slotIndex - 2) * 0.15)
             }}
           >
             <div className="w-full h-full relative overflow-clip bg-[#121212]">
@@ -503,8 +603,8 @@ function Frame30() {
 
       <div
         onClick={() => {
-          const routeId = activeItem.title.toLowerCase().replace(/\s+/g, '-');
-          navigate(`/case-study/${routeId}`);
+          // Hardcode navigation to lucrente as requested
+          navigate(`/case-study/lucrente`);
         }}
         className="cursor-pointer"
       >
@@ -524,13 +624,73 @@ function Frame30() {
 export default function App() {
   return (
     <div className="bg-black relative overflow-hidden" style={{ width: '100vw', height: '100vh' }} data-name="51">
-      <Group1 />
+      {/* 1. Top Guide Line */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.2, delay: 0.8 }}
+      >
+        <Group />
+      </motion.div>
+
+      {/* 2. Header */}
+      <motion.div
+        initial={{ y: -50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
+        <Header color="#ffffff" />
+      </motion.div>
+
+      {/* 3. Intro Text */}
+      <motion.p
+        className="absolute font-['Geist',sans-serif] font-normal leading-[1.2] opacity-40 text-[#fbf9ef] tracking-[-0.009vw] whitespace-pre-wrap"
+        style={{ left: '2.222vw', fontSize: '0.903vw', top: '12.778vh', width: '12.708vw' }}
+        initial={{ x: -20, opacity: 0 }}
+        animate={{ x: 0, opacity: 0.4 }}
+        transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+      >
+        {`This is my corner of the internet where I showcase my work and variety of other things I'm currently exploring.`}
+      </motion.p>
+
+      {/* 4. Carousel */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.98 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
+      >
+        <Frame30 />
+      </motion.div>
+
+      {/* 6. Bottom Info */}
+      <div className="absolute content-stretch flex items-center justify-between left-0 right-0 bottom-0" style={{ paddingBottom: '2.667vh', paddingLeft: '2.222vw', paddingRight: '2.222vw' }}>
+        <motion.div
+          initial={{ y: 40, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1, delay: 1, ease: [0.33, 1, 0.68, 1] }}
+        >
+          <Frame7 />
+        </motion.div>
+        <motion.div
+          initial={{ y: 40, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1, delay: 1.1, ease: [0.33, 1, 0.68, 1] }}
+        >
+          <Frame2 />
+        </motion.div>
+      </div>
+
+      {/* 7. Bottom Guide Line */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.5, delay: 1.2 }}
+      >
+        <Group1 />
+      </motion.div>
+
+      {/* Hero Text - Moved to end to ensure it stays on top of guide lines */}
       <Frame18 />
-      <Header color="#ffffff" />
-      <Frame5 />
-      <Group />
-      <Frame30 />
-      <p className="absolute font-['Geist',sans-serif] font-normal leading-[1.2] opacity-40 text-[#fbf9ef] tracking-[-0.009vw] whitespace-pre-wrap" style={{ left: '2.222vw', fontSize: '0.903vw', top: '12.778vh', width: '12.708vw' }}>{`This is my corner of the internet where I showcase my work and variety of other things I'm currently exploring.`}</p>
     </div>
   );
 }

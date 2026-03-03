@@ -109,13 +109,6 @@ export default function CaseStudy() {
             industry: "Fintech",
             heroDescription: "Redefining how rent payments work\n--> simple, rewarding, and seamless.",
             mainDescription: "I partnered with Lucrente from the earliest stages, helping define the product, user experience, and initial brand direction.\n\nLucrente enables users to earn rewards on rent payments, navigating a highly regulated space where clarity is essential. Every design decision prioritised trust, simplicity, and ease of use, ensuring the product felt credible from the first interaction."
-        },
-        "scorecric": {
-            title: "SCORECRIC",
-            year: "2024",
-            industry: "Sports",
-            heroDescription: "A real-time cricket app for live scores, stats, and match insights.",
-            mainDescription: "Scorecric was designed to bring the excitement of live cricket to fans with unparalleled speed and depth. The interface was crafted to handle massive amounts of real-time data while remaining clean and intuitive. From live scorecards to detailed player analytics, every component was built for the modern sports enthusiast who demands both accuracy and aesthetics."
         }
     };
 

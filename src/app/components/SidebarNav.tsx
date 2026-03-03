@@ -114,7 +114,7 @@ export default function SidebarNav({ id, imgGlobe, imgLeftArrow }: SidebarNavPro
                                 className="whitespace-nowrap"
                                 style={{
                                     color: '#9A054E',
-                                    fontFamily: '"Helvetica Neue LT Std", Helvetica, Arial, sans-serif',
+                                    fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
                                     fontSize: '16px',
                                     fontStyle: 'normal',
                                     fontWeight: 700,
@@ -145,8 +145,7 @@ export default function SidebarNav({ id, imgGlobe, imgLeftArrow }: SidebarNavPro
                     onHoverStart={() => setHoveredButton('next')}
                     onHoverEnd={() => setHoveredButton(null)}
                     onClick={() => {
-                        const nextId = id === "lucrente" ? "scorecric" : "lucrente";
-                        navigate(`/case-study/${nextId}`);
+                        navigate("/");
                         window.scrollTo(0, 0);
                     }}
                     className="w-[52px] h-[52px] rounded-full flex items-center justify-center cursor-pointer text-[#9a054e] transition-shadow duration-300"
@@ -168,7 +167,7 @@ export default function SidebarNav({ id, imgGlobe, imgLeftArrow }: SidebarNavPro
                                 className="whitespace-nowrap"
                                 style={{
                                     color: '#9A054E',
-                                    fontFamily: '"Helvetica Neue LT Std", Helvetica, Arial, sans-serif',
+                                    fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
                                     fontSize: '16px',
                                     fontStyle: 'normal',
                                     fontWeight: 700,

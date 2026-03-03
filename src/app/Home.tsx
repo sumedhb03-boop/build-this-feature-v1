@@ -2,9 +2,11 @@ import imgFreeHandHoldingIPhone16ProMockup2 from "../assets/cb404150f92e88ed4a66
 import imgLucrenteHomepage1 from "../assets/934e76980decd08a547dbf8807403b703fd07584.png";
 import imgShotsMockups21 from "../assets/f0cf51fe902c49e33273901f4d5947d40e8551e8.png";
 import imgShotsMockups131 from "../assets/8b29ebd34c3524dbc7989b4884ebd904c19ff803.png";
-import { motion } from "motion/react";
-import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { useState, useEffect, useRef } from "react";
 import Header from "./components/Header";
+import LoadingScreen from "./components/LoadingScreen";
+import { useNavigate } from "react-router-dom";
 
 function Group1() {
   return (
@@ -56,53 +58,10 @@ function Frame18() {
   );
 }
 
-
+import RadarAnimation from "./components/RadarAnimation";
 
 function Frame8() {
-  return (
-    <div className="relative shrink-0 flex items-center justify-center overflow-visible" style={{ width: '1.2vw', height: '1.2vw' }}>
-      {/* Central static core */}
-      <div className="absolute w-[0.4vw] h-[0.4vw] rounded-full bg-[#FF4C11] z-10" />
-
-      {/* Liquid sonar ripples */}
-      {[0, 1].map((i) => (
-        <motion.div
-          key={i}
-          className="absolute rounded-full border border-[#FF4C11]/30"
-          style={{
-            width: '0.4vw',
-            height: '0.4vw',
-            filter: 'blur(1.5px)'
-          }}
-          initial={{ scale: 1, opacity: 0 }}
-          animate={{
-            scale: 40,
-            opacity: [0, 0.5, 0],
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            delay: i * 1,
-            ease: [0.25, 1, 0.5, 1],
-          }}
-        />
-      ))}
-
-      {/* Breathing core glow */}
-      <motion.div
-        className="absolute w-[0.4vw] h-[0.4vw] rounded-full bg-[#FF4C11]"
-        animate={{
-          scale: [1, 2.5, 1],
-          opacity: [0.2, 0.6, 0.2],
-        }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-    </div>
-  );
+  return <RadarAnimation />;
 }
 
 function Frame1() {
@@ -133,7 +92,9 @@ function Frame4() {
 function Frame7() {
   return (
     <div className="content-stretch flex items-center relative shrink-0" style={{ gap: '0.556vw' }}>
-      <Frame8 />
+      <div className="mr-[4px]">
+        <Frame8 />
+      </div>
       <Frame4 />
     </div>
   );
@@ -496,11 +457,12 @@ function Frame29({ srNo, categories, title, onHover, onLeave, isHovered }: CaseS
   );
 }
 
-import { useNavigate } from "react-router-dom";
+interface Frame30Props {
+  onEntranceDone: () => void;
+  isEntranceReady: boolean;
+}
 
-import { useRef } from "react";
-
-function Frame30() {
+function Frame30({ onEntranceDone, isEntranceReady }: Frame30Props) {
   const [activeIndex, setActiveIndex] = useState(2);
   const [isHovered, setIsHovered] = useState(false);
   const [isEntranceDone, setIsEntranceDone] = useState(false);
@@ -509,11 +471,13 @@ function Frame30() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (!isEntranceReady) return;
     const timer = setTimeout(() => {
       setIsEntranceDone(true);
+      onEntranceDone();
     }, 2500); // 2.5s covers the staggered entrance
     return () => clearTimeout(timer);
-  }, []);
+  }, [isEntranceReady, onEntranceDone]);
 
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
@@ -622,75 +586,90 @@ function Frame30() {
 }
 
 export default function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
   return (
     <div className="bg-black relative overflow-hidden" style={{ width: '100vw', height: '100vh' }} data-name="51">
-      {/* 1. Top Guide Line */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.2, delay: 0.8 }}
-      >
-        <Group />
-      </motion.div>
+      <AnimatePresence mode="wait">
+        {isLoading ? (
+          <LoadingScreen key="loader" onComplete={() => setIsLoading(false)} />
+        ) : (
+          <motion.div
+            key="content"
+            className="relative w-full h-full"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            {/* 1. Top Guide Line */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1.2, delay: 0.8 }}
+            >
+              <Group />
+            </motion.div>
 
-      {/* 2. Header */}
-      <motion.div
-        initial={{ y: -50, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-      >
-        <Header color="#ffffff" />
-      </motion.div>
+            {/* 2. Header */}
+            <motion.div
+              initial={{ y: -50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
+              <Header color="#ffffff" />
+            </motion.div>
 
-      {/* 3. Intro Text */}
-      <motion.p
-        className="absolute font-['Geist',sans-serif] font-normal leading-[1.2] opacity-40 text-[#fbf9ef] tracking-[-0.009vw] whitespace-pre-wrap"
-        style={{ left: '2.222vw', fontSize: '0.903vw', top: '12.778vh', width: '12.708vw' }}
-        initial={{ x: -20, opacity: 0 }}
-        animate={{ x: 0, opacity: 0.4 }}
-        transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-      >
-        {`This is my corner of the internet where I showcase my work and variety of other things I'm currently exploring.`}
-      </motion.p>
+            {/* 3. Intro Text */}
+            <motion.p
+              className="absolute font-['Geist',sans-serif] font-normal leading-[1.2] opacity-40 text-[#fbf9ef] tracking-[-0.009vw] whitespace-pre-wrap"
+              style={{ left: '2.222vw', fontSize: '0.903vw', top: '12.778vh', width: '12.708vw' }}
+              initial={{ x: -20, opacity: 0 }}
+              animate={{ x: 0, opacity: 0.4 }}
+              transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+            >
+              {`This is my corner of the internet where I showcase my work and variety of other things I'm currently exploring.`}
+            </motion.p>
 
-      {/* 4. Carousel */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.98 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
-      >
-        <Frame30 />
-      </motion.div>
+            {/* 4. Carousel */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
+            >
+              <Frame30 isEntranceReady={true} onEntranceDone={() => { }} />
+            </motion.div>
 
-      {/* 6. Bottom Info */}
-      <div className="absolute content-stretch flex items-center justify-between left-0 right-0 bottom-0" style={{ paddingBottom: '2.667vh', paddingLeft: '2.222vw', paddingRight: '2.222vw' }}>
-        <motion.div
-          initial={{ y: 40, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 1, delay: 1, ease: [0.33, 1, 0.68, 1] }}
-        >
-          <Frame7 />
-        </motion.div>
-        <motion.div
-          initial={{ y: 40, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 1, delay: 1.1, ease: [0.33, 1, 0.68, 1] }}
-        >
-          <Frame2 />
-        </motion.div>
-      </div>
+            {/* 6. Bottom Info */}
+            <div className="absolute content-stretch flex items-center justify-between left-0 right-0 bottom-0" style={{ paddingBottom: '2.667vh', paddingLeft: '2.222vw', paddingRight: '2.222vw' }}>
+              <motion.div
+                initial={{ y: 40, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 1, delay: 1, ease: [0.33, 1, 0.68, 1] }}
+              >
+                <Frame7 />
+              </motion.div>
+              <motion.div
+                initial={{ y: 40, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 1, delay: 1.1, ease: [0.33, 1, 0.68, 1] }}
+              >
+                <Frame2 />
+              </motion.div>
+            </div>
 
-      {/* 7. Bottom Guide Line */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.5, delay: 1.2 }}
-      >
-        <Group1 />
-      </motion.div>
+            {/* 7. Bottom Guide Line */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1.5, delay: 1.2 }}
+            >
+              <Group1 />
+            </motion.div>
 
-      {/* Hero Text - Moved to end to ensure it stays on top of guide lines */}
-      <Frame18 />
+            <Frame18 />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

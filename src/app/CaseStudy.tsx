@@ -28,6 +28,17 @@ export default function CaseStudy() {
 
     const { scrollY } = useScroll();
 
+    const section1Ref = useRef<HTMLElement>(null);
+    const section2Ref = useRef<HTMLElement>(null);
+    const section3Ref = useRef<HTMLElement>(null);
+    const footerContainerRef = useRef<HTMLDivElement>(null);
+
+    // Scroll progress just for the footer section wrapper
+    const { scrollYProgress: footerScrollProgress } = useScroll({
+        target: footerContainerRef,
+        offset: ["start start", "end end"]
+    });
+
     // Smooth background transition from hero color to dark (#121212) over 50vh
     const dynamicBg = useTransform(
         scrollY,
@@ -41,10 +52,6 @@ export default function CaseStudy() {
         [0, window.innerHeight * 0.5],
         [project.textColor, "#fbf9ef"]
     );
-
-    const section1Ref = useRef<HTMLElement>(null);
-    const section2Ref = useRef<HTMLElement>(null);
-    const section3Ref = useRef<HTMLElement>(null);
 
     useEffect(() => {
         const lenis = new Lenis();
@@ -248,9 +255,9 @@ export default function CaseStudy() {
             </motion.section>
 
             {/* 3. Next Project Section */}
-            {/* 3. Next Project Section */}
-            <div
-                className="cursor-pointer"
+            <motion.div
+                ref={footerContainerRef}
+                className="cursor-pointer relative w-full h-[400vh]"
                 onClick={() => {
                     const getNextId = (currentId: string) => {
                         switch (currentId) {
@@ -266,7 +273,8 @@ export default function CaseStudy() {
                     window.scrollTo(0, 0);
                 }}
             >
-                <CaseStudyHero
+                <div className="sticky top-0 h-[100vh] w-full overflow-hidden">
+                    <CaseStudyHero
                     sectionRef={section3Ref}
                     projectTitle={project.nextProjectTitle}
                     projectYear={project.nextProjectYear}
@@ -274,8 +282,24 @@ export default function CaseStudy() {
                     heroDescription={project.nextProjectDescription}
                     bgColor={project.nextProjectBgColor}
                     scrollText="(Keep Scrolling to view next case study)"
+                    scrollProgress={footerScrollProgress}
+                    onFillComplete={() => {
+                        const getNextId = (currentId: string) => {
+                            switch (currentId) {
+                                case 'scorecric': return 'lucrente';
+                                case 'lucrente': return 'cyhex';
+                                case 'cyhex': return 'originally-raw';
+                                case 'originally-raw': return 'scorecric';
+                                default: return 'lucrente';
+                            }
+                        };
+                        const nextId = getNextId(project.id);
+                        navigate(`/case-study/${nextId}`);
+                        window.scrollTo(0, 0);
+                    }}
                 />
-            </div>
+                </div>
+            </motion.div>
         </motion.div>
     );
 }

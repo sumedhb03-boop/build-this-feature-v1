@@ -31,6 +31,7 @@ function IntroSection({ color, scrollY = 0, showScrollAnimation = false }: { col
         <div className="content-stretch flex flex-col items-start relative shrink-0 overflow-hidden" style={{ gap: '0.333vh', width: '18.472vw' }}>
             <div className="content-stretch flex items-end relative shrink-0" style={{ gap: '0.417vw' }}>
                 <p
+                    data-name="greeting-text"
                     className="font-['Geist',sans-serif] font-normal leading-[1.2] opacity-80 relative shrink-0 tracking-[-0.009vw] cursor-pointer"
                     style={{ fontSize: '0.903vw', color: color }}
                     onClick={() => navigate('/')}
@@ -39,7 +40,8 @@ function IntroSection({ color, scrollY = 0, showScrollAnimation = false }: { col
                 </p>
             </div>
             <div
-                className="font-['Geist',sans-serif] font-normal leading-[1.2] min-w-full opacity-60 relative shrink-0 tracking-[-0.009vw] w-[min-content] flex flex-col items-start overflow-hidden"
+                data-name="role-status-container"
+                className="font-['Geist',sans-serif] font-normal leading-[1.2] min-w-full opacity-40 relative shrink-0 tracking-[-0.009vw] w-[min-content] flex flex-col items-start overflow-hidden"
                 style={{ fontSize: '0.903vw', color: color }}
             >
                 <motion.span

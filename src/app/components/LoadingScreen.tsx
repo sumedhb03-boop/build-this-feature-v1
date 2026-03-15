@@ -60,17 +60,17 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
             {/* Branding Reveal */}
             <div className="absolute top-[45%] -translate-y-1/2 flex flex-col items-center gap-[1vh]">
                 <div className="font-['Helvetica_Neue',_sans-serif] font-bold text-[4vw] tracking-[-0.04em] uppercase leading-none">
-                    <LetterReveal text="Antigravity" delay={0.2} />
+                    <LetterReveal text="Sumedh Bambal" delay={0.2} />
                 </div>
-                <div className="font-['Geist',_sans-serif] font-medium opacity-40 text-[0.8vw] tracking-widest uppercase">
-                    <LetterReveal text="Visual Designer" delay={0.6} />
+                <div className="font-['Geist_Mono',_sans-serif] font-normal opacity-40 text-[0.833vw] leading-[0.98] uppercase">
+                    <LetterReveal text="Product Designer" delay={0.6} />
                 </div>
             </div>
 
             {/* Percentage Counter */}
             <div className="absolute bottom-[10vh] flex items-baseline gap-[0.5vw]">
                 <motion.div
-                    className="font-['Geist_Mono',_sans-serif] font-light text-[6vw] leading-none tabular-nums"
+                    className="font-['Geist_Mono',_sans-serif] font-light text-[3vw] leading-none tabular-nums"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.5 }}

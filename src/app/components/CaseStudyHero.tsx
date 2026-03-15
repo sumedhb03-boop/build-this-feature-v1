@@ -7,6 +7,7 @@ interface CaseStudyHeroProps {
     projectYear: string;
     projectIndustry: string;
     heroDescription: string;
+    bgColor: string;
 }
 
 export default function CaseStudyHero({
@@ -14,10 +15,11 @@ export default function CaseStudyHero({
     projectTitle,
     projectYear,
     projectIndustry,
-    heroDescription
+    heroDescription,
+    bgColor
 }: CaseStudyHeroProps) {
     return (
-        <section ref={sectionRef} className="relative bg-[#9a054e] w-full min-h-[100vh] flex flex-col items-center justify-between text-white overflow-hidden pb-[40px]">
+        <section ref={sectionRef} className="relative w-full min-h-[100vh] flex flex-col items-center justify-between text-white overflow-hidden pb-[40px]" style={{ backgroundColor: bgColor }}>
             {/* Empty spacer for fixed header overlay */}
             <div className="w-full h-[100px] shrink-0" />
 

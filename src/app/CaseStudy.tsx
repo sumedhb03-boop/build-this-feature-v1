@@ -1,24 +1,14 @@
 import { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { motion } from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
 import Header from "./components/Header";
 import CaseStudyHero from "./components/CaseStudyHero";
 import SidebarNav from "./components/SidebarNav";
+import { CASE_STUDIES, CaseStudyData, Visual } from "./data/caseStudiesData";
 
-import imgLucrenteHomepage2 from "../assets/1d77d66ff6b45fa2d2226a141a9e634ce5327a61.png";
-import imgShotsMockups171 from "../assets/fcb9c5216992368da81368867fa77e03f1e9618e.png";
-import imgShotsMockups51 from "../assets/4f162cf32622d4dfcb2e70aa9a67a7097d9ee1f5.png";
-import imgShotsMockups161 from "../assets/b38b430a823043dace439426de6370f44cbbb53f.png";
-import imgShotsMockups111 from "../assets/7292e05d82287909056e88cc3881368921d19f29.png";
-import imgFrame20856631201 from "../assets/fdca36244b9d48ef4d9c01a80a95c75c31a83452.png";
-import imgShotsMockups21 from "../assets/f0cf51fe902c49e33273901f4d5947d40e8551e8.png";
-import imgGrid1 from "../assets/b67d14d76aba74947169a7a21d07218ec1db1d44.png";
-import imgTypography1 from "../assets/75b341d239b30523b250b3bafb2f129e4945c291.png";
-import img73 from "../assets/bfe61e94ef2acd77eb43463530da3d3698e50670.png";
 import imgMouseWireless from "../assets/0248826545f879f670bc16bf4f920e0d8f90d596.svg";
 import imgLeftArrow from "../assets/64bd323606e5dac218af5d5952719a257afc6531.svg";
 import imgGlobe from "../assets/9494c29dcac4f541872683dc0aee3d066f10498e.svg";
-import imgLucrenteVisual1 from "../assets/Lucrente visuaal 1.webp";
 
 import Lenis from 'lenis';
 
@@ -26,12 +16,31 @@ export default function CaseStudy() {
     const { id } = useParams();
     const navigate = useNavigate();
 
+    // Get project data
+    const project: CaseStudyData = CASE_STUDIES[id || "lucrente"] || CASE_STUDIES["lucrente"];
+
     // Scroll Progress Logic
     const [scrollProgress, setScrollProgress] = useState(0);
-    const [activeBgColor, setActiveBgColor] = useState("#9a054e");
+    const [activeBgColor, setActiveBgColor] = useState(project.heroBgColor);
     const [activeIndicatorColor, setActiveIndicatorColor] = useState("#ffffff");
     const [activeHeaderColor, setActiveHeaderColor] = useState("#ffffff");
     const [scrollYPos, setScrollYPos] = useState(0);
+
+    const { scrollY } = useScroll();
+
+    // Smooth background transition from hero color to dark (#121212) over 50vh
+    const dynamicBg = useTransform(
+        scrollY,
+        [0, window.innerHeight * 0.5],
+        [project.heroBgColor, "#121212"]
+    );
+
+    // Also transition the content section text color if its background goes dark
+    const dynamicTextColor = useTransform(
+        scrollY,
+        [0, window.innerHeight * 0.5],
+        [project.textColor, project.id === 'scorecric' ? "#fbf9ef" : project.textColor]
+    );
 
     const section1Ref = useRef<HTMLElement>(null);
     const section2Ref = useRef<HTMLElement>(null);
@@ -60,9 +69,9 @@ export default function CaseStudy() {
 
             const getSection = (yPos: number) => {
                 const sections = [
-                    { ref: section1Ref, color: "#9a054e" },
-                    { ref: section2Ref, color: "#fbf9ef" },
-                    { ref: section3Ref, color: "#bf0b33" }
+                    { ref: section1Ref, color: project.heroBgColor },
+                    { ref: section2Ref, color: project.contentBgColor },
+                    { ref: section3Ref, color: project.nextProjectBgColor }
                 ];
 
                 for (const section of sections) {
@@ -100,27 +109,54 @@ export default function CaseStudy() {
         return () => {
             lenis.destroy();
         };
-    }, []);
+    }, [project]);
 
-    const PROJECT_DATA: Record<string, any> = {
-        "lucrente": {
-            title: "LUCRENTE",
-            year: "2023",
-            industry: "Fintech",
-            heroDescription: "Redefining how rent payments work\n--> simple, rewarding, and seamless.",
-            mainDescription: "I partnered with Lucrente from the earliest stages, helping define the product, user experience, and initial brand direction.\n\nLucrente enables users to earn rewards on rent payments, navigating a highly regulated space where clarity is essential. Every design decision prioritised trust, simplicity, and ease of use, ensuring the product felt credible from the first interaction."
+    const renderVisual = (visual: Visual, index: number) => {
+        if (visual.type === 'single') {
+            return (
+                <div 
+                    key={index}
+                    className="w-full h-auto relative overflow-hidden"
+                    style={{ 
+                        backgroundColor: visual.bgColor || project.contentBgColor,
+                        height: visual.height || 'auto',
+                        aspectRatio: visual.aspectRatio || 'auto'
+                    }}
+                >
+                    <img src={visual.src} alt={visual.alt} className="w-full h-full object-cover" />
+                </div>
+            );
+        } else {
+            return (
+                <div key={index} className="w-full flex gap-2">
+                    <div 
+                        className="flex-1 relative overflow-hidden"
+                        style={{ 
+                            backgroundColor: visual.leftBgColor || project.contentBgColor,
+                            height: visual.height || '620px'
+                        }}
+                    >
+                        <img src={visual.leftSrc} alt={visual.leftAlt} className="w-full h-full object-cover" />
+                    </div>
+                    <div 
+                        className="flex-1 relative overflow-hidden"
+                        style={{ 
+                            backgroundColor: visual.rightBgColor || project.contentBgColor,
+                            height: visual.height || '620px'
+                        }}
+                    >
+                        <img src={visual.rightSrc} alt={visual.rightAlt} className="w-full h-full object-cover" />
+                    </div>
+                </div>
+            );
         }
     };
 
-    const project = PROJECT_DATA[id || "lucrente"] || PROJECT_DATA["lucrente"];
-    const projectTitle = project.title;
-    const projectYear = project.year;
-    const projectIndustry = project.industry;
-    const heroDescription = project.heroDescription;
-    const mainDescription = project.mainDescription;
-
     return (
-        <div className="bg-[#fbf9ef] relative w-full font-['Geist',sans-serif] min-h-screen">
+        <motion.div 
+            className="relative w-full font-['Geist',sans-serif] min-h-screen"
+            style={{ backgroundColor: dynamicBg }}
+        >
             {/* --- FIXED NAVIGATION ELEMENTS --- */}
 
             {/* 1. Header (Logo + Links) - Fixed from shared component */}
@@ -140,22 +176,24 @@ export default function CaseStudy() {
                         style={{ top: `${scrollProgress * 90}%` }}
                     >
                         {/* Masking Background Circle (creates the gap in the line) */}
-                        <div
+                        <motion.div
                             className="w-[29px] h-[29px] rounded-full flex items-center justify-center"
-                            style={{ backgroundColor: activeBgColor }}
+                            style={{ 
+                                backgroundColor: (project.id === 'scorecric' && (activeBgColor === project.heroBgColor || activeBgColor === project.contentBgColor)) ? dynamicBg : activeBgColor 
+                            }}
                         >
                             {/* Outer Indicator Ring */}
                             <div
                                 className="w-[17px] h-[17px] border rounded-full flex items-center justify-center"
                                 style={{ borderColor: activeIndicatorColor === "#ffffff" ? "rgba(255, 255, 255, 0.3)" : "rgba(23, 20, 18, 0.3)" }}
                             >
-                                {/* Inner White Dot */}
+                                {/* Inner Indicator Dot */}
                                 <div
                                     className="w-[5px] h-[5px] rounded-full"
                                     style={{ backgroundColor: activeIndicatorColor }}
                                 />
                             </div>
-                        </div>
+                        </motion.div>
                     </motion.div>
                 </div>
             </div>
@@ -165,90 +203,67 @@ export default function CaseStudy() {
             {/* 1. Hero Section (Refactored Component) */}
             <CaseStudyHero
                 sectionRef={section1Ref}
-                projectTitle={projectTitle}
-                projectYear={projectYear}
-                projectIndustry={projectIndustry}
-                heroDescription={heroDescription}
+                projectTitle={project.title}
+                projectYear={project.year}
+                projectIndustry={project.industry}
+                heroDescription={project.heroDescription}
+                bgColor="transparent" // Allow page background to show through
             />
 
-            {/* 2. Main Content Section (Cream Background) */}
-            <section ref={section2Ref} className="relative w-full py-[140px] flex flex-col items-center text-[#171412]">
-
+            {/* 2. Main Content Section */}
+            <motion.section 
+                ref={section2Ref} 
+                className="relative w-full py-[140px] flex flex-col items-center" 
+                style={{ 
+                    backgroundColor: project.id === 'scorecric' ? 'transparent' : project.contentBgColor,
+                    color: project.id === 'scorecric' ? dynamicTextColor : project.textColor 
+                }}
+            >
                 {/* Description Text */}
-                <p className="max-w-[625px] text-[#171412] font-light text-[20px] leading-[1.4] tracking-[-0.4px] whitespace-pre-wrap mb-[140px]">
-                    {mainDescription}
-                </p>
+                <motion.p 
+                    className="max-w-[625px] font-light text-[20px] leading-[1.4] tracking-[-0.4px] whitespace-pre-wrap mb-[140px]"
+                    style={{ color: project.id === 'scorecric' ? dynamicTextColor : project.textColor }}
+                >
+                    {project.mainDescription}
+                </motion.p>
 
                 {/* Snippets Header */}
                 <div className="w-full max-w-[905px] flex justify-start items-center gap-2 mb-[36px]">
-                    <h3 className="text-[20px] font-light text-[#171412] tracking-[-0.4px] m-0 leading-[1.4]">
+                    <h3 
+                        className="text-[20px] font-light tracking-[-0.4px] m-0 leading-[1.4]"
+                        style={{ color: project.headingColor }}
+                    >
                         Snippets from the project
                     </h3>
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" id="Forward--Streamline-Solar-Ar" height="24" width="24" className="rotate-90">
                         <desc>Forward Streamline Icon: https://streamlinehq.com</desc>
-                        <path d="m19.5 12 -5 -5m5 5 -5 5m5 -5 -10 0c-1.66667 0 -5 1 -5 5" stroke="#171412" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"></path>
+                        <path d="m19.5 12 -5 -5m5 5 -5 5m5 -5 -10 0c-1.66667 0 -5 1 -5 5" stroke={project.headingColor} strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"></path>
                     </svg>
                 </div>
 
                 {/* Visuals Grid */}
                 <div className="w-full max-w-[905px] flex flex-col gap-[32px] items-center">
-                    {/* Visual 1 (New WebP) */}
-                    <div className="w-[900px] h-auto bg-[#fbf9ef] relative overflow-hidden">
-                        <img src={imgLucrenteVisual1} alt="Lucrente Visual 1" className="w-full h-full object-contain" />
-                    </div>
-                    {/* Visual 2 */}
-                    <div className="w-[900px] h-[675px] bg-[#f2e7f0] relative overflow-hidden">
-                        <img src={imgLucrenteHomepage2} alt="Lucrente Demo" className="w-full h-full object-cover" />
-                    </div>
-                    {/* Visual 3 */}
-                    <div className="w-[900px] h-[675px] bg-[#feeaf1] relative overflow-hidden">
-                        <img src={imgShotsMockups171} alt="Mockup 3" className="w-full h-full object-cover" />
-                    </div>
-                    {/* Visual 4 */}
-                    <div className="w-full aspect-[900/632] bg-[#231b26] relative overflow-hidden">
-                        <img src={imgShotsMockups51} alt="Mockup 5" className="w-full h-full object-cover" />
-                    </div>
-                    {/* Visual 5 */}
-                    <div className="w-full h-[724px] bg-[#f8e1eb] relative overflow-hidden">
-                        <img src={imgShotsMockups161} alt="Mockup 16" className="w-full h-full object-cover" />
-                    </div>
-                    {/* Visual 6 (Split) */}
-                    <div className="w-full flex gap-2">
-                        <div className="w-[448px] h-[620px] bg-[#f1efe9] relative overflow-hidden">
-                            <img src={imgShotsMockups111} alt="Mockup 11" className="w-full h-full object-cover" />
-                        </div>
-                        <div className="w-[448px] h-[620px] bg-[#0c0005] relative overflow-hidden">
-                            <img src={imgFrame20856631201} alt="Mockup Frame" className="w-full h-full object-cover" />
-                        </div>
-                    </div>
-                    {/* Visual 7 */}
-                    <div className="w-full h-[600px] bg-[#feeef9] relative overflow-hidden">
-                        <img src={imgShotsMockups21} alt="Mockup 2" className="w-full h-full object-cover" />
-                    </div>
-                    {/* Visual 8 (Split Grid/Typo) */}
-                    <div className="w-full flex justify-between">
-                        <div className="w-[445px] h-[662px] bg-[#f4f2ef] relative overflow-hidden">
-                            <img src={imgGrid1} alt="Grid" className="w-full h-full object-cover" />
-                        </div>
-                        <div className="w-[445px] h-[662px] bg-[#1a1c1d] relative overflow-hidden">
-                            <img src={imgTypography1} alt="Typography" className="w-full h-full object-cover" />
-                        </div>
-                    </div>
-                    {/* Visual 9 (Colors) */}
-                    <div className="w-full h-[660px] bg-[#f2f1ec] relative overflow-hidden">
-                        <img src={img73} alt="Colors" className="w-full h-full object-cover" />
-                    </div>
+                    {project.visuals.map((visual, index) => renderVisual(visual, index))}
                 </div>
-            </section>
+            </motion.section>
 
-            {/* 3. Next Project Section (Red Background) */}
-            <section ref={section3Ref} className="bg-[#bf0b33] content-stretch flex flex-col items-center justify-between px-[32px] relative w-full h-[100vh]">
+            {/* 3. Next Project Section */}
+            <section 
+                ref={section3Ref} 
+                className="content-stretch flex flex-col items-center justify-between px-[32px] relative w-full h-[100vh] cursor-pointer"
+                style={{ backgroundColor: project.nextProjectBgColor }}
+                onClick={() => {
+                    const nextId = project.id === 'lucrente' ? 'scorecric' : 'lucrente';
+                    navigate(`/case-study/${nextId}`);
+                    window.scrollTo(0, 0);
+                }}
+            >
                 <div className="h-[79px] shrink-0 w-full" />
                 <div className="content-stretch flex flex-[1_0_0] items-center justify-between min-h-px min-w-px relative w-full">
                     <div className="content-stretch flex flex-col h-[396.2px] items-center justify-between relative shrink-0 w-[968px] mx-auto">
                         <div className="content-stretch flex flex-col h-[396.2px] items-center justify-between relative shrink-0 w-full">
                             <p className="font-['Helvetica_Neue',_'Helvetica',_sans-serif] font-bold h-[91px] leading-none not-italic relative shrink-0 text-[128px] text-center text-white tracking-[-5.12px] uppercase w-full whitespace-pre-wrap">
-                                SCORECRIC
+                                {project.nextProjectTitle}
                             </p>
                             <div className="content-stretch flex flex-col h-[33.2px] items-center relative shrink-0 w-full">
                                 <div className="content-stretch flex font-normal items-center justify-center leading-[0] max-w-[400px] relative shrink-0 text-center w-full whitespace-nowrap">
@@ -257,7 +272,7 @@ export default function CaseStudy() {
                                             <p className="leading-[11.2px]">Year</p>
                                         </div>
                                         <div className="flex flex-col font-['Geist',sans-serif] justify-center relative shrink-0 text-[14px] text-white tracking-[-0.14px]">
-                                            <p className="leading-[13.6px]">2024</p>
+                                            <p className="leading-[13.6px]">{project.nextProjectYear}</p>
                                         </div>
                                     </div>
                                     <div className="content-stretch flex flex-[1_0_0] flex-col gap-[6.6px] items-center min-h-px min-w-px pb-[0.6px] relative flex-1">
@@ -265,13 +280,13 @@ export default function CaseStudy() {
                                             <p className="leading-[11.2px]">industry</p>
                                         </div>
                                         <div className="flex flex-col font-['Geist',sans-serif] justify-center relative shrink-0 text-[14px] text-white">
-                                            <p className="leading-[13.6px]">Sports</p>
+                                            <p className="leading-[13.6px]">{project.nextProjectIndustry}</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div className="flex flex-col font-['Geist',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[20px] text-center text-white tracking-[-0.2px] w-[358px]">
-                                <p className="leading-[1.4] whitespace-pre-wrap">A real-time cricket app for live scores, stats, and match insights.</p>
+                                <p className="leading-[1.4] whitespace-pre-wrap">{project.nextProjectDescription}</p>
                             </div>
                         </div>
                     </div>
@@ -285,6 +300,6 @@ export default function CaseStudy() {
                     </div>
                 </div>
             </section>
-        </div>
+        </motion.div>
     );
 }

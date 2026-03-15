@@ -2,6 +2,9 @@ import imgFreeHandHoldingIPhone16ProMockup2 from "../assets/cb404150f92e88ed4a66
 import imgLucrenteHomepage1 from "../assets/934e76980decd08a547dbf8807403b703fd07584.png";
 import imgShotsMockups21 from "../assets/f0cf51fe902c49e33273901f4d5947d40e8551e8.png";
 import imgShotsMockups131 from "../assets/8b29ebd34c3524dbc7989b4884ebd904c19ff803.png";
+import imgShotsMockups51 from "../assets/4f162cf32622d4dfcb2e70aa9a67a7097d9ee1f5.png";
+import imgShotsMockups111 from "../assets/7292e05d82287909056e88cc3881368921d19f29.png";
+import imgShotsMockups161 from "../assets/b38b430a823043dace439426de6370f44cbbb53f.png";
 import { motion, AnimatePresence } from "motion/react";
 import { useState, useEffect, useRef } from "react";
 import Header from "./components/Header";
@@ -23,7 +26,7 @@ function Group1() {
   );
 }
 
-function Frame18() {
+function Frame18({ skipAnimations }: { skipAnimations: boolean }) {
   const lines = [
     { text: "Design" },
     { highlight: "Partner", suffix: " for" },
@@ -38,11 +41,11 @@ function Frame18() {
           {lines.map((line, i) => (
             <div key={i} className="overflow-hidden py-[0.1em] -my-[0.1em]">
               <motion.div
-                initial={{ y: "120%" }}
+                initial={skipAnimations ? false : { y: "120%" }}
                 animate={{ y: 0 }}
                 transition={{
                   duration: 1.2,
-                  delay: 0.2 + (i * 0.12),
+                  delay: skipAnimations ? 0 : 0.2 + (i * 0.12),
                   ease: [0.33, 1, 0.68, 1]
                 }}
               >
@@ -190,6 +193,7 @@ const SLOTS = [
 const BASE_ITEMS = [
   {
     id: 0,
+    slug: "scorecric",
     srNo: "01",
     title: "Scorecric",
     categories: ["Brand", "Product"],
@@ -201,6 +205,7 @@ const BASE_ITEMS = [
   },
   {
     id: 1,
+    slug: "lucrente",
     srNo: "02",
     title: "Lucrente",
     categories: ["Brand", "Product", "Web"],
@@ -212,6 +217,7 @@ const BASE_ITEMS = [
   },
   {
     id: 2,
+    slug: "scorecric", // Placeholder for Cyhex if needed, but for now we follow the user request
     srNo: "03",
     title: "Cyhex",
     categories: ["Web App", "Website"],
@@ -223,6 +229,7 @@ const BASE_ITEMS = [
   },
   {
     id: 3,
+    slug: "lucrente", // Placeholder for Originally Raw
     srNo: "04",
     title: "ORIGINALLY RAW",
     categories: ["E-commerce"],
@@ -234,6 +241,7 @@ const BASE_ITEMS = [
   },
   {
     id: 4,
+    slug: "scorecric", // Placeholder for Playground
     srNo: "05",
     title: "Playground",
     categories: ["Design", "Experiments"],
@@ -426,12 +434,10 @@ interface CaseStudyProps {
   title: string;
 }
 
-function Frame28({ srNo, categories, onHover, onLeave, isHovered }: Omit<CaseStudyProps, 'title'> & { onHover: () => void, onLeave: () => void, isHovered: boolean }) {
+function Frame28({ srNo, categories, isHovered }: Omit<CaseStudyProps, 'title'> & { isHovered: boolean }) {
   return (
     <div
-      className="content-stretch flex items-start relative shrink-0 w-full cursor-pointer z-20 pointer-events-auto"
-      onMouseEnter={onHover}
-      onMouseLeave={onLeave}
+      className="content-stretch flex items-start relative shrink-0 w-full z-20 pointer-events-none"
     >
       <Frame27 srNo={srNo} />
       <Frame26 isHovered={isHovered} />
@@ -440,10 +446,10 @@ function Frame28({ srNo, categories, onHover, onLeave, isHovered }: Omit<CaseStu
   );
 }
 
-function Frame29({ srNo, categories, title, onHover, onLeave, isHovered }: CaseStudyProps & { onHover: () => void, onLeave: () => void, isHovered: boolean }) {
+function Frame29({ srNo, categories, title, isHovered }: CaseStudyProps & { isHovered: boolean }) {
   return (
     <div className="absolute content-stretch flex flex-col items-center top-0 pointer-events-none z-20" style={{ left: '26.042vw', width: '35.833vw' }}>
-      <Frame28 srNo={srNo} categories={categories} onHover={onHover} onLeave={onLeave} isHovered={isHovered} />
+      <Frame28 srNo={srNo} categories={categories} isHovered={isHovered} />
       <div className="w-full text-center overflow-hidden flex justify-center" style={{ marginTop: 0, marginBottom: '2vh' }}>
         <LetterReveal
           text={title}
@@ -460,10 +466,11 @@ function Frame29({ srNo, categories, title, onHover, onLeave, isHovered }: CaseS
 interface Frame30Props {
   onEntranceDone: () => void;
   isEntranceReady: boolean;
+  skipAnimations?: boolean;
 }
 
-function Frame30({ onEntranceDone, isEntranceReady }: Frame30Props) {
-  const [activeIndex, setActiveIndex] = useState(2);
+function Frame30({ onEntranceDone, isEntranceReady, skipAnimations = false }: Frame30Props) {
+  const [activeIndex, setActiveIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const [isEntranceDone, setIsEntranceDone] = useState(false);
   const lastScrollTime = useRef(0);
@@ -531,16 +538,21 @@ function Frame30({ onEntranceDone, isEntranceReady }: Frame30Props) {
               x: '-50%',
               y: '-50%'
             }}
-            initial={!isEntranceDone ? {
+            initial={(!isEntranceDone && !skipAnimations) ? {
               ...slot,
               opacity: 0,
               y: '50%' // Start slightly lower for a slide-up effect
             } : false}
             onClick={() => {
               if (isCenter) {
-                // Hardcode navigation to lucrente as requested
-                navigate(`/case-study/lucrente`);
+                navigate(`/case-study/${activeItem.slug}`);
               }
+            }}
+            onMouseEnter={() => {
+              if (isCenter) setIsHovered(true);
+            }}
+            onMouseLeave={() => {
+              if (isCenter) setIsHovered(false);
             }}
             animate={{
               left: slot.left,
@@ -555,7 +567,7 @@ function Frame30({ onEntranceDone, isEntranceReady }: Frame30Props) {
               stiffness: 120,
               damping: 20,
               // Stagger delay based on distance from center slot (slotIndex 2)
-              delay: isEntranceDone ? 0 : (0.6 + Math.abs(slotIndex - 2) * 0.15)
+              delay: (isEntranceDone || skipAnimations) ? 0 : (0.6 + Math.abs(slotIndex - 2) * 0.15)
             }}
           >
             <div className="w-full h-full relative overflow-clip bg-[#121212]">
@@ -565,19 +577,11 @@ function Frame30({ onEntranceDone, isEntranceReady }: Frame30Props) {
         );
       })}
 
-      <div
-        onClick={() => {
-          // Hardcode navigation to lucrente as requested
-          navigate(`/case-study/lucrente`);
-        }}
-        className="cursor-pointer"
-      >
+      <div className="pointer-events-none">
         <Frame29
           srNo={activeItem.srNo}
           categories={activeItem.categories}
           title={activeItem.title}
-          onHover={() => setIsHovered(true)}
-          onLeave={() => setIsHovered(false)}
           isHovered={isHovered}
         />
       </div>
@@ -586,87 +590,99 @@ function Frame30({ onEntranceDone, isEntranceReady }: Frame30Props) {
 }
 
 export default function App() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(() => {
+    // Only show loader if it hasn't been shown in this session
+    return sessionStorage.getItem("hasLoaded") !== "true";
+  });
+
+  const skipAnimations = sessionStorage.getItem("hasLoaded") === "true";
 
   return (
     <div className="bg-black relative overflow-hidden" style={{ width: '100vw', height: '100vh' }} data-name="51">
       <AnimatePresence mode="wait">
         {isLoading ? (
-          <LoadingScreen key="loader" onComplete={() => setIsLoading(false)} />
+          <LoadingScreen 
+            key="loader" 
+            onComplete={() => {
+              setIsLoading(false);
+              sessionStorage.setItem("hasLoaded", "true");
+            }} 
+          />
         ) : (
           <motion.div
             key="content"
             className="relative w-full h-full"
-            initial={{ opacity: 0 }}
+            initial={skipAnimations ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
           >
             {/* 1. Top Guide Line */}
             <motion.div
-              initial={{ opacity: 0 }}
+              initial={skipAnimations ? false : { opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 1.2, delay: 0.8 }}
+              transition={{ duration: 1.2, delay: skipAnimations ? 0 : 0.8 }}
             >
               <Group />
             </motion.div>
-
+ 
             {/* 2. Header */}
             <motion.div
-              initial={{ y: -50, opacity: 0 }}
+              initial={skipAnimations ? false : { y: -50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
+              transition={{ duration: 0.8, delay: skipAnimations ? 0 : 0, ease: "easeOut" }}
             >
               <Header color="#ffffff" />
             </motion.div>
-
+ 
             {/* 3. Intro Text */}
             <motion.p
+              data-name="intro-description-text"
               className="absolute font-['Geist',sans-serif] font-normal leading-[1.2] opacity-40 text-[#fbf9ef] tracking-[-0.009vw] whitespace-pre-wrap"
               style={{ left: '2.222vw', fontSize: '0.903vw', top: '12.778vh', width: '12.708vw' }}
-              initial={{ x: -20, opacity: 0 }}
+              initial={skipAnimations ? { x: 0, opacity: 0.4 } : { x: -20, opacity: 0 }}
               animate={{ x: 0, opacity: 0.4 }}
-              transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+              transition={{ duration: 0.8, delay: skipAnimations ? 0 : 0.4, ease: "easeOut" }}
             >
               {`This is my corner of the internet where I showcase my work and variety of other things I'm currently exploring.`}
             </motion.p>
-
+ 
             {/* 4. Carousel */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.98 }}
+              initial={skipAnimations ? false : { opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
+              transition={{ duration: 1, delay: skipAnimations ? 0 : 0.6, ease: "easeOut" }}
             >
-              <Frame30 isEntranceReady={true} onEntranceDone={() => { }} />
+              <Frame30 isEntranceReady={true} onEntranceDone={() => { }} skipAnimations={skipAnimations} />
             </motion.div>
-
+ 
             {/* 6. Bottom Info */}
             <div className="absolute content-stretch flex items-center justify-between left-0 right-0 bottom-0" style={{ paddingBottom: '2.667vh', paddingLeft: '2.222vw', paddingRight: '2.222vw' }}>
               <motion.div
-                initial={{ y: 40, opacity: 0 }}
+                initial={skipAnimations ? false : { y: 40, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 1, delay: 1, ease: [0.33, 1, 0.68, 1] }}
+                transition={{ duration: 1, delay: skipAnimations ? 0 : 1, ease: [0.33, 1, 0.68, 1] }}
               >
                 <Frame7 />
               </motion.div>
               <motion.div
-                initial={{ y: 40, opacity: 0 }}
+                initial={skipAnimations ? false : { y: 40, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 1, delay: 1.1, ease: [0.33, 1, 0.68, 1] }}
+                transition={{ duration: 1, delay: skipAnimations ? 0 : 1.1, ease: [0.33, 1, 0.68, 1] }}
               >
                 <Frame2 />
               </motion.div>
             </div>
-
+ 
             {/* 7. Bottom Guide Line */}
             <motion.div
-              initial={{ opacity: 0 }}
+              initial={skipAnimations ? false : { opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 1.5, delay: 1.2 }}
+              transition={{ duration: 1.5, delay: skipAnimations ? 0 : 1.2 }}
             >
               <Group1 />
             </motion.div>
-
-            <Frame18 />
+ 
+            <Frame18 skipAnimations={skipAnimations} />
           </motion.div>
         )}
       </AnimatePresence>

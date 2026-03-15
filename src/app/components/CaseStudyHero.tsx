@@ -8,6 +8,7 @@ interface CaseStudyHeroProps {
     projectIndustry: string;
     heroDescription: string;
     bgColor: string;
+    scrollText?: string;
 }
 
 export default function CaseStudyHero({
@@ -16,7 +17,8 @@ export default function CaseStudyHero({
     projectYear,
     projectIndustry,
     heroDescription,
-    bgColor
+    bgColor,
+    scrollText = '(Scroll down)'
 }: CaseStudyHeroProps) {
     return (
         <section ref={sectionRef} className="relative w-full min-h-[100vh] flex flex-col items-center justify-between text-white overflow-hidden pb-[40px]" style={{ backgroundColor: bgColor }}>
@@ -64,7 +66,7 @@ export default function CaseStudyHero({
                 <div className="w-6 h-6 flex justify-center items-center">
                     <img src={imgMouseWireless} className="w-full h-full object-contain" alt="Scroll" />
                 </div>
-                <span className="text-[12px] font-['Arial',sans-serif]">(Scroll down)</span>
+                <span className="text-[12px] font-['Arial',sans-serif]">{scrollText}</span>
             </div>
         </section>
     );

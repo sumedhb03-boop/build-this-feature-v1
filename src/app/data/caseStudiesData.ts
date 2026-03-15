@@ -55,11 +55,11 @@ export const CASE_STUDIES: Record<string, CaseStudyData> = {
         contentBgColor: "#fbf9ef",
         textColor: "#171412",
         headingColor: "#171412",
-        nextProjectBgColor: "#bf0b33",
-        nextProjectTitle: "SCORECRIC",
+        nextProjectBgColor: "#05161A",
+        nextProjectTitle: "CYHEX",
         nextProjectYear: "2024",
-        nextProjectIndustry: "Sports",
-        nextProjectDescription: "A real-time cricket app for live scores, stats, and match insights.",
+        nextProjectIndustry: "Web3",
+        nextProjectDescription: "A next-generation Web3 platform with seamless UX.",
         heroDescription: "Redefining how rent payments work\n--> simple, rewarding, and seamless.",
         mainDescription: "I partnered with Lucrente from the earliest stages, helping define the product, user experience, and initial brand direction.\n\nLucrente enables users to earn rewards on rent payments, navigating a highly regulated space where clarity is essential. Every design decision prioritised trust, simplicity, and ease of use, ensuring the product felt credible from the first interaction.",
         visuals: [
@@ -110,6 +110,46 @@ export const CASE_STUDIES: Record<string, CaseStudyData> = {
                 height: "620px"
             },
             { type: 'single', src: imgShotsMockups161, alt: "ScoreCric Mockup 3", bgColor: "#f8e1eb", height: "724px" },
+        ]
+    },
+    "cyhex": {
+        id: "cyhex",
+        title: "CYHEX",
+        year: "2024",
+        industry: "Web3",
+        heroBgColor: "#05161A",
+        contentBgColor: "#05161A",
+        textColor: "#fbf9ef",
+        headingColor: "#fbf9ef",
+        nextProjectBgColor: "#1a1a1a",
+        nextProjectTitle: "ORIGINALLY RAW",
+        nextProjectYear: "2023",
+        nextProjectIndustry: "E-commerce",
+        nextProjectDescription: "A modern, bold e-commerce platform.",
+        heroDescription: "A next-generation Web3 platform.",
+        mainDescription: "Cyhex represents the future of decentralized finance. I contributed robust design patterns that simplify complex blockchain interactions into a seamless user experience.",
+        visuals: [
+            { type: 'single', src: imgShotsMockups131, alt: "Cyhex Mockup", bgColor: "#0c0005", height: "675px" }
+        ]
+    },
+    "originally-raw": {
+        id: "originally-raw",
+        title: "ORIGINALLY RAW",
+        year: "2023",
+        industry: "E-commerce",
+        heroBgColor: "#1a1a1a",
+        contentBgColor: "#1a1a1a",
+        textColor: "#fbf9ef",
+        headingColor: "#fbf9ef",
+        nextProjectBgColor: "#bf0b33",
+        nextProjectTitle: "SCORECRIC",
+        nextProjectYear: "2024",
+        nextProjectIndustry: "Sports",
+        nextProjectDescription: "A real-time cricket app for live scores, stats, and match insights.",
+        heroDescription: "A modern, bold e-commerce platform.",
+        mainDescription: "Originally Raw is a disruptive lifestyle brand. We designed an immersive e-commerce experience that feels both raw and refined, driving higher conversion rates.",
+        visuals: [
+            { type: 'single', src: imgLucrenteHomepage2, alt: "Originally Raw Demo", bgColor: "#111", height: "675px" }
         ]
     }
 };

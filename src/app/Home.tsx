@@ -217,7 +217,7 @@ const BASE_ITEMS = [
   },
   {
     id: 2,
-    slug: "scorecric", // Placeholder for Cyhex if needed, but for now we follow the user request
+    slug: "cyhex",
     srNo: "03",
     title: "Cyhex",
     categories: ["Web App", "Website"],
@@ -229,7 +229,7 @@ const BASE_ITEMS = [
   },
   {
     id: 3,
-    slug: "lucrente", // Placeholder for Originally Raw
+    slug: "originally-raw",
     srNo: "04",
     title: "ORIGINALLY RAW",
     categories: ["E-commerce"],

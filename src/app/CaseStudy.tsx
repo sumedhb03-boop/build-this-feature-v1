@@ -35,11 +35,11 @@ export default function CaseStudy() {
         [project.heroBgColor, "#121212"]
     );
 
-    // Also transition the content section text color if its background goes dark
+    // Also transition the content section text color
     const dynamicTextColor = useTransform(
         scrollY,
         [0, window.innerHeight * 0.5],
-        [project.textColor, project.id === 'scorecric' ? "#fbf9ef" : project.textColor]
+        [project.textColor, "#fbf9ef"]
     );
 
     const section1Ref = useRef<HTMLElement>(null);
@@ -87,14 +87,14 @@ export default function CaseStudy() {
 
             const sectionForIndicator = getSection(indicatorY);
             if (sectionForIndicator) {
-                const isCream = sectionForIndicator.color === "#fbf9ef";
+                const isCream = sectionForIndicator.color === "#fbf9ef" && sectionForIndicator.ref !== section2Ref;
                 setActiveBgColor(sectionForIndicator.color);
                 setActiveIndicatorColor(isCream ? "#171412" : "#ffffff");
             }
 
             const sectionForHeader = getSection(40);
             if (sectionForHeader) {
-                const isCream = sectionForHeader.color === "#fbf9ef";
+                const isCream = sectionForHeader.color === "#fbf9ef" && sectionForHeader.ref !== section2Ref;
                 setActiveHeaderColor(isCream ? "#171412" : "#ffffff");
             }
 
@@ -179,7 +179,7 @@ export default function CaseStudy() {
                         <motion.div
                             className="w-[29px] h-[29px] rounded-full flex items-center justify-center"
                             style={{ 
-                                backgroundColor: (project.id === 'scorecric' && (activeBgColor === project.heroBgColor || activeBgColor === project.contentBgColor)) ? dynamicBg : activeBgColor 
+                                backgroundColor: (activeBgColor === project.heroBgColor || activeBgColor === project.contentBgColor) ? dynamicBg : activeBgColor 
                             }}
                         >
                             {/* Outer Indicator Ring */}
@@ -215,14 +215,14 @@ export default function CaseStudy() {
                 ref={section2Ref} 
                 className="relative w-full py-[140px] flex flex-col items-center" 
                 style={{ 
-                    backgroundColor: project.id === 'scorecric' ? 'transparent' : project.contentBgColor,
-                    color: project.id === 'scorecric' ? dynamicTextColor : project.textColor 
+                    backgroundColor: 'transparent',
+                    color: dynamicTextColor 
                 }}
             >
                 {/* Description Text */}
                 <motion.p 
                     className="max-w-[625px] font-light text-[20px] leading-[1.4] tracking-[-0.4px] whitespace-pre-wrap mb-[140px]"
-                    style={{ color: project.id === 'scorecric' ? dynamicTextColor : project.textColor }}
+                    style={{ color: dynamicTextColor }}
                 >
                     {project.mainDescription}
                 </motion.p>
@@ -248,58 +248,34 @@ export default function CaseStudy() {
             </motion.section>
 
             {/* 3. Next Project Section */}
-            <section 
-                ref={section3Ref} 
-                className="content-stretch flex flex-col items-center justify-between px-[32px] relative w-full h-[100vh] cursor-pointer"
-                style={{ backgroundColor: project.nextProjectBgColor }}
+            {/* 3. Next Project Section */}
+            <div
+                className="cursor-pointer"
                 onClick={() => {
-                    const nextId = project.id === 'lucrente' ? 'scorecric' : 'lucrente';
+                    const getNextId = (currentId: string) => {
+                        switch (currentId) {
+                            case 'scorecric': return 'lucrente';
+                            case 'lucrente': return 'cyhex';
+                            case 'cyhex': return 'originally-raw';
+                            case 'originally-raw': return 'scorecric';
+                            default: return 'lucrente';
+                        }
+                    };
+                    const nextId = getNextId(project.id);
                     navigate(`/case-study/${nextId}`);
                     window.scrollTo(0, 0);
                 }}
             >
-                <div className="h-[79px] shrink-0 w-full" />
-                <div className="content-stretch flex flex-[1_0_0] items-center justify-between min-h-px min-w-px relative w-full">
-                    <div className="content-stretch flex flex-col h-[396.2px] items-center justify-between relative shrink-0 w-[968px] mx-auto">
-                        <div className="content-stretch flex flex-col h-[396.2px] items-center justify-between relative shrink-0 w-full">
-                            <p className="font-['Helvetica_Neue',_'Helvetica',_sans-serif] font-bold h-[91px] leading-none not-italic relative shrink-0 text-[128px] text-center text-white tracking-[-5.12px] uppercase w-full whitespace-pre-wrap">
-                                {project.nextProjectTitle}
-                            </p>
-                            <div className="content-stretch flex flex-col h-[33.2px] items-center relative shrink-0 w-full">
-                                <div className="content-stretch flex font-normal items-center justify-center leading-[0] max-w-[400px] relative shrink-0 text-center w-full whitespace-nowrap">
-                                    <div className="content-stretch flex flex-[1_0_0] flex-col gap-[6.6px] items-center min-h-px min-w-px pb-[0.6px] relative flex-1">
-                                        <div className="flex flex-col font-['Geist_Mono',sans-serif] justify-center relative shrink-0 text-[10px] text-[rgba(255,255,255,0.5)] tracking-[1.12px] uppercase">
-                                            <p className="leading-[11.2px]">Year</p>
-                                        </div>
-                                        <div className="flex flex-col font-['Geist',sans-serif] justify-center relative shrink-0 text-[14px] text-white tracking-[-0.14px]">
-                                            <p className="leading-[13.6px]">{project.nextProjectYear}</p>
-                                        </div>
-                                    </div>
-                                    <div className="content-stretch flex flex-[1_0_0] flex-col gap-[6.6px] items-center min-h-px min-w-px pb-[0.6px] relative flex-1">
-                                        <div className="flex flex-col font-['Geist_Mono',sans-serif] justify-center relative shrink-0 text-[10px] text-[rgba(255,255,255,0.5)] tracking-[1.12px] uppercase">
-                                            <p className="leading-[11.2px]">industry</p>
-                                        </div>
-                                        <div className="flex flex-col font-['Geist',sans-serif] justify-center relative shrink-0 text-[14px] text-white">
-                                            <p className="leading-[13.6px]">{project.nextProjectIndustry}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="flex flex-col font-['Geist',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[20px] text-center text-white tracking-[-0.2px] w-[358px]">
-                                <p className="leading-[1.4] whitespace-pre-wrap">{project.nextProjectDescription}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="content-stretch flex flex-col gap-[8px] items-center pb-[40px] relative shrink-0 w-full opacity-70">
-                    <div className="overflow-clip relative shrink-0 w-6 h-6 flex justify-center items-center">
-                        <img src={imgMouseWireless} className="w-full h-full object-contain" alt="Keep Scrolling" />
-                    </div>
-                    <div className="flex flex-col font-['Arial',sans-serif] justify-center leading-[0] not-italic opacity-50 relative shrink-0 text-[12px] text-center text-white whitespace-nowrap">
-                        <p className="leading-[20px]">(Keep Scrolling to view next case study)</p>
-                    </div>
-                </div>
-            </section>
+                <CaseStudyHero
+                    sectionRef={section3Ref}
+                    projectTitle={project.nextProjectTitle}
+                    projectYear={project.nextProjectYear}
+                    projectIndustry={project.nextProjectIndustry}
+                    heroDescription={project.nextProjectDescription}
+                    bgColor={project.nextProjectBgColor}
+                    scrollText="(Keep Scrolling to view next case study)"
+                />
+            </div>
         </motion.div>
     );
 }

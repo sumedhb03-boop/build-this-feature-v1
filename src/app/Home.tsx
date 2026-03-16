@@ -589,13 +589,14 @@ function Frame30({ onEntranceDone, isEntranceReady, skipAnimations = false }: Fr
   );
 }
 
-export default function App() {
-  const [isLoading, setIsLoading] = useState(() => {
-    // Only show loader if it hasn't been shown in this session
-    return sessionStorage.getItem("hasLoaded") !== "true";
-  });
+// Track loading state in memory so it resets on refresh but persists across router navigation
+let _hasAlreadyLoaded = false;
 
-  const skipAnimations = sessionStorage.getItem("hasLoaded") === "true";
+export default function App() {
+  const [initiallyLoaded] = useState(_hasAlreadyLoaded);
+  const [isLoading, setIsLoading] = useState(!initiallyLoaded);
+
+  const skipAnimations = initiallyLoaded;
 
   return (
     <div className="bg-black relative overflow-hidden" style={{ width: '100vw', height: '100vh' }} data-name="51">
@@ -605,7 +606,7 @@ export default function App() {
             key="loader" 
             onComplete={() => {
               setIsLoading(false);
-              sessionStorage.setItem("hasLoaded", "true");
+              _hasAlreadyLoaded = true;
             }} 
           />
         ) : (

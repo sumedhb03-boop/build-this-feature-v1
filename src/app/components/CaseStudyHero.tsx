@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { motion, useTransform, MotionValue } from 'framer-motion';
+import { motion, useTransform, MotionValue } from 'motion/react';
 import imgMouseWireless from "../../assets/0248826545f879f670bc16bf4f920e0d8f90d596.svg";
 
 interface CaseStudyHeroProps {
@@ -8,7 +8,7 @@ interface CaseStudyHeroProps {
     projectYear: string;
     projectIndustry: string;
     heroDescription: string;
-    bgColor: string;
+    bgColor: string | MotionValue<string> | any;
     scrollText?: string;
     scrollProgress?: MotionValue<number>;
     onFillComplete?: () => void;
@@ -55,7 +55,11 @@ export default function CaseStudyHero({
     }, [scrollProgress, onFillComplete]);
 
     return (
-        <section ref={sectionRef} className="relative w-full min-h-[100vh] flex flex-col items-center justify-between text-white overflow-hidden pb-[40px]" style={{ backgroundColor: bgColor }}>
+        <motion.section 
+            ref={sectionRef} 
+            className="relative w-full min-h-[100vh] flex flex-col items-center justify-between text-white overflow-hidden pb-[40px]" 
+            style={{ backgroundColor: bgColor }}
+        >
             {/* Empty spacer for fixed header overlay */}
             <div className="w-full h-[100px] shrink-0" />
 
@@ -125,6 +129,6 @@ export default function CaseStudyHero({
                 </div>
                 <span className="text-[12px] font-['Arial',sans-serif]">{scrollText}</span>
             </div>
-        </section>
+        </motion.section>
     );
 }

@@ -42,6 +42,9 @@ export interface CaseStudyData {
     nextProjectYear: string;
     nextProjectIndustry: string;
     nextProjectDescription: string;
+    sidebarIconColor: string;
+    sidebarBgColor: string;
+    sidebarHoverColor: string;
     visuals: Visual[];
 }
 
@@ -55,11 +58,14 @@ export const CASE_STUDIES: Record<string, CaseStudyData> = {
         contentBgColor: "#fbf9ef",
         textColor: "#171412",
         headingColor: "#171412",
-        nextProjectBgColor: "#05161A",
+        nextProjectBgColor: "#0D3330",
         nextProjectTitle: "CYHEX",
         nextProjectYear: "2024",
         nextProjectIndustry: "Web3",
         nextProjectDescription: "A next-generation Web3 platform with seamless UX.",
+        sidebarIconColor: "#9a054e",
+        sidebarBgColor: "#f1e1df",
+        sidebarHoverColor: "#EEDAD7",
         heroDescription: "Redefining how rent payments work\n--> simple, rewarding, and seamless.",
         mainDescription: "I partnered with Lucrente from the earliest stages, helping define the product, user experience, and initial brand direction.\n\nLucrente enables users to earn rewards on rent payments, navigating a highly regulated space where clarity is essential. Every design decision prioritised trust, simplicity, and ease of use, ensuring the product felt credible from the first interaction.",
         visuals: [
@@ -98,6 +104,9 @@ export const CASE_STUDIES: Record<string, CaseStudyData> = {
         nextProjectYear: "2023",
         nextProjectIndustry: "Fintech",
         nextProjectDescription: "Redefining how rent payments work --> simple, rewarding, and seamless.",
+        sidebarIconColor: "#bf0b33",
+        sidebarBgColor: "#f7e1e5",
+        sidebarHoverColor: "#f2d1d7",
         heroDescription: "A real-time cricket app for live scores, stats, and match insights.",
         mainDescription: "ScoreCric provides a premium experience for cricket fans, offering real-time updates and deep analytics in a sleek, high-perfomance interface. Every feature was designed to bring the excitement of the stadium to the palm of your hand.\n\nFrom live scoreboards to detailed player statistics, the app focuses on speed and clarity. I lead the design process, ensuring a cohesive visual language that feels both energetic and professional, catering to both casual fans and die-hard enthusiasts.",
         visuals: [
@@ -117,15 +126,18 @@ export const CASE_STUDIES: Record<string, CaseStudyData> = {
         title: "CYHEX",
         year: "2024",
         industry: "Web3",
-        heroBgColor: "#05161A",
-        contentBgColor: "#05161A",
+        heroBgColor: "#0D3330",
+        contentBgColor: "#0D3330",
         textColor: "#fbf9ef",
         headingColor: "#fbf9ef",
-        nextProjectBgColor: "#1a1a1a",
+        nextProjectBgColor: "#234031",
         nextProjectTitle: "ORIGINALLY RAW",
         nextProjectYear: "2023",
         nextProjectIndustry: "E-commerce",
         nextProjectDescription: "A modern, bold e-commerce platform.",
+        sidebarIconColor: "#0D3330",
+        sidebarBgColor: "#d0e6e4",
+        sidebarHoverColor: "#c0dbd9",
         heroDescription: "A next-generation Web3 platform.",
         mainDescription: "Cyhex represents the future of decentralized finance. I contributed robust design patterns that simplify complex blockchain interactions into a seamless user experience.",
         visuals: [
@@ -137,8 +149,8 @@ export const CASE_STUDIES: Record<string, CaseStudyData> = {
         title: "ORIGINALLY RAW",
         year: "2023",
         industry: "E-commerce",
-        heroBgColor: "#1a1a1a",
-        contentBgColor: "#1a1a1a",
+        heroBgColor: "#234031",
+        contentBgColor: "#234031",
         textColor: "#fbf9ef",
         headingColor: "#fbf9ef",
         nextProjectBgColor: "#bf0b33",
@@ -146,6 +158,9 @@ export const CASE_STUDIES: Record<string, CaseStudyData> = {
         nextProjectYear: "2024",
         nextProjectIndustry: "Sports",
         nextProjectDescription: "A real-time cricket app for live scores, stats, and match insights.",
+        sidebarIconColor: "#234031",
+        sidebarBgColor: "#d6e3dc",
+        sidebarHoverColor: "#c6d3cc",
         heroDescription: "A modern, bold e-commerce platform.",
         mainDescription: "Originally Raw is a disruptive lifestyle brand. We designed an immersive e-commerce experience that feels both raw and refined, driving higher conversion rates.",
         visuals: [

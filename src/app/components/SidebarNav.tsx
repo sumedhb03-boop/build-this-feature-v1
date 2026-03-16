@@ -1,79 +1,54 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useTransform, MotionValue } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
 interface SidebarNavProps {
     id: string | undefined;
-    imgGlobe: string;
-    imgLeftArrow: string;
+    iconColor: string;
+    bgColor: string;
+    hoverColor: string;
+    nextIconColor: string;
+    nextBgColor: string;
+    nextHoverColor: string;
+    scrollProgress: MotionValue<number>; // Footer overscroll progress
+    mainScrollY: MotionValue<number>;     // Global window scroll
+    exitColorProgress: MotionValue<number>; // Smooth transition before footer
 }
 
-export default function SidebarNav({ id, imgGlobe, imgLeftArrow }: SidebarNavProps) {
+export default function SidebarNav({
+    id,
+    iconColor,
+    bgColor,
+    hoverColor,
+    nextIconColor,
+    nextBgColor,
+    nextHoverColor,
+    scrollProgress,
+    mainScrollY,
+    exitColorProgress
+}: SidebarNavProps) {
     const navigate = useNavigate();
     const [hoveredButton, setHoveredButton] = useState<string | null>(null);
 
-    const homeVariants: any = {
-        initial: { opacity: 0, y: 10 },
-        animate: (i: number) => ({
-            opacity: 1,
-            y: 0,
-            transition: {
-                delay: i * 0.1,
-                duration: 0.6,
-                ease: [0.22, 1, 0.36, 1]
-            }
-        }),
-        hover: {
-            scale: 1.15,
-            backgroundColor: "#EEDAD7",
-            y: 2,
-            transition: {
-                type: "spring",
-                stiffness: 400,
-                damping: 25
-            }
-        }
-    };
+    // Color Tokens for "Black Background" sections
+    const DARK_ICON = "#ffffff";
+    const DARK_BG = "#414141";
+    const DARK_HOVER = "#505050";
 
-    const nextVariants: any = {
-        initial: { opacity: 0, y: 10 },
-        animate: (i: number) => ({
-            opacity: 1,
-            y: 0,
-            transition: {
-                delay: i * 0.1,
-                duration: 0.6,
-                ease: [0.22, 1, 0.36, 1]
-            }
-        }),
-        hover: {
-            scale: 1.15,
-            backgroundColor: "#EEDAD7",
-            y: -2,
-            transition: {
-                type: "spring",
-                stiffness: 400,
-                damping: 25
-            }
-        }
-    };
+    // Phase 1: Transition from Hero theme to Dark Mode (White/Transparent) over first 50vh
+    const entryIconColor = useTransform(mainScrollY, [0, window.innerHeight * 0.5], [iconColor, DARK_ICON]);
+    const entryBgColor = useTransform(mainScrollY, [0, window.innerHeight * 0.5], [bgColor, DARK_BG]);
+    const entryHoverColor = useTransform(mainScrollY, [0, window.innerHeight * 0.5], [hoverColor, DARK_HOVER]);
 
-    const tooltipVariants: any = {
-        initial: { opacity: 0, x: -10 },
-        animate: {
-            opacity: 1,
-            x: 0,
-            transition: {
-                duration: 0.2,
-                ease: "easeOut"
-            }
-        },
-        exit: {
-            opacity: 0,
-            x: -5,
-            transition: { duration: 0.15 }
-        }
-    };
+    // Phase 2: Transition from Dark Mode to NEXT Project theme over 50vh BEFORE footer overscroll starts
+    const exitIconColor = useTransform(exitColorProgress, [0, 1], [DARK_ICON, nextIconColor]);
+    const exitBgColor = useTransform(exitColorProgress, [0, 1], [DARK_BG, nextBgColor]);
+    const exitHoverColor = useTransform(exitColorProgress, [0, 1], [DARK_HOVER, nextHoverColor]);
+
+    // Master Dynamic Values: Use Exit values if we're in the transition window (exitColorProgress > 0)
+    const dynamicIconColor = useTransform([exitColorProgress, entryIconColor, exitIconColor], ([p, entry, exit]) => (p as number) > 0 ? exit : entry);
+    const dynamicBgColor = useTransform([exitColorProgress, entryBgColor, exitBgColor], ([p, entry, exit]) => (p as number) > 0 ? exit : entry);
+    const dynamicHoverColor = useTransform([exitColorProgress, entryHoverColor, exitHoverColor], ([p, entry, exit]) => (p as number) > 0 ? exit : entry);
 
     const springConfig = { type: "spring", stiffness: 400, damping: 25 };
 
@@ -88,16 +63,28 @@ export default function SidebarNav({ id, imgGlobe, imgLeftArrow }: SidebarNavPro
                         opacity: 1,
                         y: hoveredButton === 'next' ? -6 : 0,
                         scale: hoveredButton === 'home' ? 1.15 : 1,
-                        backgroundColor: hoveredButton === 'home' ? "#EEDAD7" : "#f1e1df",
                     }}
                     whileHover={{ y: 2 }} // Small nudge on top of the push
                     transition={springConfig as any}
                     onHoverStart={() => setHoveredButton('home')}
                     onHoverEnd={() => setHoveredButton(null)}
                     onClick={() => navigate('/')}
-                    className="w-[52px] h-[52px] rounded-full flex items-center justify-center cursor-pointer text-[#9a054e] transition-shadow duration-300"
+                    className="w-[52px] h-[52px] rounded-full flex items-center justify-center cursor-pointer transition-shadow duration-300"
+                    style={{ 
+                        color: dynamicIconColor as any,
+                        backgroundColor: (hoveredButton === 'home' ? dynamicHoverColor : dynamicBgColor) as any
+                    }}
                 >
-                    <img src={imgGlobe} alt="Home" className="w-[24px] h-[24px]" />
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clipPath="url(#clip0_2181_183)">
+                            <path d="M23 12C23 5.925 18.075 1 12 1M23 12C23 18.075 18.075 23 12 23M23 12C23 14.21 18.575 10.5 12.5 10.5C6.425 10.5 1 14.21 1 12M12 1C5.925 1 1 5.925 1 12M12 1C14.761 1 17 5.925 17 12C17 18.075 14.761 23 12 23M12 1C9.239 1 7 5.925 7 12C7 18.075 9.239 23 12 23M12 23C5.925 23 1 18.075 1 12" stroke="currentColor" strokeWidth="1.5" />
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_2181_183">
+                                <rect width="24" height="24" fill="white" />
+                            </clipPath>
+                        </defs>
+                    </svg>
                 </motion.div>
 
                 <AnimatePresence>
@@ -106,14 +93,29 @@ export default function SidebarNav({ id, imgGlobe, imgLeftArrow }: SidebarNavPro
                             initial="initial"
                             animate="animate"
                             exit="exit"
-                            variants={tooltipVariants}
+                            variants={{
+                                initial: { opacity: 0, x: -10 },
+                                animate: {
+                                    opacity: 1,
+                                    x: 0,
+                                    transition: {
+                                        duration: 0.2,
+                                        ease: "easeOut"
+                                    }
+                                },
+                                exit: {
+                                    opacity: 0,
+                                    x: -5,
+                                    transition: { duration: 0.15 }
+                                }
+                            }}
                             className="inline-flex pt-[8px] pb-[4px] px-[10px] justify-center gap-[10px] rounded-md pointer-events-none"
-                            style={{ backgroundColor: 'hsla(8, 40%, 89%, 1)' }}
+                            style={{ backgroundColor: dynamicHoverColor as any }}
                         >
-                            <span
+                            <motion.span
                                 className="whitespace-nowrap"
                                 style={{
-                                    color: '#9A054E',
+                                    color: dynamicIconColor as any,
                                     fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
                                     fontSize: '16px',
                                     fontStyle: 'normal',
@@ -123,7 +125,7 @@ export default function SidebarNav({ id, imgGlobe, imgLeftArrow }: SidebarNavPro
                                 }}
                             >
                                 HOME
-                            </span>
+                            </motion.span>
                         </motion.div>
                     )}
                 </AnimatePresence>
@@ -138,7 +140,6 @@ export default function SidebarNav({ id, imgGlobe, imgLeftArrow }: SidebarNavPro
                         opacity: 1,
                         y: hoveredButton === 'home' ? 6 : 0,
                         scale: hoveredButton === 'next' ? 1.15 : 1,
-                        backgroundColor: hoveredButton === 'next' ? "#EEDAD7" : "#f1e1df",
                     }}
                     whileHover={{ y: -2 }} // Small nudge on top of the push
                     transition={springConfig as any}
@@ -148,9 +149,15 @@ export default function SidebarNav({ id, imgGlobe, imgLeftArrow }: SidebarNavPro
                         navigate("/");
                         window.scrollTo(0, 0);
                     }}
-                    className="w-[52px] h-[52px] rounded-full flex items-center justify-center cursor-pointer text-[#9a054e] transition-shadow duration-300"
+                    className="w-[52px] h-[52px] rounded-full flex items-center justify-center cursor-pointer transition-shadow duration-300"
+                    style={{ 
+                        color: dynamicIconColor as any,
+                        backgroundColor: (hoveredButton === 'next' ? dynamicHoverColor : dynamicBgColor) as any
+                    }}
                 >
-                    <img src={imgLeftArrow} alt="Next Project" className="w-[24px] h-[24px]" />
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16 5C16 5.742 16.733 6.85 17.475 7.78C18.429 8.98 19.569 10.027 20.876 10.826C21.856 11.425 23.044 12 24 12M24 12C23.044 12 21.855 12.575 20.876 13.174C19.569 13.974 18.429 15.021 17.475 16.219C16.733 17.15 16 18.26 16 19M24 12H0" stroke="currentColor" strokeWidth="2" />
+                    </svg>
                 </motion.div>
 
                 <AnimatePresence>
@@ -159,14 +166,29 @@ export default function SidebarNav({ id, imgGlobe, imgLeftArrow }: SidebarNavPro
                             initial="initial"
                             animate="animate"
                             exit="exit"
-                            variants={tooltipVariants}
+                            variants={{
+                                initial: { opacity: 0, x: -10 },
+                                animate: {
+                                    opacity: 1,
+                                    x: 0,
+                                    transition: {
+                                        duration: 0.2,
+                                        ease: "easeOut"
+                                    }
+                                },
+                                exit: {
+                                    opacity: 0,
+                                    x: -5,
+                                    transition: { duration: 0.15 }
+                                }
+                            }}
                             className="inline-flex pt-[8px] pb-[4px] px-[10px] justify-center gap-[10px] rounded-md pointer-events-none"
-                            style={{ backgroundColor: 'hsla(8, 40%, 89%, 1)' }}
+                            style={{ backgroundColor: dynamicHoverColor as any }}
                         >
-                            <span
+                            <motion.span
                                 className="whitespace-nowrap"
                                 style={{
-                                    color: '#9A054E',
+                                    color: dynamicIconColor as any,
                                     fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
                                     fontSize: '16px',
                                     fontStyle: 'normal',
@@ -176,7 +198,7 @@ export default function SidebarNav({ id, imgGlobe, imgLeftArrow }: SidebarNavPro
                                 }}
                             >
                                 NEXT PROJECT
-                            </span>
+                            </motion.span>
                         </motion.div>
                     )}
                 </AnimatePresence>

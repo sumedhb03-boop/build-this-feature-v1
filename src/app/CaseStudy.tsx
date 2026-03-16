@@ -1,14 +1,10 @@
 import { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useScroll, useTransform, useMotionValue } from "motion/react";
 import Header from "./components/Header";
 import CaseStudyHero from "./components/CaseStudyHero";
 import SidebarNav from "./components/SidebarNav";
 import { CASE_STUDIES, CaseStudyData, Visual } from "./data/caseStudiesData";
-
-import imgMouseWireless from "../assets/0248826545f879f670bc16bf4f920e0d8f90d596.svg";
-import imgLeftArrow from "../assets/64bd323606e5dac218af5d5952719a257afc6531.svg";
-import imgGlobe from "../assets/9494c29dcac4f541872683dc0aee3d066f10498e.svg";
 
 import Lenis from 'lenis';
 
@@ -19,6 +15,17 @@ export default function CaseStudy() {
     // Get project data
     const project: CaseStudyData = CASE_STUDIES[id || "lucrente"] || CASE_STUDIES["lucrente"];
 
+    const getNextId = (currentId: string) => {
+        switch (currentId) {
+            case 'scorecric': return 'lucrente';
+            case 'lucrente': return 'cyhex';
+            case 'cyhex': return 'originally-raw';
+            case 'originally-raw': return 'scorecric';
+            default: return 'lucrente';
+        }
+    };
+    const nextProject = CASE_STUDIES[getNextId(project.id)];
+
     // Scroll Progress Logic
     const [scrollProgress, setScrollProgress] = useState(0);
     const [activeBgColor, setActiveBgColor] = useState(project.heroBgColor);
@@ -26,34 +33,34 @@ export default function CaseStudy() {
     const [activeHeaderColor, setActiveHeaderColor] = useState("#ffffff");
     const [scrollYPos, setScrollYPos] = useState(0);
 
-    const { scrollY } = useScroll();
+    const localScrollY = useMotionValue(0);
+    const footerScrollValue = useMotionValue(0);
+    const exitColorProgress = useMotionValue(0);
 
     const section1Ref = useRef<HTMLElement>(null);
     const section2Ref = useRef<HTMLElement>(null);
     const section3Ref = useRef<HTMLElement>(null);
     const footerContainerRef = useRef<HTMLDivElement>(null);
 
-    // Scroll progress just for the footer section wrapper
-    const { scrollYProgress: footerScrollProgress } = useScroll({
-        target: footerContainerRef,
-        offset: ["start start", "end end"]
-    });
+    // 1. Entry Transition: From Hero color to dark (#121212) over 50vh
+    const entryBg = useTransform(localScrollY, [0, window.innerHeight * 0.5], [project.heroBgColor, "#121212"]);
+    const entryText = useTransform(localScrollY, [0, window.innerHeight * 0.5], [project.textColor, "#fbf9ef"]);
 
-    // Smooth background transition from hero color to dark (#121212) over 50vh
-    const dynamicBg = useTransform(
-        scrollY,
-        [0, window.innerHeight * 0.5],
-        [project.heroBgColor, "#121212"]
-    );
+    // 2. Exit Transition: From dark to Next Project color over 50vh BEFORE footer overscroll starts
+    const exitBg = useTransform(exitColorProgress, [0, 1], ["#121212", nextProject.heroBgColor]);
+    const exitText = useTransform(exitColorProgress, [0, 1], ["#fbf9ef", nextProject.textColor]);
 
-    // Also transition the content section text color
-    const dynamicTextColor = useTransform(
-        scrollY,
-        [0, window.innerHeight * 0.5],
-        [project.textColor, "#fbf9ef"]
-    );
+    // 3. Composite Dynamic Values: Prioritize exit values as we near bottom
+    const dynamicBg = useTransform([exitColorProgress, entryBg, exitBg], ([p, entry, exit]) => (p as number) > 0 ? exit : (entry as string));
+    const dynamicTextColor = useTransform([exitColorProgress, entryText, exitText], ([p, entry, exit]) => (p as number) > 0 ? exit : (entry as string));
+
+    // Initial scroll reset
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [id]);
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         const lenis = new Lenis();
 
         function raf(time: number) {
@@ -66,13 +73,30 @@ export default function CaseStudy() {
         const handleScroll = () => {
             const scrollY = lenis.scroll;
             const maxScroll = lenis.limit;
-            const progress = maxScroll > 0 ? scrollY / maxScroll : 0;
+
+            // Calculate main content height by subtracting the overscroll area (300vh of the 400vh is overscroll)
+            // The footer starts at H - 400vh because it is h-[400vh].
+            // We want progress to reach 1 when scrollY hits that point.
+            const overscrollAmount = window.innerHeight * 3; // 400vh total, 100vh for footer + 300vh overscroll
+            const effectiveMaxScroll = maxScroll - overscrollAmount;
+            const progress = effectiveMaxScroll > 0 ? Math.min(1, scrollY / effectiveMaxScroll) : 0;
+
             setScrollProgress(progress);
+            localScrollY.set(scrollY);
+
+            // Calculate background transition progress (last 50vh of main content)
+            const exitStart = effectiveMaxScroll - (window.innerHeight * 0.5);
+            const exitP = Math.min(1, Math.max(0, (scrollY - exitStart) / (window.innerHeight * 0.5)));
+            exitColorProgress.set(exitP);
+
+            // Calculate footer scroll progress (starts after effectiveMaxScroll)
+            const footerProgress = Math.max(0, (scrollY - effectiveMaxScroll) / overscrollAmount);
+            footerScrollValue.set(footerProgress);
 
             const viewportCenter = window.innerHeight / 2;
             const trackHeight = 270;
             const trackTop = viewportCenter - (trackHeight / 2);
-            const indicatorY = trackTop + (progress * trackHeight * 0.9);
+            const indicatorY = trackTop + (progress * trackHeight);
 
             const getSection = (yPos: number) => {
                 const sections = [
@@ -121,10 +145,10 @@ export default function CaseStudy() {
     const renderVisual = (visual: Visual, index: number) => {
         if (visual.type === 'single') {
             return (
-                <div 
+                <div
                     key={index}
                     className="w-full h-auto relative overflow-hidden"
-                    style={{ 
+                    style={{
                         backgroundColor: visual.bgColor || project.contentBgColor,
                         height: visual.height || 'auto',
                         aspectRatio: visual.aspectRatio || 'auto'
@@ -136,18 +160,18 @@ export default function CaseStudy() {
         } else {
             return (
                 <div key={index} className="w-full flex gap-2">
-                    <div 
+                    <div
                         className="flex-1 relative overflow-hidden"
-                        style={{ 
+                        style={{
                             backgroundColor: visual.leftBgColor || project.contentBgColor,
                             height: visual.height || '620px'
                         }}
                     >
                         <img src={visual.leftSrc} alt={visual.leftAlt} className="w-full h-full object-cover" />
                     </div>
-                    <div 
+                    <div
                         className="flex-1 relative overflow-hidden"
-                        style={{ 
+                        style={{
                             backgroundColor: visual.rightBgColor || project.contentBgColor,
                             height: visual.height || '620px'
                         }}
@@ -160,7 +184,8 @@ export default function CaseStudy() {
     };
 
     return (
-        <motion.div 
+        <motion.div
+            key={id || 'default'}
             className="relative w-full font-['Geist',sans-serif] min-h-screen"
             style={{ backgroundColor: dynamicBg }}
         >
@@ -170,7 +195,32 @@ export default function CaseStudy() {
             <Header color={activeHeaderColor} scrollY={scrollYPos} showScrollAnimation={true} />
 
             {/* 2. Left Nav (Home + Next Project) - Refactored Component */}
-            <SidebarNav id={id} imgGlobe={imgGlobe} imgLeftArrow={imgLeftArrow} />
+            {(() => {
+                const getNextId = (currentId: string) => {
+                    switch (currentId) {
+                        case 'scorecric': return 'lucrente';
+                        case 'lucrente': return 'cyhex';
+                        case 'cyhex': return 'originally-raw';
+                        case 'originally-raw': return 'scorecric';
+                        default: return 'lucrente';
+                    }
+                };
+                const nextProject = CASE_STUDIES[getNextId(project.id)];
+                return (
+                    <SidebarNav 
+                        id={id} 
+                        iconColor={project.sidebarIconColor}
+                        bgColor={project.sidebarBgColor}
+                        hoverColor={project.sidebarHoverColor}
+                        nextIconColor={nextProject.sidebarIconColor}
+                        nextBgColor={nextProject.sidebarBgColor}
+                        nextHoverColor={nextProject.sidebarHoverColor}
+                        exitColorProgress={exitColorProgress}
+                        scrollProgress={footerScrollValue}
+                        mainScrollY={localScrollY}
+                    />
+                );
+            })()}
 
             {/* 3. Scroll Bar Progress - Fixed at right-center */}
             <div className="fixed right-[32px] top-1/2 -translate-y-1/2 h-[270px] w-[52px] flex flex-col items-center justify-center z-50">
@@ -180,13 +230,13 @@ export default function CaseStudy() {
                 >
                     <motion.div
                         className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center"
-                        style={{ top: `${scrollProgress * 90}%` }}
+                        style={{ top: `${scrollProgress * 100}%` }}
                     >
                         {/* Masking Background Circle (creates the gap in the line) */}
                         <motion.div
                             className="w-[29px] h-[29px] rounded-full flex items-center justify-center"
-                            style={{ 
-                                backgroundColor: (activeBgColor === project.heroBgColor || activeBgColor === project.contentBgColor) ? dynamicBg : activeBgColor 
+                            style={{
+                                backgroundColor: dynamicBg as any
                             }}
                         >
                             {/* Outer Indicator Ring */}
@@ -214,20 +264,20 @@ export default function CaseStudy() {
                 projectYear={project.year}
                 projectIndustry={project.industry}
                 heroDescription={project.heroDescription}
-                bgColor="transparent" // Allow page background to show through
+                bgColor={dynamicBg}
             />
 
             {/* 2. Main Content Section */}
-            <motion.section 
-                ref={section2Ref} 
-                className="relative w-full py-[140px] flex flex-col items-center" 
-                style={{ 
-                    backgroundColor: 'transparent',
-                    color: dynamicTextColor 
+            <motion.section
+                ref={section2Ref}
+                className="relative w-full py-[140px] flex flex-col items-center"
+                style={{
+                    backgroundColor: dynamicBg,
+                    color: dynamicTextColor
                 }}
             >
                 {/* Description Text */}
-                <motion.p 
+                <motion.p
                     className="max-w-[625px] font-light text-[20px] leading-[1.4] tracking-[-0.4px] whitespace-pre-wrap mb-[140px]"
                     style={{ color: dynamicTextColor }}
                 >
@@ -236,7 +286,7 @@ export default function CaseStudy() {
 
                 {/* Snippets Header */}
                 <div className="w-full max-w-[905px] flex justify-start items-center gap-2 mb-[36px]">
-                    <h3 
+                    <h3
                         className="text-[20px] font-light tracking-[-0.4px] m-0 leading-[1.4]"
                         style={{ color: project.headingColor }}
                     >
@@ -259,45 +309,27 @@ export default function CaseStudy() {
                 ref={footerContainerRef}
                 className="cursor-pointer relative w-full h-[400vh]"
                 onClick={() => {
-                    const getNextId = (currentId: string) => {
-                        switch (currentId) {
-                            case 'scorecric': return 'lucrente';
-                            case 'lucrente': return 'cyhex';
-                            case 'cyhex': return 'originally-raw';
-                            case 'originally-raw': return 'scorecric';
-                            default: return 'lucrente';
-                        }
-                    };
-                    const nextId = getNextId(project.id);
-                    navigate(`/case-study/${nextId}`);
+                    const nextId = nextProject.id;
                     window.scrollTo(0, 0);
+                    navigate(`/case-study/${nextId}`);
                 }}
             >
                 <div className="sticky top-0 h-[100vh] w-full overflow-hidden">
                     <CaseStudyHero
-                    sectionRef={section3Ref}
-                    projectTitle={project.nextProjectTitle}
-                    projectYear={project.nextProjectYear}
-                    projectIndustry={project.nextProjectIndustry}
-                    heroDescription={project.nextProjectDescription}
-                    bgColor={project.nextProjectBgColor}
-                    scrollText="(Keep Scrolling to view next case study)"
-                    scrollProgress={footerScrollProgress}
-                    onFillComplete={() => {
-                        const getNextId = (currentId: string) => {
-                            switch (currentId) {
-                                case 'scorecric': return 'lucrente';
-                                case 'lucrente': return 'cyhex';
-                                case 'cyhex': return 'originally-raw';
-                                case 'originally-raw': return 'scorecric';
-                                default: return 'lucrente';
-                            }
-                        };
-                        const nextId = getNextId(project.id);
-                        navigate(`/case-study/${nextId}`);
-                        window.scrollTo(0, 0);
-                    }}
-                />
+                        sectionRef={section3Ref}
+                        projectTitle={project.nextProjectTitle}
+                        projectYear={project.nextProjectYear}
+                        projectIndustry={project.nextProjectIndustry}
+                        heroDescription={project.nextProjectDescription}
+                        bgColor={dynamicBg}
+                        scrollText="(Keep Scrolling to view next case study)"
+                        scrollProgress={footerScrollValue}
+                        onFillComplete={() => {
+                            const nextId = nextProject.id;
+                            window.scrollTo(0, 0);
+                            navigate(`/case-study/${nextId}`);
+                        }}
+                    />
                 </div>
             </motion.div>
         </motion.div>

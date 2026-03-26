@@ -10,6 +10,13 @@ import imgTypography1 from "../../assets/75b341d239b30523b250b3bafb2f129e4945c29
 import img73 from "../../assets/bfe61e94ef2acd77eb43463530da3d3698e50670.png";
 import imgLucrenteVisual1 from "../../assets/Lucrente visuaal 1.webp";
 import imgShotsMockups131 from "../../assets/8b29ebd34c3524dbc7989b4884ebd904c19ff803.png";
+import imgScoreCric1 from "../../assets/PNG to WEBP 1.webp";
+import imgScoreCric2 from "../../assets/PNG to WEBP 2.webp";
+import imgScoreCric3 from "../../assets/PNG to WEBP 3.webp";
+import imgScoreCric4 from "../../assets/PNG to WEBP 4.webp";
+import imgScoreCric5 from "../../assets/PNG to WEBP 5.webp";
+import imgScoreCric6 from "../../assets/PNG to WEBP 6.webp";
+import imgScoreCric7 from "../../assets/PNG to WEBP 7.webp";
 
 export interface Visual {
     type: 'single' | 'split';
@@ -45,6 +52,9 @@ export interface CaseStudyData {
     sidebarIconColor: string;
     sidebarBgColor: string;
     sidebarHoverColor: string;
+    role?: string;
+    services?: string[];
+    leadDescription?: string;
     visuals: Visual[];
 }
 
@@ -108,17 +118,18 @@ export const CASE_STUDIES: Record<string, CaseStudyData> = {
         sidebarBgColor: "#f7e1e5",
         sidebarHoverColor: "#f2d1d7",
         heroDescription: "A real-time cricket app for live scores, stats, and match insights.",
-        mainDescription: "ScoreCric provides a premium experience for cricket fans, offering real-time updates and deep analytics in a sleek, high-perfomance interface. Every feature was designed to bring the excitement of the stadium to the palm of your hand.\n\nFrom live scoreboards to detailed player statistics, the app focuses on speed and clarity. I lead the design process, ensuring a cohesive visual language that feels both energetic and professional, catering to both casual fans and die-hard enthusiasts.",
+        role: "Lead Product Designer",
+        services: ["Product Strategy", "UX/UI Design", "Visual Identity"],
+        leadDescription: "ScoreCric provides a premium experience for cricket fans, offering real-time updates and deep analytics in a sleek, high-perfomance interface.",
+        mainDescription: "Every feature was designed to bring the excitement of the stadium to the palm of your hand. From live scoreboards to detailed player statistics, the app focuses on speed and clarity.\n\nI lead the design process, ensuring a cohesive visual language that feels both energetic and professional, catering to both casual fans and die-hard enthusiasts.",
         visuals: [
-            { type: 'single', src: imgShotsMockups21, alt: "ScoreCric Mockup 1", bgColor: "#feeef9", height: "600px" },
-            { type: 'single', src: imgShotsMockups51, alt: "ScoreCric Mockup 2", bgColor: "#231b26", aspectRatio: "900/632" },
-            { 
-                type: 'split', 
-                leftSrc: imgShotsMockups111, leftAlt: "ScoreCric Split Left", leftBgColor: "#f1efe9",
-                rightSrc: imgShotsMockups131, rightAlt: "ScoreCric Split Right", rightBgColor: "#0c0005",
-                height: "620px"
-            },
-            { type: 'single', src: imgShotsMockups161, alt: "ScoreCric Mockup 3", bgColor: "#f8e1eb", height: "724px" },
+            { type: 'single', src: imgScoreCric1, alt: "ScoreCric webp 1", bgColor: "#bf0b33" },
+            { type: 'single', src: imgScoreCric2, alt: "ScoreCric webp 2", bgColor: "#bf0b33" },
+            { type: 'single', src: imgScoreCric3, alt: "ScoreCric webp 3", bgColor: "#bf0b33" },
+            { type: 'single', src: imgScoreCric4, alt: "ScoreCric webp 4", bgColor: "#bf0b33" },
+            { type: 'single', src: imgScoreCric5, alt: "ScoreCric webp 5", bgColor: "#bf0b33" },
+            { type: 'single', src: imgScoreCric6, alt: "ScoreCric webp 6", bgColor: "#bf0b33" },
+            { type: 'single', src: imgScoreCric7, alt: "ScoreCric webp 7", bgColor: "#bf0b33" }
         ]
     },
     "cyhex": {
@@ -138,8 +149,11 @@ export const CASE_STUDIES: Record<string, CaseStudyData> = {
         sidebarIconColor: "#0D3330",
         sidebarBgColor: "#d0e6e4",
         sidebarHoverColor: "#c0dbd9",
-        heroDescription: "A next-generation Web3 platform.",
-        mainDescription: "Cyhex represents the future of decentralized finance. I contributed robust design patterns that simplify complex blockchain interactions into a seamless user experience.",
+        heroDescription: "Automating governance, risk, and compliance with streamlined insights.",
+        role: "Lead Product Designer",
+        services: ["Product Strategy", "UX/UI Design", "Design Systems"],
+        leadDescription: "Cyhex simplifies the complex landscape of cybersecurity compliance, offering a unified platform that automates evidence collection and audit readiness.",
+        mainDescription: "Working closely with the founding team, I designed a unified GRC platform that transforms tedious manual audits into a streamlined, automated experience. Much like Vanta or Scrut, Cyhex enables organizations to manage SOC 2, ISO 27001, and other frameworks with ease.\n\nThe design focuses on making complex security data digestible through intuitive dashboards, automated workflows, and a robust risk ledger, ensuring that compliance becomes a strategic advantage rather than a bureaucratic hurdle.",
         visuals: [
             { type: 'single', src: imgShotsMockups131, alt: "Cyhex Mockup", bgColor: "#0c0005", height: "675px" }
         ]

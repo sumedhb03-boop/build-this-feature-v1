@@ -147,19 +147,19 @@ export default function CaseStudy() {
             return (
                 <div
                     key={index}
-                    className="w-full h-auto relative overflow-hidden"
+                    className="w-full relative overflow-hidden"
                     style={{
                         backgroundColor: visual.bgColor || project.contentBgColor,
                         height: visual.height || 'auto',
                         aspectRatio: visual.aspectRatio || 'auto'
                     }}
                 >
-                    <img src={visual.src} alt={visual.alt} className="w-full h-full object-cover" />
+                    <img src={visual.src} alt={visual.alt} className="w-full h-auto block" />
                 </div>
             );
         } else {
             return (
-                <div key={index} className="w-full flex gap-2">
+                <div key={index} className="w-full flex gap-[20px]">
                     <div
                         className="flex-1 relative overflow-hidden"
                         style={{
@@ -276,18 +276,66 @@ export default function CaseStudy() {
                     color: dynamicTextColor
                 }}
             >
-                {/* Description Text */}
-                <motion.p
-                    className="max-w-[625px] font-light text-[20px] leading-[1.4] tracking-[-0.4px] whitespace-pre-wrap mb-[140px]"
-                    style={{ color: dynamicTextColor }}
-                >
-                    {project.mainDescription}
-                </motion.p>
+                {/* Description Grid */}
+                <div className="w-full max-w-[905px] flex flex-col md:flex-row gap-[60px] md:gap-[120px] mb-[140px]">
+                    {/* Metadata Column */}
+                    <div className="flex flex-row md:flex-col gap-[32px] md:gap-[40px] min-w-fit md:min-w-[150px]">
+                        {project.role && (
+                            <div>
+                                <span className="text-[11px] opacity-40 uppercase tracking-[0.1em] block mb-2 font-['Geist_Mono',monospace] font-medium">Role</span>
+                                <span className="text-[15px] md:text-[16px] font-light">{project.role}</span>
+                            </div>
+                        )}
+                        {project.industry && (
+                            <div>
+                                <span className="text-[11px] opacity-40 uppercase tracking-[0.1em] block mb-2 font-['Geist_Mono',monospace] font-medium">Industry</span>
+                                <span className="text-[15px] md:text-[16px] font-light">{project.industry}</span>
+                            </div>
+                        )}
+                        {project.services && (
+                            <div>
+                                <span className="text-[11px] opacity-40 uppercase tracking-[0.1em] block mb-2 font-['Geist_Mono',monospace] font-medium">Services</span>
+                                <div className="flex flex-col gap-1">
+                                    {project.services.map((service, i) => (
+                                        <span key={i} className="text-[15px] md:text-[16px] font-light">{service}</span>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                        <div>
+                            <span className="text-[11px] opacity-40 uppercase tracking-[0.1em] block mb-2 font-['Geist_Mono',monospace] font-medium">Year</span>
+                            <span className="text-[15px] md:text-[16px] font-light">{project.year}</span>
+                        </div>
+                    </div>
+
+                    {/* Text Column */}
+                    <div className="flex flex-col flex-1">
+                        <div>
+                            <span className="text-[11px] opacity-40 uppercase tracking-[0.1em] block mb-2 font-['Geist_Mono',monospace] font-medium">Description</span>
+                            <div className="flex flex-col gap-[32px]">
+                                {project.leadDescription && (
+                                    <motion.p
+                                        className="text-[16px] md:text-[17px] font-light leading-[1.3] tracking-[-0.01em] m-0"
+                                        style={{ color: '#fff' }}
+                                    >
+                                        {project.leadDescription}
+                                    </motion.p>
+                                )}
+                                <motion.p
+                                    className="text-[16px] md:text-[17px] font-light leading-[1.6] whitespace-pre-wrap m-0"
+                                    style={{ color: '#fff' }}
+                                >
+                                    {project.mainDescription}
+                                </motion.p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 {/* Snippets Header */}
-                <div className="w-full max-w-[905px] flex justify-start items-center gap-2 mb-[36px]">
+                <div className="w-full max-w-[905px] flex justify-start items-center gap-2 mb-[32px]">
                     <h3
-                        className="text-[20px] font-light tracking-[-0.4px] m-0 leading-[1.4]"
+                        className="text-[20px] font-['Geist',sans-serif] font-light tracking-[-0.4px] m-0 leading-[1.4]"
                         style={{ color: project.headingColor }}
                     >
                         Snippets from the project
@@ -299,7 +347,7 @@ export default function CaseStudy() {
                 </div>
 
                 {/* Visuals Grid */}
-                <div className="w-full max-w-[905px] flex flex-col gap-[32px] items-center">
+                <div className="w-full max-w-[905px] flex flex-col gap-[20px] items-center">
                     {project.visuals.map((visual, index) => renderVisual(visual, index))}
                 </div>
             </motion.section>

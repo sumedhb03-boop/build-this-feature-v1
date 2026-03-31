@@ -23,6 +23,20 @@ import imgOrderDetails from "../../assets/Order Details.webp";
 import imgPersonalDetails from "../../assets/Personal Details.webp";
 import imgScoreCricColor from "../../assets/PNG to WEBP Color (1).webp";
 import imgScoreCricType from "../../assets/PNG to WEBP Type.webp";
+import imgOR01 from "../../assets/OR 01.webp";
+import imgOR02 from "../../assets/OR 02.webp";
+import imgOR03 from "../../assets/OR 03.webp";
+import imgOR04 from "../../assets/OR 04.webp";
+import imgOR05 from "../../assets/OR 05.webp";
+import imgOR06 from "../../assets/OR 06.webp";
+import imgOR07 from "../../assets/OR 07.webp";
+import imgOR08 from "../../assets/OR 08.webp";
+import imgOR09 from "../../assets/OR 09.webp";
+import imgConcrete from "../../assets/Concrete.webp";
+import imgCart1 from "../../assets/Cart 1.webp";
+import imgCart2 from "../../assets/Cart 02.webp";
+import imgCart3 from "../../assets/Cart 03.webp";
+import imgCart4 from "../../assets/Cart 04.webp";
 
 export interface Visual {
     type: 'single' | 'split' | 'trio' | 'placeholder';
@@ -47,6 +61,7 @@ export interface Visual {
     rightAlt?: string;
     height?: string;
     aspectRatio?: string;
+    bgImage?: string;
 }
 
 export interface CaseStudyData {
@@ -200,13 +215,34 @@ export const CASE_STUDIES: Record<string, CaseStudyData> = {
         heroDescription: "A modern, bold e-commerce platform.",
         mainDescription: "Originally Raw is a disruptive lifestyle brand. We designed an immersive e-commerce experience that feels both raw and refined, driving higher conversion rates.",
         visuals: [
+            { type: 'single', src: imgOR07, alt: "Originally Raw 7", bgColor: "#234031" },
+            { type: 'single', src: imgOR06, alt: "Originally Raw 6", bgColor: "#234031" },
+            { type: 'single', src: imgOR05, alt: "Originally Raw 5", bgColor: "#234031" },
             { 
                 type: 'placeholder', 
                 label: 'Profile Pages', 
                 bgColor: '#EBEDE2', 
-                height: '728px',
+                bgImage: imgConcrete,
+                height: '654px',
                 images: [imgOrders, imgAddresses, imgPersonalDetails, imgOrderDetails]
-            }
+            },
+            { type: 'single', src: imgOR01, alt: "Originally Raw 1", bgColor: "#234031" },
+            { type: 'single', src: imgOR02, alt: "Originally Raw 2", bgColor: "#234031" },
+            { 
+                type: 'split', 
+                leftSrc: imgOR08, leftAlt: "Originally Raw 8", leftBgColor: "#234031",
+                rightSrc: imgOR09, rightAlt: "Originally Raw 9", rightBgColor: "#234031"
+            },
+            { type: 'single', src: imgOR04, alt: "Originally Raw 4", bgColor: "#234031" },
+            { 
+                type: 'placeholder', 
+                label: 'Shopping Cart', 
+                bgColor: '#EBEDE2', 
+                bgImage: imgConcrete,
+                height: '654px',
+                images: [imgCart1, imgCart2, imgCart3, imgCart4]
+            },
+            { type: 'single', src: imgOR03, alt: "Originally Raw 3", bgColor: "#234031" }
         ]
     }
 };

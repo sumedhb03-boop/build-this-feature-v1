@@ -186,24 +186,17 @@ export default function CaseStudy() {
             return (
                 <div
                     key={index}
-                    className="w-full relative overflow-hidden flex flex-col justify-between py-[24px]"
+                    className="w-full relative overflow-hidden flex flex-col justify-center"
                     style={{
                         backgroundColor: visual.bgColor || '#000',
-                        height: '90vh',
+                        backgroundImage: visual.bgImage ? `url(${visual.bgImage})` : 'none',
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        height: visual.height || '90vh',
                     }}
                 >
-                    {/* Top Icons/Label */}
-                    <div className="flex justify-between items-start px-[24px] mb-[24px]">
-                        <span className="text-[16px] text-[#171412] font-['Geist',sans-serif] font-light leading-[130%] tracking-[-0.01em]">
-                            {visual.label}
-                        </span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
-                            <path d="M12 5V19M5 12H19" stroke="#999" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.4"/>
-                        </svg>
-                    </div>
-
                     {/* Carousel Content */}
-                    <div className="w-full flex items-start min-h-0 mb-[24px]">
+                    <div className="w-full flex items-start min-h-0">
                         {visual.images && visual.images.length > 0 && (
                             <Carousel 
                                 className="w-full"
@@ -214,17 +207,19 @@ export default function CaseStudy() {
                                 plugins={[
                                     Autoplay({
                                       delay: 2500,
+                                      stopOnInteraction: false,
+                                      stopOnMouseEnter: false,
                                     }),
                                 ]}
                             >
                                 <CarouselContent className="-ml-[32px]">
                                     {visual.images.map((image, i) => (
-                                        <CarouselItem key={i} className="pl-[32px] basis-[81%] md:basis-[71%] lg:basis-[66.5%]">
+                                        <CarouselItem key={i} className="pl-[32px] basis-[93.15%] md:basis-[81.65%] lg:basis-[76.5%]">
                                             <div className="relative group flex justify-center">
                                                 <img 
                                                     src={image} 
                                                     alt={`${visual.label} ${i + 1}`} 
-                                                    className="w-full h-auto object-contain" 
+                                                    className="w-full h-auto object-contain"
                                                 />
                                             </div>
                                         </CarouselItem>
@@ -232,16 +227,6 @@ export default function CaseStudy() {
                                 </CarouselContent>
                             </Carousel>
                         )}
-                    </div>
-
-                    {/* Bottom Icons */}
-                    <div className="flex justify-between items-end px-[24px]">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
-                            <path d="M12 5V19M5 12H19" stroke="#999" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.4"/>
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
-                            <path d="M12 5V19M5 12H19" stroke="#999" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.4"/>
-                        </svg>
                     </div>
                 </div>
             );

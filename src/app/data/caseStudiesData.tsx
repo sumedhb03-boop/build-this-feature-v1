@@ -1,3 +1,4 @@
+import React from 'react';
 import imgLucrenteHomepage2 from "../../assets/1d77d66ff6b45fa2d2226a141a9e634ce5327a61.png";
 import imgShotsMockups171 from "../../assets/fcb9c5216992368da81368867fa77e03f1e9618e.png";
 import imgShotsMockups51 from "../../assets/4f162cf32622d4dfcb2e70aa9a67a7097d9ee1f5.png";
@@ -17,36 +18,21 @@ import imgScoreCric4 from "../../assets/PNG to WEBP 4.webp";
 import imgScoreCric5 from "../../assets/PNG to WEBP 5.webp";
 import imgScoreCric6 from "../../assets/PNG to WEBP 6.webp";
 import imgScoreCric7 from "../../assets/PNG to WEBP 7.webp";
-import imgOrders from "../../assets/PNG to WEBP Orders.webp";
-import imgAddresses from "../../assets/Addresses.webp";
-import imgOrderDetails from "../../assets/Order Details.webp";
-import imgPersonalDetails from "../../assets/Personal Details.webp";
-import imgScoreCricColor from "../../assets/PNG to WEBP Color (1).webp";
-import imgScoreCricType from "../../assets/PNG to WEBP Type.webp";
 
 export interface Visual {
-    type: 'single' | 'split' | 'trio' | 'placeholder';
+    type: 'single' | 'split' | 'component';
     src?: string;
-    images?: string[];
-    label?: string;
     alt?: string;
-    bgColor?: string;
-    leftBgColor?: string;
-    centerBgColor?: string;
-    rightBgColor?: string;
-    overlaySrc?: string;
-    leftOverlaySrc?: string;
-    centerOverlaySrc?: string;
-    rightOverlaySrc?: string;
-    overlayAnimation?: 'scroll-up';
     leftSrc?: string;
     leftAlt?: string;
-    centerSrc?: string;
-    centerAlt?: string;
     rightSrc?: string;
     rightAlt?: string;
+    bgColor?: string;
+    leftBgColor?: string;
+    rightBgColor?: string;
     height?: string;
     aspectRatio?: string;
+    component?: React.ReactNode;
 }
 
 export interface CaseStudyData {
@@ -145,13 +131,7 @@ export const CASE_STUDIES: Record<string, CaseStudyData> = {
             { type: 'single', src: imgScoreCric4, alt: "ScoreCric webp 4", bgColor: "#bf0b33" },
             { type: 'single', src: imgScoreCric5, alt: "ScoreCric webp 5", bgColor: "#bf0b33" },
             { type: 'single', src: imgScoreCric6, alt: "ScoreCric webp 6", bgColor: "#bf0b33" },
-            { type: 'single', src: imgScoreCric7, alt: "ScoreCric webp 7", bgColor: "#bf0b33" },
-            { 
-                type: 'split', 
-                leftSrc: imgScoreCricColor, leftAlt: "ScoreCric Color", leftBgColor: "#bf0b33",
-                rightSrc: imgScoreCricType, rightAlt: "ScoreCric Typography", rightBgColor: "#bf0b33",
-                height: "90vh"
-            }
+            { type: 'single', src: imgScoreCric7, alt: "ScoreCric webp 7", bgColor: "#bf0b33" }
         ]
     },
     "cyhex": {
@@ -199,14 +179,6 @@ export const CASE_STUDIES: Record<string, CaseStudyData> = {
         sidebarHoverColor: "#c6d3cc",
         heroDescription: "A modern, bold e-commerce platform.",
         mainDescription: "Originally Raw is a disruptive lifestyle brand. We designed an immersive e-commerce experience that feels both raw and refined, driving higher conversion rates.",
-        visuals: [
-            { 
-                type: 'placeholder', 
-                label: 'Profile Pages', 
-                bgColor: '#EBEDE2', 
-                height: '728px',
-                images: [imgOrders, imgAddresses, imgPersonalDetails, imgOrderDetails]
-            }
-        ]
+        visuals: []
     }
 };

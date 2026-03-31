@@ -4,6 +4,12 @@ import { motion, useScroll, useTransform, useMotionValue } from "motion/react";
 import Header from "./components/Header";
 import CaseStudyHero from "./components/CaseStudyHero";
 import SidebarNav from "./components/SidebarNav";
+import Autoplay from "embla-carousel-autoplay";
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+} from "./components/ui/carousel";
 import { CASE_STUDIES, CaseStudyData, Visual } from "./data/caseStudiesData";
 
 import Lenis from 'lenis';
@@ -154,29 +160,186 @@ export default function CaseStudy() {
                         aspectRatio: visual.aspectRatio || 'auto'
                     }}
                 >
-                    <img src={visual.src} alt={visual.alt} className="w-full h-auto block" />
+                    <img src={visual.src} alt={visual.alt} className="w-full h-full object-cover" />
+                    {visual.overlaySrc && (
+                        <div className="absolute inset-0 overflow-hidden flex items-center justify-center p-[40px] pointer-events-none">
+                            {visual.overlayAnimation === 'scroll-up' ? (
+                                <motion.img 
+                                    src={visual.overlaySrc} 
+                                    alt="Overlay" 
+                                    className="max-w-full object-contain"
+                                    animate={{ y: ["120%", "-120%"] }}
+                                    transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+                                />
+                            ) : (
+                                <img 
+                                    src={visual.overlaySrc} 
+                                    alt="Overlay" 
+                                    className="max-w-full max-h-full object-contain" 
+                                />
+                            )}
+                        </div>
+                    )}
+                </div>
+            );
+        } else if (visual.type === 'placeholder') {
+            return (
+                <div
+                    key={index}
+                    className="w-full relative overflow-hidden flex flex-col justify-between py-[24px]"
+                    style={{
+                        backgroundColor: visual.bgColor || '#000',
+                        height: '90vh',
+                    }}
+                >
+                    {/* Top Icons/Label */}
+                    <div className="flex justify-between items-start px-[24px] mb-[24px]">
+                        <span className="text-[16px] text-[#171412] font-['Geist',sans-serif] font-light leading-[130%] tracking-[-0.01em]">
+                            {visual.label}
+                        </span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 5V19M5 12H19" stroke="#999" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.4"/>
+                        </svg>
+                    </div>
+
+                    {/* Carousel Content */}
+                    <div className="w-full flex items-start min-h-0 mb-[24px]">
+                        {visual.images && visual.images.length > 0 && (
+                            <Carousel 
+                                className="w-full"
+                                opts={{
+                                    loop: true,
+                                    align: "center"
+                                }}
+                                plugins={[
+                                    Autoplay({
+                                      delay: 2500,
+                                    }),
+                                ]}
+                            >
+                                <CarouselContent className="-ml-[32px]">
+                                    {visual.images.map((image, i) => (
+                                        <CarouselItem key={i} className="pl-[32px] basis-[81%] md:basis-[71%] lg:basis-[66.5%]">
+                                            <div className="relative group flex justify-center">
+                                                <img 
+                                                    src={image} 
+                                                    alt={`${visual.label} ${i + 1}`} 
+                                                    className="w-full h-auto object-contain" 
+                                                />
+                                            </div>
+                                        </CarouselItem>
+                                    ))}
+                                </CarouselContent>
+                            </Carousel>
+                        )}
+                    </div>
+
+                    {/* Bottom Icons */}
+                    <div className="flex justify-between items-end px-[24px]">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 5V19M5 12H19" stroke="#999" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.4"/>
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 5V19M5 12H19" stroke="#999" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.4"/>
+                        </svg>
+                    </div>
+                </div>
+            );
+        } else if (visual.type === 'trio') {
+            return (
+                <div key={index} className="w-full flex gap-[20px]" style={{ height: visual.height || '940px' }}>
+                    <div className="flex-1 relative overflow-hidden" style={{ backgroundColor: visual.leftBgColor || '#fbf9ef' }}>
+                        {visual.leftSrc && <img src={visual.leftSrc} alt={visual.leftAlt} className="w-full h-full object-contain" />}
+                        {visual.leftOverlaySrc && (
+                            <div className="absolute inset-0 flex items-center justify-center p-[40px]">
+                                <img src={visual.leftOverlaySrc} alt="Overlay" className="max-w-full max-h-full object-contain" />
+                            </div>
+                        )}
+                    </div>
+                    <div className="flex-1 relative overflow-hidden" style={{ backgroundColor: visual.centerBgColor || '#fbf9ef' }}>
+                        {visual.centerSrc && <img src={visual.centerSrc} alt={visual.centerAlt} className="w-full h-full object-contain" />}
+                        {visual.centerOverlaySrc && (
+                            <div className="absolute inset-0 flex items-center justify-center p-[40px]">
+                                <img src={visual.centerOverlaySrc} alt="Overlay" className="max-w-full max-h-full object-contain" />
+                            </div>
+                        )}
+                    </div>
+                    <div className="flex-1 relative overflow-hidden" style={{ backgroundColor: visual.rightBgColor || '#fbf9ef' }}>
+                        {visual.rightSrc && <img src={visual.rightSrc} alt={visual.rightAlt} className="w-full h-full object-contain" />}
+                        {visual.rightOverlaySrc && (
+                            <div className="absolute inset-0 flex items-center justify-center p-[40px]">
+                                <img src={visual.rightOverlaySrc} alt="Overlay" className="max-w-full max-h-full object-contain" />
+                            </div>
+                        )}
+                    </div>
                 </div>
             );
         } else {
             return (
                 <div key={index} className="w-full flex gap-[20px]">
-                    <div
-                        className="flex-1 relative overflow-hidden"
-                        style={{
-                            backgroundColor: visual.leftBgColor || project.contentBgColor,
-                            height: visual.height || '620px'
-                        }}
-                    >
-                        <img src={visual.leftSrc} alt={visual.leftAlt} className="w-full h-full object-cover" />
+                    <div className="flex-1 relative overflow-hidden" style={{ backgroundColor: visual.leftBgColor || '#fbf9ef' }}>
+                        {visual.leftSrc && (
+                            <img 
+                                src={visual.leftSrc} 
+                                alt={visual.leftAlt} 
+                                className="w-full h-full object-contain" 
+                            />
+                        )}
+                        {visual.leftOverlaySrc && (
+                            <div className="absolute inset-0 overflow-hidden flex items-center justify-center p-[40px] pointer-events-none">
+                                {visual.overlayAnimation === 'scroll-up' ? (
+                                    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                                        <motion.img 
+                                            src={visual.leftOverlaySrc} 
+                                            alt="Overlay" 
+                                            className="absolute top-0 w-full object-contain"
+                                            animate={{ y: ["90vh", "-100%"] }}
+                                            transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                                        />
+                                        {/* Layer the background again on top but masked to only show the top heading area */}
+                                        {visual.leftSrc && (
+                                            <div 
+                                                className="absolute inset-0 z-10" 
+                                                style={{ 
+                                                    maskImage: 'linear-gradient(to bottom, black 0%, black 10%, transparent 12%)',
+                                                    WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 10%, transparent 12%)'
+                                                }}
+                                            >
+                                                <img 
+                                                    src={visual.leftSrc} 
+                                                    alt={visual.leftAlt} 
+                                                    className="w-full h-full object-contain" 
+                                                />
+                                            </div>
+                                        )}
+                                    </div>
+                                ) : (
+                                    <img 
+                                        src={visual.leftOverlaySrc} 
+                                        alt="Overlay" 
+                                        className="max-w-full max-h-full object-contain" 
+                                    />
+                                )}
+                            </div>
+                        )}
                     </div>
-                    <div
-                        className="flex-1 relative overflow-hidden"
-                        style={{
-                            backgroundColor: visual.rightBgColor || project.contentBgColor,
-                            height: visual.height || '620px'
-                        }}
-                    >
-                        <img src={visual.rightSrc} alt={visual.rightAlt} className="w-full h-full object-cover" />
+                    <div className="flex-1 relative overflow-hidden" style={{ backgroundColor: visual.rightBgColor || '#fbf9ef' }}>
+                        {visual.rightSrc && (
+                            <img 
+                                src={visual.rightSrc} 
+                                alt={visual.rightAlt} 
+                                className="w-full h-full object-contain" 
+                            />
+                        )}
+                        {visual.rightOverlaySrc && (
+                            <div className="absolute inset-0 flex items-center justify-center p-[40px]">
+                                <img 
+                                    src={visual.rightOverlaySrc} 
+                                    alt="Overlay" 
+                                    className="max-w-full max-h-full object-contain" 
+                                />
+                            </div>
+                        )}
                     </div>
                 </div>
             );

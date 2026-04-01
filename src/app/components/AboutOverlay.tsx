@@ -51,7 +51,7 @@ export default function AboutOverlay() {
                         {/* Close button (top right of card) */}
                         <motion.button 
                             onClick={closeAbout}
-                            className="absolute top-6 right-6 z-30 text-[#0047AB]/30 hover:text-[#0047AB] transition-colors p-3 flex items-center justify-center group"
+                            className="absolute top-6 right-6 z-30 text-[#0047AB]/30 hover:text-[#0047AB] transition-colors p-3 flex items-center justify-center group cursor-pointer"
                             whileHover="hover"
                             initial="initial"
                         >

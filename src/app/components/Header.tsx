@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useUI } from "../context/UIContext";
 
 interface HeaderProps {
     color?: string;
@@ -68,6 +69,7 @@ function IntroSection({ color, scrollY = 0, showScrollAnimation = false }: { col
 }
 
 function NavLinks({ color }: { color: string }) {
+    const { toggleAbout } = useUI();
     const [isHoveredAbout, setIsHoveredAbout] = useState(false);
     const [isHoveredContact, setIsHoveredContact] = useState(false);
     const aboutText = "About";
@@ -85,6 +87,7 @@ function NavLinks({ color }: { color: string }) {
                 className="font-['Geist_Mono',sans-serif] relative shrink-0 uppercase inline-flex overflow-hidden cursor-pointer"
                 onMouseEnter={() => setIsHoveredAbout(true)}
                 onMouseLeave={() => setIsHoveredAbout(false)}
+                onClick={toggleAbout}
             >
                 {aboutLetters.map((letter, index) => (
                     <span key={index} className="inline-block relative" style={{ display: 'inline-block' }}>

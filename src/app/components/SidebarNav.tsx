@@ -32,8 +32,8 @@ export default function SidebarNav({
 
     // Color Tokens for "Black Background" sections
     const DARK_ICON = "#ffffff";
-    const DARK_BG = "#414141";
-    const DARK_HOVER = "#505050";
+    const DARK_BG = "#1A1A1A";
+    const DARK_HOVER = "#2A2A2A";
 
     // Phase 1: Transition from Hero theme to Dark Mode (White/Transparent) over first 50vh
     const entryIconColor = useTransform(mainScrollY, [0, window.innerHeight * 0.5], [iconColor, DARK_ICON]);

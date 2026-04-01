@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { useState, useEffect, useRef } from "react";
 import Header from "./components/Header";
 import LoadingScreen from "./components/LoadingScreen";
+import AboutOverlay from "./components/AboutOverlay";
 import { useNavigate } from "react-router-dom";
 
 function Group1() {
@@ -684,6 +685,7 @@ export default function App() {
             </motion.div>
  
             <Frame18 skipAnimations={skipAnimations} />
+            <AboutOverlay />
           </motion.div>
         )}
       </AnimatePresence>

@@ -4,11 +4,15 @@ import Home from "./app/Home.tsx";
 import CaseStudy from "./app/CaseStudy.tsx";
 import "./styles/index.css";
 
+import { UIProvider } from "./app/context/UIContext.tsx";
+
 createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/case-study/:id" element={<CaseStudy />} />
-    </Routes>
+    <UIProvider>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/case-study/:id" element={<CaseStudy />} />
+      </Routes>
+    </UIProvider>
   </BrowserRouter>
 );

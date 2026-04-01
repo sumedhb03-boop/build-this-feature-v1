@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform, useMotionValue } from "motion/react";
 import Header from "./components/Header";
 import CaseStudyHero from "./components/CaseStudyHero";
 import SidebarNav from "./components/SidebarNav";
+import AboutOverlay from "./components/AboutOverlay";
 import Autoplay from "embla-carousel-autoplay";
 import {
     Carousel,
@@ -528,6 +529,7 @@ export default function CaseStudy() {
                     />
                 </div>
             </motion.div>
+            <AboutOverlay />
         </motion.div>
     );
 }

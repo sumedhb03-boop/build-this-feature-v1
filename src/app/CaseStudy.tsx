@@ -66,9 +66,13 @@ export default function CaseStudy() {
         window.scrollTo(0, 0);
     }, [id]);
 
+    const lenisRef = useRef<Lenis | null>(null);
+    const trackHeight = 270;
+
     useEffect(() => {
         window.scrollTo(0, 0);
         const lenis = new Lenis();
+        lenisRef.current = lenis;
 
         function raf(time: number) {
             lenis.raf(time);
@@ -101,7 +105,6 @@ export default function CaseStudy() {
             footerScrollValue.set(footerProgress);
 
             const viewportCenter = window.innerHeight / 2;
-            const trackHeight = 270;
             const trackTop = viewportCenter - (trackHeight / 2);
             const indicatorY = trackTop + (progress * trackHeight);
 
@@ -146,8 +149,67 @@ export default function CaseStudy() {
 
         return () => {
             lenis.destroy();
+            lenisRef.current = null;
         };
     }, [project]);
+
+    // Handle interactive scroll via clicking the track
+    const handleTrackClick = (e: React.MouseEvent) => {
+        if (!lenisRef.current) return;
+        
+        const trackRect = e.currentTarget.getBoundingClientRect();
+        const clickY = e.clientY - trackRect.top;
+        const progress = Math.min(1, Math.max(0, clickY / trackRect.height));
+        
+        const scrollLimit = lenisRef.current.limit;
+        const overscrollAmount = window.innerHeight * 3;
+        const targetScroll = progress * (scrollLimit - overscrollAmount);
+        
+        lenisRef.current.scrollTo(targetScroll, { lerp: 0.1 });
+    };
+
+    // Manual Drag State
+    const [isDragging, setIsDragging] = useState(false);
+
+    // Handle interactive scroll via dragging the indicator
+    useEffect(() => {
+        if (!isDragging || !lenisRef.current) return;
+
+        const handlePointerMove = (e: PointerEvent) => {
+            const viewportCenter = window.innerHeight / 2;
+            const trackTop = viewportCenter - (trackHeight / 2);
+            
+            const relativeY = e.clientY - trackTop;
+            const progress = Math.min(1, Math.max(0, relativeY / trackHeight));
+            
+            const scrollLimit = lenisRef.current.limit;
+            const overscrollAmount = window.innerHeight * 3;
+            const targetScroll = progress * (scrollLimit - overscrollAmount);
+            
+            lenisRef.current.scrollTo(targetScroll, { immediate: true });
+        };
+
+        const handlePointerUp = () => {
+            setIsDragging(false);
+            document.body.style.userSelect = "";
+            document.body.style.cursor = "";
+        };
+
+        window.addEventListener('pointermove', handlePointerMove);
+        window.addEventListener('pointerup', handlePointerUp);
+
+        return () => {
+            window.removeEventListener('pointermove', handlePointerMove);
+            window.removeEventListener('pointerup', handlePointerUp);
+        };
+    }, [isDragging]);
+
+    const handleDragStart = (e: React.PointerEvent) => {
+        e.preventDefault();
+        setIsDragging(true);
+        document.body.style.userSelect = "none";
+        document.body.style.cursor = "grabbing";
+    };
 
     const renderVisual = (visual: Visual, index: number) => {
         if (visual.type === 'single') {
@@ -262,13 +324,13 @@ export default function CaseStudy() {
             );
         } else {
             return (
-                <div key={index} className="w-full flex gap-[20px]">
-                    <div className="flex-1 relative overflow-hidden" style={{ backgroundColor: visual.leftBgColor || '#fbf9ef' }}>
+                <div key={index} className="w-full flex gap-[20px]" style={{ height: visual.height || 'auto' }}>
+                    <div className="flex-1 relative overflow-hidden flex flex-col" style={{ backgroundColor: visual.leftBgColor || '#fbf9ef' }}>
                         {visual.leftSrc && (
                             <img 
                                 src={visual.leftSrc} 
                                 alt={visual.leftAlt} 
-                                className="w-full h-full object-contain" 
+                                className="w-full h-full object-cover flex-1" 
                             />
                         )}
                         {visual.leftOverlaySrc && (
@@ -294,7 +356,7 @@ export default function CaseStudy() {
                                                 <img 
                                                     src={visual.leftSrc} 
                                                     alt={visual.leftAlt} 
-                                                    className="w-full h-full object-contain" 
+                                                    className="w-full h-full object-cover" 
                                                 />
                                             </div>
                                         )}
@@ -309,12 +371,12 @@ export default function CaseStudy() {
                             </div>
                         )}
                     </div>
-                    <div className="flex-1 relative overflow-hidden" style={{ backgroundColor: visual.rightBgColor || '#fbf9ef' }}>
+                    <div className="flex-1 relative overflow-hidden flex flex-col" style={{ backgroundColor: visual.rightBgColor || '#fbf9ef' }}>
                         {visual.rightSrc && (
                             <img 
                                 src={visual.rightSrc} 
                                 alt={visual.rightAlt} 
-                                className="w-full h-full object-contain" 
+                                className="w-full h-full object-cover flex-1" 
                             />
                         )}
                         {visual.rightOverlaySrc && (
@@ -371,15 +433,19 @@ export default function CaseStudy() {
                 );
             })()}
 
-            {/* 3. Scroll Bar Progress - Fixed at right-center */}
+            {/* 3. Scroll Bar Progress - Interactive */}
             <div className="fixed right-[32px] top-1/2 -translate-y-1/2 h-[270px] w-[52px] flex flex-col items-center justify-center z-50">
                 <div
-                    className="w-px h-full relative"
+                    className="w-px h-full relative cursor-pointer"
                     style={{ backgroundColor: activeIndicatorColor === "#ffffff" ? "rgba(255, 255, 255, 0.2)" : "rgba(23, 20, 18, 0.2)" }}
+                    onClick={handleTrackClick}
                 >
                     <motion.div
-                        className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center"
+                        className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center cursor-grab active:cursor-grabbing"
                         style={{ top: `${scrollProgress * 100}%` }}
+                        onPointerDown={handleDragStart}
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
                     >
                         {/* Masking Background Circle (creates the gap in the line) */}
                         <motion.div

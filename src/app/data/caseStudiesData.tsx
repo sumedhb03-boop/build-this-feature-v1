@@ -90,14 +90,14 @@ export const CASE_STUDIES: Record<string, CaseStudyData> = {
                 type: 'split', 
                 leftSrc: imgShotsMockups111, leftAlt: "Mockup 11", leftBgColor: "#f1efe9",
                 rightSrc: imgFrame20856631201, rightAlt: "Mockup Frame", rightBgColor: "#0c0005",
-                height: "620px"
+                height: "80vh"
             },
             { type: 'single', src: imgShotsMockups21, alt: "Mockup 2", bgColor: "#feeef9", height: "600px" },
             { 
                 type: 'split', 
                 leftSrc: imgGrid1, leftAlt: "Grid", leftBgColor: "#f4f2ef",
                 rightSrc: imgTypography1, rightAlt: "Typography", rightBgColor: "#1a1c1d",
-                height: "662px"
+                height: "80vh"
             },
             { type: 'single', src: img73, alt: "Colors", bgColor: "#f2f1ec", height: "660px" },
         ]

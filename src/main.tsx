@@ -1,18 +1,33 @@
 import { createRoot } from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence } from "motion/react";
 import Home from "./app/Home.tsx";
 import CaseStudy from "./app/CaseStudy.tsx";
+import PageTransition from "./app/components/PageTransition.tsx";
 import "./styles/index.css";
 
 import { UIProvider } from "./app/context/UIContext.tsx";
 
+function AppRoutes() {
+  const location = useLocation();
+
+  // Group all case study routes under the same key so AnimatePresence doesn't trigger the wipe overlay
+  const routeKey = location.pathname.startsWith('/case-study') ? 'case-study' : location.pathname;
+
+  return (
+    <AnimatePresence mode="wait" initial={false}>
+      <Routes location={location} key={routeKey}>
+        <Route path="/" element={<PageTransition><Home /></PageTransition>} />
+        <Route path="/case-study/:id" element={<PageTransition><CaseStudy /></PageTransition>} />
+      </Routes>
+    </AnimatePresence>
+  );
+}
+
 createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
     <UIProvider>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/case-study/:id" element={<CaseStudy />} />
-      </Routes>
+      <AppRoutes />
     </UIProvider>
   </BrowserRouter>
 );

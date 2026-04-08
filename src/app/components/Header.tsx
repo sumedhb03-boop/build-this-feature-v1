@@ -70,6 +70,7 @@ function IntroSection({ color, scrollY = 0, showScrollAnimation = false }: { col
 
 function NavLinks({ color }: { color: string }) {
     const { toggleAbout } = useUI();
+    const navigate = useNavigate();
     const [isHoveredAbout, setIsHoveredAbout] = useState(false);
     const [isHoveredContact, setIsHoveredContact] = useState(false);
     const aboutText = "About";
@@ -132,6 +133,7 @@ function NavLinks({ color }: { color: string }) {
                 className="font-['Geist_Mono',sans-serif] relative shrink-0 uppercase inline-flex overflow-hidden cursor-pointer"
                 onMouseEnter={() => setIsHoveredContact(true)}
                 onMouseLeave={() => setIsHoveredContact(false)}
+                onClick={() => navigate('/contact')}
             >
                 {contactLetters.map((letter, index) => (
                     <span key={index} className="inline-block relative" style={{ display: 'inline-block' }}>

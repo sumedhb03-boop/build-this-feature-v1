@@ -32,11 +32,32 @@ import imgOR06 from "../../assets/OR 06.webp";
 import imgOR07 from "../../assets/OR 07.webp";
 import imgOR08 from "../../assets/OR 08.webp";
 import imgOR09 from "../../assets/OR 09.webp";
+import imgORMockup from "../../assets/OR Mockup.webp";
 import imgConcrete from "../../assets/Concrete.webp";
 import imgCart1 from "../../assets/Cart 1.webp";
 import imgCart2 from "../../assets/Cart 02.webp";
 import imgCart3 from "../../assets/Cart 03.webp";
 import imgCart4 from "../../assets/Cart 04.webp";
+import imgBricks from "../../assets/Bricks.webp";
+import imgNewCampaign from "../../assets/New Campaign.webp";
+import imgNewCampaign1 from "../../assets/New Campaign (1).webp";
+import imgNewCampaign2 from "../../assets/New Campaign (2).webp";
+import imgNewCampaignEmpGroups from "../../assets/New Campaign Emp Groups.webp";
+import imgNewCampaignIIAll from "../../assets/New Campaign II All.webp";
+import imgNewCampaignIISummary from "../../assets/New Campaign II Summary.webp";
+import imgNewCampaignIISummary1 from "../../assets/New Campaign II Summary (1).webp";
+import imgEmployeeListCampaignII from "../../assets/Employee List Campaign II.webp";
+import imgQuestionEditor from "../../assets/Question Editor.webp";
+import imgCY01 from "../../assets/CY 01.webp";
+import imgCY02 from "../../assets/CY 02.webp";
+import imgCY03 from "../../assets/CY 03.webp";
+import imgCY04 from "../../assets/CY 04.webp";
+import imgCY05 from "../../assets/CY 05.webp";
+import imgCY06 from "../../assets/CY 06.webp";
+import imgCY07 from "../../assets/CY 07.webp";
+import imgCY08 from "../../assets/CY 08.webp";
+import imgCY09 from "../../assets/CY 09.webp";
+
 
 export interface Visual {
     type: 'single' | 'split' | 'trio' | 'placeholder';
@@ -62,6 +83,7 @@ export interface Visual {
     height?: string;
     aspectRatio?: string;
     bgImage?: string;
+    imageScale?: number;
 }
 
 export interface CaseStudyData {
@@ -192,7 +214,32 @@ export const CASE_STUDIES: Record<string, CaseStudyData> = {
         leadDescription: "Cyhex simplifies the complex landscape of cybersecurity compliance, offering a unified platform that automates evidence collection and audit readiness.",
         mainDescription: "Working closely with the founding team, I designed a unified GRC platform that transforms tedious manual audits into a streamlined, automated experience. Much like Vanta or Scrut, Cyhex enables organizations to manage SOC 2, ISO 27001, and other frameworks with ease.\n\nThe design focuses on making complex security data digestible through intuitive dashboards, automated workflows, and a robust risk ledger, ensuring that compliance becomes a strategic advantage rather than a bureaucratic hurdle.",
         visuals: [
-            { type: 'single', src: imgShotsMockups131, alt: "Cyhex Mockup", bgColor: "#0c0005", height: "675px" }
+            { type: 'single', src: imgCY01, alt: "Cyhex 01", bgColor: "#0D3330" },
+            { type: 'single', src: imgCY02, alt: "Cyhex 02", bgColor: "#0D3330" },
+            { type: 'single', src: imgCY03, alt: "Cyhex 03", bgColor: "#0D3330" },
+            { type: 'single', src: imgCY04, alt: "Cyhex 04", bgColor: "#0D3330" },
+            { type: 'single', src: imgCY05, alt: "Cyhex 05", bgColor: "#0D3330" },
+            { type: 'single', src: imgCY06, alt: "Cyhex 06", bgColor: "#0D3330" },
+            { type: 'single', src: imgCY07, alt: "Cyhex 07", bgColor: "#0D3330" },
+            { 
+                type: 'placeholder', 
+                label: 'Campaign Management', 
+                bgColor: '#EBEDE2', 
+                bgImage: imgBricks,
+                height: '680px',
+                imageScale: 1.2,
+                images: [
+                    imgNewCampaign,
+                    imgNewCampaign2,
+                    imgEmployeeListCampaignII,
+                    imgNewCampaignIIAll,
+                    imgNewCampaignEmpGroups,
+                    imgNewCampaignIISummary1,
+                    imgQuestionEditor
+                ]
+            },
+            { type: 'single', src: imgCY08, alt: "Cyhex 08", bgColor: "#0D3330" },
+            { type: 'single', src: imgCY09, alt: "Cyhex 09", bgColor: "#0D3330" }
         ]
     },
     "originally-raw": {
@@ -215,34 +262,34 @@ export const CASE_STUDIES: Record<string, CaseStudyData> = {
         heroDescription: "A modern, bold e-commerce platform.",
         mainDescription: "Originally Raw is a disruptive lifestyle brand. We designed an immersive e-commerce experience that feels both raw and refined, driving higher conversion rates.",
         visuals: [
-            { type: 'single', src: imgOR07, alt: "Originally Raw 7", bgColor: "#234031" },
-            { type: 'single', src: imgOR06, alt: "Originally Raw 6", bgColor: "#234031" },
-            { type: 'single', src: imgOR05, alt: "Originally Raw 5", bgColor: "#234031" },
+            { type: 'single', src: imgOR01, alt: "Originally Raw 1", bgColor: "transparent" },
+            { type: 'single', src: imgORMockup, alt: "Originally Raw Mockup", bgColor: "#ffffff" },
+            { type: 'single', src: imgOR03, alt: "Originally Raw 3", bgColor: "#234031" },
             { 
                 type: 'placeholder', 
                 label: 'Profile Pages', 
                 bgColor: '#EBEDE2', 
-                bgImage: imgConcrete,
+                bgImage: imgBricks,
                 height: '654px',
                 images: [imgOrders, imgAddresses, imgPersonalDetails, imgOrderDetails]
             },
-            { type: 'single', src: imgOR01, alt: "Originally Raw 1", bgColor: "#234031" },
-            { type: 'single', src: imgOR02, alt: "Originally Raw 2", bgColor: "#234031" },
+            { type: 'single', src: imgOR04, alt: "Originally Raw 4", bgColor: "#234031" },
+            { type: 'single', src: imgOR05, alt: "Originally Raw 5", bgColor: "#234031" },
             { 
                 type: 'split', 
-                leftSrc: imgOR08, leftAlt: "Originally Raw 8", leftBgColor: "#234031",
-                rightSrc: imgOR09, rightAlt: "Originally Raw 9", rightBgColor: "#234031"
+                leftSrc: imgOR06, leftAlt: "Originally Raw 6", leftBgColor: "#234031",
+                rightSrc: imgOR07, rightAlt: "Originally Raw 7", rightBgColor: "#234031"
             },
-            { type: 'single', src: imgOR04, alt: "Originally Raw 4", bgColor: "#234031" },
+            { type: 'single', src: imgOR08, alt: "Originally Raw 8", bgColor: "#234031" },
             { 
                 type: 'placeholder', 
                 label: 'Shopping Cart', 
                 bgColor: '#EBEDE2', 
-                bgImage: imgConcrete,
+                bgImage: imgBricks,
                 height: '654px',
                 images: [imgCart1, imgCart2, imgCart3, imgCart4]
             },
-            { type: 'single', src: imgOR03, alt: "Originally Raw 3", bgColor: "#234031" }
+            { type: 'single', src: imgOR09, alt: "Originally Raw 9", bgColor: "#234031" }
         ]
     }
 };

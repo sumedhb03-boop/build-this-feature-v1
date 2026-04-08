@@ -148,7 +148,7 @@ export default function AboutOverlay() {
                             whileHover="hover"
                         >
                             <span className="relative">
-                                Email me
+                                Email
                                 <motion.div 
                                     className="absolute bottom-0 left-0 w-full h-[1px] bg-[#0047AB] origin-left"
                                     variants={{
@@ -167,7 +167,7 @@ export default function AboutOverlay() {
                             initial="initial"
                             whileHover="hover"
                         >
-                            <span>Linked</span>
+                            <span>LinkedIn</span>
                             <motion.div 
                                 className="absolute bottom-0 left-0 w-full h-[1px] bg-[#0047AB] origin-left"
                                 variants={{

@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { motion, useScroll, useTransform, useMotionValue } from "motion/react";
+import { motion, useScroll, useTransform, useMotionValue, useMotionValueEvent, AnimatePresence, useSpring } from "motion/react";
 import Header from "./components/Header";
 import CaseStudyHero from "./components/CaseStudyHero";
 import SidebarNav from "./components/SidebarNav";
@@ -40,6 +40,24 @@ export default function CaseStudy() {
     const [activeHeaderColor, setActiveHeaderColor] = useState("#ffffff");
     const [scrollYPos, setScrollYPos] = useState(0);
 
+    const [isHoveringFooter, setIsHoveringFooter] = useState(false);
+    const [isTransitionComplete, setIsTransitionComplete] = useState(false);
+
+    const mouseX = useMotionValue(-100);
+    const mouseY = useMotionValue(-100);
+
+    const smoothMouseX = useSpring(mouseX, { stiffness: 400, damping: 28, mass: 0.8 });
+    const smoothMouseY = useSpring(mouseY, { stiffness: 400, damping: 28, mass: 0.8 });
+
+    useEffect(() => {
+        const updateMousePosition = (e: PointerEvent) => {
+            mouseX.set(e.clientX);
+            mouseY.set(e.clientY);
+        };
+        window.addEventListener("pointermove", updateMousePosition);
+        return () => window.removeEventListener("pointermove", updateMousePosition);
+    }, [mouseX, mouseY]);
+
     const localScrollY = useMotionValue(0);
     const footerScrollValue = useMotionValue(0);
     const exitColorProgress = useMotionValue(0);
@@ -56,6 +74,10 @@ export default function CaseStudy() {
     // 2. Exit Transition: From dark to Next Project color over 50vh BEFORE footer overscroll starts
     const exitBg = useTransform(exitColorProgress, [0, 1], ["#121212", nextProject.heroBgColor]);
     const exitText = useTransform(exitColorProgress, [0, 1], ["#fbf9ef", nextProject.textColor]);
+
+    useMotionValueEvent(exitColorProgress, "change", (latest) => {
+        setIsTransitionComplete(latest === 1);
+    });
 
     // 3. Composite Dynamic Values: Prioritize exit values as we near bottom
     const dynamicBg = useTransform([exitColorProgress, entryBg, exitBg], ([p, entry, exit]) => (p as number) > 0 ? exit : (entry as string));
@@ -276,17 +298,30 @@ export default function CaseStudy() {
                                 ]}
                             >
                                 <CarouselContent className="-ml-[32px]">
-                                    {visual.images.map((image, i) => (
-                                        <CarouselItem key={i} className="pl-[32px] basis-[93.15%] md:basis-[81.65%] lg:basis-[76.5%]">
-                                            <div className="relative group flex justify-center">
-                                                <img 
-                                                    src={image} 
-                                                    alt={`${visual.label} ${i + 1}`} 
-                                                    className="w-full h-auto object-contain"
-                                                />
-                                            </div>
-                                        </CarouselItem>
-                                    ))}
+                                    {visual.images.map((image, i) => {
+                                        const baseBasis = { mobile: 93.15, md: 81.65, lg: 76.5 };
+                                        const scale = visual.imageScale || 1;
+                                        
+                                        return (
+                                            <CarouselItem 
+                                                key={i} 
+                                                className="pl-[32px] basis-[var(--item-basis-mobile)] md:basis-[var(--item-basis-md)] lg:basis-[var(--item-basis-lg)]"
+                                                style={{ 
+                                                    '--item-basis-mobile': `${baseBasis.mobile * scale}%`,
+                                                    '--item-basis-md': `${baseBasis.md * scale}%`,
+                                                    '--item-basis-lg': `${baseBasis.lg * scale}%`
+                                                } as React.CSSProperties}
+                                            >
+                                                <div className="relative group flex justify-center">
+                                                    <img 
+                                                        src={image} 
+                                                        alt={`${visual.label} ${i + 1}`} 
+                                                        className="w-full h-auto object-contain"
+                                                    />
+                                                </div>
+                                            </CarouselItem>
+                                        );
+                                    })}
                                 </CarouselContent>
                             </Carousel>
                         )}
@@ -570,7 +605,9 @@ export default function CaseStudy() {
             {/* 3. Next Project Section */}
             <motion.div
                 ref={footerContainerRef}
-                className="cursor-pointer relative w-full h-[400vh]"
+                className={`relative w-full h-[400vh] ${isHoveringFooter && isTransitionComplete ? 'cursor-none' : 'cursor-pointer'}`}
+                onPointerEnter={() => setIsHoveringFooter(true)}
+                onPointerLeave={() => setIsHoveringFooter(false)}
                 onClick={() => {
                     const nextId = nextProject.id;
                     window.scrollTo(0, 0);
@@ -596,6 +633,54 @@ export default function CaseStudy() {
                 </div>
             </motion.div>
             <AboutOverlay />
+
+            {/* Custom Cursor for Footer */}
+            <AnimatePresence>
+                {isHoveringFooter && isTransitionComplete && (
+                    <motion.div
+                        className="fixed top-0 left-0 pointer-events-none z-[9999]"
+                        style={{
+                            x: smoothMouseX,
+                            y: smoothMouseY,
+                        }}
+                    >
+                        <motion.div
+                            className="flex items-center overflow-hidden bg-[#fbf9ef] text-[#171412] font-['Geist_Mono',monospace]"
+                            style={{
+                                width: '135px',
+                                padding: '6px 10px',
+                                transform: 'translate(-50%, -50%)',
+                                fontSize: '11px',
+                                fontWeight: 500,
+                                letterSpacing: '0.22px',
+                                textTransform: 'uppercase'
+                            }}
+                            initial={{ scale: 0, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1, transition: { type: 'spring', stiffness: 350, damping: 20 } }}
+                            exit={{ scale: 0, opacity: 0, transition: { type: 'spring', stiffness: 350, damping: 25 } }}
+                        >
+                            <motion.div
+                                className="flex"
+                                animate={{ x: ["0%", "-50%"] }}
+                                transition={{ ease: "linear", duration: 3, repeat: Infinity }}
+                            >
+                                <div className="flex items-center whitespace-nowrap gap-[10px] pr-[10px]">
+                                    <span>KEEP SCROLLING</span>
+                                    <svg width="6" height="6" viewBox="0 0 6 6" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M3 0L6 3L3 6L0 3L3 0Z"/></svg>
+                                    <span>KEEP SCROLLING</span>
+                                    <svg width="6" height="6" viewBox="0 0 6 6" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M3 0L6 3L3 6L0 3L3 0Z"/></svg>
+                                </div>
+                                <div className="flex items-center whitespace-nowrap gap-[10px] pr-[10px]">
+                                    <span>KEEP SCROLLING</span>
+                                    <svg width="6" height="6" viewBox="0 0 6 6" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M3 0L6 3L3 6L0 3L3 0Z"/></svg>
+                                    <span>KEEP SCROLLING</span>
+                                    <svg width="6" height="6" viewBox="0 0 6 6" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M3 0L6 3L3 6L0 3L3 0Z"/></svg>
+                                </div>
+                            </motion.div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </motion.div>
     );
 }

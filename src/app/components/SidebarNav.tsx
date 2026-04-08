@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence, useTransform, MotionValue } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence, useTransform, MotionValue } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
 
 interface SidebarNavProps {
@@ -30,15 +30,23 @@ export default function SidebarNav({
     const navigate = useNavigate();
     const [hoveredButton, setHoveredButton] = useState<string | null>(null);
 
+    const [vHeight, setVHeight] = useState(typeof window !== 'undefined' ? window.innerHeight : 800);
+    
+    useEffect(() => {
+        const handleResize = () => setVHeight(window.innerHeight);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     // Color Tokens for "Black Background" sections
     const DARK_ICON = "#ffffff";
     const DARK_BG = "#1A1A1A";
     const DARK_HOVER = "#2A2A2A";
 
     // Phase 1: Transition from Hero theme to Dark Mode (White/Transparent) over first 50vh
-    const entryIconColor = useTransform(mainScrollY, [0, window.innerHeight * 0.5], [iconColor, DARK_ICON]);
-    const entryBgColor = useTransform(mainScrollY, [0, window.innerHeight * 0.5], [bgColor, DARK_BG]);
-    const entryHoverColor = useTransform(mainScrollY, [0, window.innerHeight * 0.5], [hoverColor, DARK_HOVER]);
+    const entryIconColor = useTransform(mainScrollY, [0, vHeight * 0.5], [iconColor, DARK_ICON]);
+    const entryBgColor = useTransform(mainScrollY, [0, vHeight * 0.5], [bgColor, DARK_BG]);
+    const entryHoverColor = useTransform(mainScrollY, [0, vHeight * 0.5], [hoverColor, DARK_HOVER]);
 
     // Phase 2: Transition from Dark Mode to NEXT Project theme over 50vh BEFORE footer overscroll starts
     const exitIconColor = useTransform(exitColorProgress, [0, 1], [DARK_ICON, nextIconColor]);

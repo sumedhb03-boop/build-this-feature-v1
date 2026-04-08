@@ -92,7 +92,7 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
                 className="absolute bottom-0 left-0 h-[2px] bg-[#FF4C11]"
                 initial={{ width: 0 }}
                 animate={{ width: `${count}%` }}
-                transition={{ ease: "linear", duration: 0.016 }}
+                transition={{ ease: "linear", duration: 0.2 }}
             />
         </motion.div>
     );

@@ -67,9 +67,17 @@ export default function CaseStudy() {
     const section3Ref = useRef<HTMLElement>(null);
     const footerContainerRef = useRef<HTMLDivElement>(null);
 
+    const [vHeight, setVHeight] = useState(typeof window !== 'undefined' ? window.innerHeight : 800);
+    
+    useEffect(() => {
+        const handleResize = () => setVHeight(window.innerHeight);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     // 1. Entry Transition: From Hero color to dark (#121212) over 50vh
-    const entryBg = useTransform(localScrollY, [0, window.innerHeight * 0.5], [project.heroBgColor, "#121212"]);
-    const entryText = useTransform(localScrollY, [0, window.innerHeight * 0.5], [project.textColor, "#fbf9ef"]);
+    const entryBg = useTransform(localScrollY, [0, vHeight * 0.5], [project.heroBgColor, "#121212"]);
+    const entryText = useTransform(localScrollY, [0, vHeight * 0.5], [project.textColor, "#fbf9ef"]);
 
     // 2. Exit Transition: From dark to Next Project color over 50vh BEFORE footer overscroll starts
     const exitBg = useTransform(exitColorProgress, [0, 1], ["#121212", nextProject.heroBgColor]);
@@ -118,8 +126,8 @@ export default function CaseStudy() {
             localScrollY.set(scrollY);
 
             // Calculate background transition progress (last 50vh of main content)
-            const exitStart = effectiveMaxScroll - (window.innerHeight * 0.5);
-            const exitP = Math.min(1, Math.max(0, (scrollY - exitStart) / (window.innerHeight * 0.5)));
+            const exitStart = effectiveMaxScroll - (vHeight * 0.5);
+            const exitP = Math.min(1, Math.max(0, (scrollY - exitStart) / (vHeight * 0.5)));
             exitColorProgress.set(exitP);
 
             // Calculate footer scroll progress (starts after effectiveMaxScroll)
@@ -184,7 +192,7 @@ export default function CaseStudy() {
         const progress = Math.min(1, Math.max(0, clickY / trackRect.height));
         
         const scrollLimit = lenisRef.current.limit;
-        const overscrollAmount = window.innerHeight * 3;
+        const overscrollAmount = vHeight * 3;
         const targetScroll = progress * (scrollLimit - overscrollAmount);
         
         lenisRef.current.scrollTo(targetScroll, { lerp: 0.1 });
@@ -205,7 +213,7 @@ export default function CaseStudy() {
             const progress = Math.min(1, Math.max(0, relativeY / trackHeight));
             
             const scrollLimit = lenisRef.current.limit;
-            const overscrollAmount = window.innerHeight * 3;
+            const overscrollAmount = vHeight * 3;
             const targetScroll = progress * (scrollLimit - overscrollAmount);
             
             lenisRef.current.scrollTo(targetScroll, { immediate: true });

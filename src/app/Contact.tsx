@@ -106,7 +106,7 @@ export default function Contact() {
 
                             <div className="grid grid-cols-[100px_1fr] items-start mb-3">
                                 <span className="text-[#FF4C11]">SOCIAL</span>
-                                <span className="text-[#e2e2e2] text-right md:text-left"><span className="text-[#FF4C11] mr-2">&gt;</span><a href="https://linkedin.com/in/sumedhbambal" target="_blank" rel="noopener noreferrer" className="hover:text-[#FF4C11]">@LINKEDIN</a> <span className="text-[#FF4C11]/50 mx-2">/</span> <a href="https://x.com/sumedhbambal" target="_blank" rel="noopener noreferrer" className="hover:text-[#FF4C11]">@X_ARCHIVE</a></span>
+                                <span className="text-[#e2e2e2] text-right md:text-left"><span className="text-[#FF4C11] mr-2">&gt;</span><a href="https://www.linkedin.com/in/sumedh-bambal" target="_blank" rel="noopener noreferrer" className="hover:text-[#FF4C11]">@LINKEDIN</a> <span className="text-[#FF4C11]/50 mx-2">/</span> <a href="https://x.com/sumedhb03" target="_blank" rel="noopener noreferrer" className="hover:text-[#FF4C11]">@X_ARCHIVE</a></span>
                             </div>
                             <div className="grid grid-cols-[100px_1fr] items-start mb-24">
                                 <span className="text-[#FF4C11]">ENCRYPT</span>
@@ -143,12 +143,12 @@ export default function Contact() {
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.4 }}
-                    className="w-full max-w-[1000px] flex flex-col overflow-hidden h-full min-h-[600px]"
+                    className="w-full max-w-[1000px] flex flex-col h-full min-h-[600px]"
                 >
                     <div className="mb-6 flex items-center justify-between text-[#FF4C11]">
-                        <span className="text-[11px] md:text-[12px] uppercase tracking-widest font-light border border-[#FF4C11]/30 py-2 px-6 rounded-full inline-block text-center w-full md:w-auto">EXECUTE: SCHEDULE_MEETING.SH</span>
+                        <span className="text-[11px] md:text-[12px] uppercase tracking-widest font-light border border-[#FF4C11]/30 py-2 px-6 rounded-none inline-block text-center w-full md:w-auto">EXECUTE: SCHEDULE_MEETING.SH</span>
                     </div>
-                    <div className="flex-1 rounded-xl overflow-hidden shadow-2xl relative w-full border border-[#FF4C11]/10">
+                    <div className="flex-1 relative w-full border-none">
                         {/* Wrapper for the calendar embed */}
                         <Cal 
                             calLink="sumedh.design"

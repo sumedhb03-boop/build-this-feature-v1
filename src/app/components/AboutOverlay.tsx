@@ -160,7 +160,7 @@ export default function AboutOverlay() {
                             </span>
                         </motion.a>
                         <motion.a 
-                            href="https://linkedin.com/in/sumedhbambal" 
+                            href="https://www.linkedin.com/in/sumedh-bambal" 
                             target="_blank" 
                             rel="noopener noreferrer"
                             className="font-['Geist',_sans-serif] text-[1.1vw] font-normal opacity-90 transition-opacity relative group"
@@ -178,7 +178,7 @@ export default function AboutOverlay() {
                             />
                         </motion.a>
                         <motion.a 
-                            href="https://x.com/sumedhbambal" 
+                            href="https://x.com/sumedhb03" 
                             target="_blank" 
                             rel="noopener noreferrer"
                             className="font-['Geist',_sans-serif] text-[1.1vw] font-normal opacity-90 transition-opacity relative group"

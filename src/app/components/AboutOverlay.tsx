@@ -90,7 +90,7 @@ export default function AboutOverlay() {
             </motion.button>
 
             {/* Left Side: Photo */}
-            <div className="w-[48%] relative overflow-hidden group/art p-6">
+            <div className="w-[45%] relative overflow-hidden p-6 hidden md:block">
                  <div className="w-full h-full relative rounded-none overflow-hidden">
                     <img 
                         src={birdsImg} 
@@ -101,29 +101,29 @@ export default function AboutOverlay() {
             </div>
 
             {/* Right Side: Content */}
-            <div className="flex-1 flex flex-col justify-between p-[4vw] text-[#0047AB] z-10">
-                <div className="flex flex-col">
-                    <h1 className="font-['Times_New_Roman',_serif] text-[5.5vw] font-medium leading-[0.85] tracking-[-0.05em] mb-[4vh]">
+            <div className="flex-1 flex flex-col justify-between p-[32px] md:p-[4vw] text-[#0047AB] z-10 min-h-0">
+                <div className="flex flex-col min-h-0 overflow-hidden">
+                    <h1 className="font-['Times_New_Roman',_serif] text-[clamp(40px,5vw,72px)] font-medium leading-[0.9] tracking-[-0.05em] mb-6 md:mb-[4vh] shrink-0">
                         Hello, World!
                     </h1>
                     
-                    <div className="flex flex-col gap-[2.5vh] opacity-90 max-w-[95%]">
+                    <div className="flex flex-col gap-[2vh] opacity-90 max-w-full md:max-w-[95%] overflow-y-auto pr-2 custom-scrollbar">
                         {paragraphs.map((paragraph, i) => (
-                            <p key={i} className="font-['Geist',_sans-serif] text-[1.1vw] font-normal leading-[1.55] tracking-tight text-justify">
+                            <p key={i} className="font-['Geist',_sans-serif] text-[clamp(15px,1vw,18px)] font-normal leading-[1.5] tracking-tight text-justify">
                                 {paragraph}
                             </p>
                         ))}
                     </div>
                 </div>
 
-                <div className="flex items-center justify-between mt-auto pt-8 border-t border-[#0047AB]/5">
+                <div className="flex flex-wrap items-center justify-between mt-auto pt-6 border-t border-[#0047AB]/5 shrink-0 gap-4">
                     {/* Primary Link: View CV */}
                     <div className="flex items-center">
                         <motion.a 
                             href="/resume.pdf" 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="font-['Geist',_sans-serif] text-[1.1vw] font-normal opacity-90 transition-opacity relative group"
+                            className="font-['Geist',_sans-serif] text-[clamp(14px,1vw,16px)] font-normal opacity-90 transition-opacity relative group"
                             initial="initial"
                             whileHover="hover"
                         >
@@ -140,10 +140,10 @@ export default function AboutOverlay() {
                     </div>
 
                     {/* Contact & Social Links: Email, Linked, X */}
-                    <div className="flex items-center gap-[2vw]">
+                    <div className="flex items-center gap-[4vw] md:gap-[2vw]">
                         <motion.a 
                             href="mailto:hello@sumedh.design" 
-                            className="group flex items-center font-['Geist',_sans-serif] text-[1.1vw] font-normal opacity-90 relative"
+                            className="group flex items-center font-['Geist',_sans-serif] text-[clamp(14px,1vw,16px)] font-normal opacity-90 relative"
                             initial="initial"
                             whileHover="hover"
                         >
@@ -163,7 +163,7 @@ export default function AboutOverlay() {
                             href="https://www.linkedin.com/in/sumedh-bambal" 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="font-['Geist',_sans-serif] text-[1.1vw] font-normal opacity-90 transition-opacity relative group"
+                            className="font-['Geist',_sans-serif] text-[clamp(14px,1vw,16px)] font-normal opacity-90 transition-opacity relative group"
                             initial="initial"
                             whileHover="hover"
                         >
@@ -181,7 +181,7 @@ export default function AboutOverlay() {
                             href="https://x.com/sumedhb03" 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="font-['Geist',_sans-serif] text-[1.1vw] font-normal opacity-90 transition-opacity relative group"
+                            className="font-['Geist',_sans-serif] text-[clamp(14px,1vw,16px)] font-normal opacity-90 transition-opacity relative group"
                             initial="initial"
                             whileHover="hover"
                         >
@@ -224,7 +224,7 @@ export default function AboutOverlay() {
                         animate={{ y: 0 }}
                         exit={{ y: "120vh", transition: { delay: 0, duration: 0.8, ease: [0.33, 1, 0.68, 1] } }}
                         transition={{ y: { delay: 0.3, duration: 1, ease: [0.16, 1, 0.3, 1] } }}
-                        className="relative grid aspect-[1.65/1] w-full max-w-[1100px] drop-shadow-[0_40px_80px_rgba(0,0,0,0.4)]"
+                        className="relative grid w-full max-w-[1100px] h-[min(85vh,720px)] aspect-auto md:aspect-[1.65/1] drop-shadow-[0_40px_80px_rgba(0,0,0,0.4)]"
                     >
                         {/* 3 Columns for the map fold */}
                         <div className="grid grid-cols-3 [grid-area:1/1] w-full h-full">

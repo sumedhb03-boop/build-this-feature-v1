@@ -1,6 +1,6 @@
 {
   "name": "sumedh-portfolio",
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/((?!api|static|.*\\..*).*)", "destination": "/index.html" }
   ]
 }

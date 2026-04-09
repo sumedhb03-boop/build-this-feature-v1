@@ -115,22 +115,25 @@ export default function CaseStudy() {
             const scrollY = lenis.scroll;
             const maxScroll = lenis.limit;
 
-            // Calculate main content height by subtracting the overscroll area (300vh of the 400vh is overscroll)
-            // The footer starts at H - 400vh because it is h-[400vh].
-            // We want progress to reach 1 when scrollY hits that point.
-            const overscrollAmount = window.innerHeight * 3; // 400vh total, 100vh for footer + 300vh overscroll
-            const effectiveMaxScroll = maxScroll - overscrollAmount;
-            const progress = effectiveMaxScroll > 0 ? Math.min(1, scrollY / effectiveMaxScroll) : 0;
+            // 1. Calculate main scroll progress over the ENTIRE document (including footer)
+            // This ensures the indicator doesn't get stuck at the bottom during the footer overscroll.
+            const progress = maxScroll > 0 ? Math.min(1, scrollY / maxScroll) : 0;
 
             setScrollProgress(progress);
             localScrollY.set(scrollY);
 
-            // Calculate background transition progress (last 50vh of main content)
-            const exitStart = effectiveMaxScroll - (vHeight * 0.5);
-            const exitP = Math.min(1, Math.max(0, (scrollY - exitStart) / (vHeight * 0.5)));
+            // 2. Calculate background transition progress
+            // We want the color to transition into the next project as we scroll into the footer area.
+            // Currently, footer overscroll starts at 'effectiveMaxScroll'.
+            const overscrollAmount = window.innerHeight * 3;
+            const effectiveMaxScroll = maxScroll - overscrollAmount;
+            
+            const exitStart = effectiveMaxScroll - (vHeight * 0.75); // Start transition slightly earlier
+            const exitEnd = effectiveMaxScroll + (vHeight * 0.25);  // End it slightly after footer starts appearing
+            const exitP = Math.min(1, Math.max(0, (scrollY - exitStart) / (exitEnd - exitStart)));
             exitColorProgress.set(exitP);
 
-            // Calculate footer scroll progress (starts after effectiveMaxScroll)
+            // 3. Calculate footer fill progress (still separate for the filling effect)
             const footerProgress = Math.max(0, (scrollY - effectiveMaxScroll) / overscrollAmount);
             footerScrollValue.set(footerProgress);
 
@@ -174,12 +177,24 @@ export default function CaseStudy() {
 
         lenis.on('scroll', handleScroll);
 
+        // ResizeObserver to detect when content height changes (e.g., images loading)
+        // This ensures maxScroll is always accurate.
+        const resizeObserver = new ResizeObserver(() => {
+            lenis.resize();
+            handleScroll(); // Recalculate progress immediately after resize
+        });
+        
+        if (document.body) {
+            resizeObserver.observe(document.body);
+        }
+
         // Initial check
         handleScroll();
 
         return () => {
             lenis.destroy();
             lenisRef.current = null;
+            resizeObserver.disconnect();
         };
     }, [project]);
 
@@ -253,7 +268,12 @@ export default function CaseStudy() {
                         aspectRatio: visual.aspectRatio || 'auto'
                     }}
                 >
-                    <img src={visual.src} alt={visual.alt} className="w-full h-full object-cover" />
+                    <img 
+                        src={visual.src} 
+                        alt={visual.alt} 
+                        className="w-full h-full object-cover" 
+                        onLoad={() => lenisRef.current?.resize()}
+                    />
                     {visual.overlaySrc && (
                         <div className="absolute inset-0 overflow-hidden flex items-center justify-center p-[40px] pointer-events-none">
                             {visual.overlayAnimation === 'scroll-up' ? (
@@ -325,6 +345,7 @@ export default function CaseStudy() {
                                                         src={image} 
                                                         alt={`${visual.label} ${i + 1}`} 
                                                         className="w-full h-auto object-contain"
+                                                        onLoad={() => lenisRef.current?.resize()}
                                                     />
                                                 </div>
                                             </CarouselItem>
@@ -340,26 +361,26 @@ export default function CaseStudy() {
             return (
                 <div key={index} className="w-full flex gap-[20px]" style={{ height: visual.height || '940px' }}>
                     <div className="flex-1 relative overflow-hidden" style={{ backgroundColor: visual.leftBgColor || '#fbf9ef' }}>
-                        {visual.leftSrc && <img src={visual.leftSrc} alt={visual.leftAlt} className="w-full h-full object-contain" />}
+                        {visual.leftSrc && <img src={visual.leftSrc} alt={visual.leftAlt} className="w-full h-full object-contain" onLoad={() => lenisRef.current?.resize()} />}
                         {visual.leftOverlaySrc && (
                             <div className="absolute inset-0 flex items-center justify-center p-[40px]">
-                                <img src={visual.leftOverlaySrc} alt="Overlay" className="max-w-full max-h-full object-contain" />
+                                <img src={visual.leftOverlaySrc} alt="Overlay" className="max-w-full max-h-full object-contain" onLoad={() => lenisRef.current?.resize()} />
                             </div>
                         )}
                     </div>
                     <div className="flex-1 relative overflow-hidden" style={{ backgroundColor: visual.centerBgColor || '#fbf9ef' }}>
-                        {visual.centerSrc && <img src={visual.centerSrc} alt={visual.centerAlt} className="w-full h-full object-contain" />}
+                        {visual.centerSrc && <img src={visual.centerSrc} alt={visual.centerAlt} className="w-full h-full object-contain" onLoad={() => lenisRef.current?.resize()} />}
                         {visual.centerOverlaySrc && (
                             <div className="absolute inset-0 flex items-center justify-center p-[40px]">
-                                <img src={visual.centerOverlaySrc} alt="Overlay" className="max-w-full max-h-full object-contain" />
+                                <img src={visual.centerOverlaySrc} alt="Overlay" className="max-w-full max-h-full object-contain" onLoad={() => lenisRef.current?.resize()} />
                             </div>
                         )}
                     </div>
                     <div className="flex-1 relative overflow-hidden" style={{ backgroundColor: visual.rightBgColor || '#fbf9ef' }}>
-                        {visual.rightSrc && <img src={visual.rightSrc} alt={visual.rightAlt} className="w-full h-full object-contain" />}
+                        {visual.rightSrc && <img src={visual.rightSrc} alt={visual.rightAlt} className="w-full h-full object-contain" onLoad={() => lenisRef.current?.resize()} />}
                         {visual.rightOverlaySrc && (
                             <div className="absolute inset-0 flex items-center justify-center p-[40px]">
-                                <img src={visual.rightOverlaySrc} alt="Overlay" className="max-w-full max-h-full object-contain" />
+                                <img src={visual.rightOverlaySrc} alt="Overlay" className="max-w-full max-h-full object-contain" onLoad={() => lenisRef.current?.resize()} />
                             </div>
                         )}
                     </div>
@@ -374,6 +395,7 @@ export default function CaseStudy() {
                                 src={visual.leftSrc} 
                                 alt={visual.leftAlt} 
                                 className="w-full h-full object-cover flex-1" 
+                                onLoad={() => lenisRef.current?.resize()}
                             />
                         )}
                         {visual.leftOverlaySrc && (
@@ -386,6 +408,7 @@ export default function CaseStudy() {
                                             className="absolute top-0 w-full object-contain"
                                             animate={{ y: ["90vh", "-100%"] }}
                                             transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                                            onLoad={() => lenisRef.current?.resize()}
                                         />
                                         {/* Layer the background again on top but masked to only show the top heading area */}
                                         {visual.leftSrc && (
@@ -400,6 +423,7 @@ export default function CaseStudy() {
                                                     src={visual.leftSrc} 
                                                     alt={visual.leftAlt} 
                                                     className="w-full h-full object-cover" 
+                                                    onLoad={() => lenisRef.current?.resize()}
                                                 />
                                             </div>
                                         )}
@@ -409,6 +433,7 @@ export default function CaseStudy() {
                                         src={visual.leftOverlaySrc} 
                                         alt="Overlay" 
                                         className="max-w-full max-h-full object-contain" 
+                                        onLoad={() => lenisRef.current?.resize()}
                                     />
                                 )}
                             </div>
@@ -420,6 +445,7 @@ export default function CaseStudy() {
                                 src={visual.rightSrc} 
                                 alt={visual.rightAlt} 
                                 className="w-full h-full object-cover flex-1" 
+                                onLoad={() => lenisRef.current?.resize()}
                             />
                         )}
                         {visual.rightOverlaySrc && (
@@ -428,6 +454,7 @@ export default function CaseStudy() {
                                     src={visual.rightOverlaySrc} 
                                     alt="Overlay" 
                                     className="max-w-full max-h-full object-contain" 
+                                    onLoad={() => lenisRef.current?.resize()}
                                 />
                             </div>
                         )}

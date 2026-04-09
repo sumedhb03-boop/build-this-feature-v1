@@ -2,22 +2,32 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 
 interface UIContextType {
     isAboutOpen: boolean;
+    hasLoaded: boolean;
     openAbout: () => void;
     closeAbout: () => void;
     toggleAbout: () => void;
+    setHasLoaded: (val: boolean) => void;
 }
 
 const UIContext = createContext<UIContextType | undefined>(undefined);
 
 export function UIProvider({ children }: { children: ReactNode }) {
     const [isAboutOpen, setIsAboutOpen] = useState(false);
+    const [hasLoaded, setHasLoaded] = useState(false);
 
     const openAbout = () => setIsAboutOpen(true);
     const closeAbout = () => setIsAboutOpen(false);
     const toggleAbout = () => setIsAboutOpen(prev => !prev);
 
     return (
-        <UIContext.Provider value={{ isAboutOpen, openAbout, closeAbout, toggleAbout }}>
+        <UIContext.Provider value={{ 
+            isAboutOpen, 
+            hasLoaded, 
+            openAbout, 
+            closeAbout, 
+            toggleAbout, 
+            setHasLoaded 
+        }}>
             {children}
         </UIContext.Provider>
     );

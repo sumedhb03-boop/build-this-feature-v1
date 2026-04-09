@@ -11,6 +11,7 @@ import Header from "./components/Header";
 import LoadingScreen from "./components/LoadingScreen";
 import AboutOverlay from "./components/AboutOverlay";
 import { useNavigate } from "react-router-dom";
+import { useUI } from "./context/UIContext";
 
 function Group1() {
   return (
@@ -590,14 +591,11 @@ function Frame30({ onEntranceDone, isEntranceReady, skipAnimations = false }: Fr
   );
 }
 
-// Track loading state in memory so it resets on refresh but persists across router navigation
-let _hasAlreadyLoaded = false;
-
 export default function App() {
-  const [initiallyLoaded] = useState(_hasAlreadyLoaded);
-  const [isLoading, setIsLoading] = useState(!initiallyLoaded);
+  const { hasLoaded, setHasLoaded } = useUI();
+  const [isLoading, setIsLoading] = useState(!hasLoaded);
 
-  const skipAnimations = initiallyLoaded;
+  const skipAnimations = hasLoaded;
 
   return (
     <div className="bg-black relative overflow-hidden" style={{ width: '100vw', height: '100vh' }} data-name="51">
@@ -607,7 +605,7 @@ export default function App() {
             key="loader" 
             onComplete={() => {
               setIsLoading(false);
-              _hasAlreadyLoaded = true;
+              setHasLoaded(true);
             }} 
           />
         ) : (

@@ -9,87 +9,90 @@ interface RulerPickerProps {
 
 function RulerTicks() {
   return (
-    <div className="h-[14px] relative shrink-0 w-[392px]">
+    <div className="h-[14px] relative shrink-0 w-[801px] flex justify-center">
       <div className="absolute inset-0">
-        <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 392 14">
-          <g>
-            {/* Left side ticks */}
-            <g>
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="0" x2="0" y1="0" y2="8" />
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="8" x2="8" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="16" x2="16" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="24" x2="24" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="32" x2="32" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, white)" x1="36" x2="36" y1="0" y2="8" />
-            </g>
-            <g>
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="44" x2="44" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="52" x2="52" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="60" x2="60" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="68" x2="68" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, white)" x1="76" x2="76" y1="0" y2="8" />
-            </g>
-            <g>
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="84" x2="84" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="92" x2="92" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="100" x2="100" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="108" x2="108" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, white)" x1="116" x2="116" y1="0" y2="8" />
-            </g>
-            <g>
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="124" x2="124" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="132" x2="132" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="140" x2="140" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="148" x2="148" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, white)" x1="156" x2="156" y1="0" y2="8" />
-            </g>
-            <g>
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="164" x2="164" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="172" x2="172" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="180" x2="180" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="188" x2="188" y1="0" y2="5" />
-            </g>
-
-            {/* MASTER CENTER TICK */}
-            <line stroke="white" x1="196" x2="196" y1="0" y2="14" strokeWidth="1" />
-
-            {/* Right side ticks */}
-            <g>
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="204" x2="204" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="212" x2="212" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="220" x2="220" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="228" x2="228" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, white)" x1="236" x2="236" y1="0" y2="8" />
-            </g>
-            <g>
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="244" x2="244" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="252" x2="252" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="260" x2="260" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="268" x2="268" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, white)" x1="276" x2="276" y1="0" y2="8" />
-            </g>
-            <g>
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="284" x2="284" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="292" x2="292" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="300" x2="300" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="308" x2="308" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, white)" x1="316" x2="316" y1="0" y2="8" />
-            </g>
-            <g>
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="324" x2="324" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="332" x2="332" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="340" x2="340" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="348" x2="348" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, white)" x1="356" x2="356" y1="0" y2="8" />
-            </g>
-            <g>
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="364" x2="364" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="372" x2="372" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="380" x2="380" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, #7A7A7A)" x1="388" x2="388" y1="0" y2="5" />
-              <line stroke="var(--stroke-0, white)" x1="392" x2="392" y1="0" y2="8" />
-            </g>
-          </g>
+        <svg width="801" height="14" viewBox="0 0 801 14" fill="none" xmlns="http://www.w3.org/2000/svg" className="block size-full">
+          <line x1="0.5" y1="0" x2="0.5" y2="8" stroke="white"/>
+          <line x1="10.5" y1="0" x2="10.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="20.5" y1="0" x2="20.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="30.5" y1="0" x2="30.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="40.5" y1="0" x2="40.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="50.5" y1="0" x2="50.5" y2="8" stroke="white"/>
+          <line x1="60.5" y1="0" x2="60.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="70.5" y1="0" x2="70.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="80.5" y1="0" x2="80.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="90.5" y1="0" x2="90.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="100.5" y1="0" x2="100.5" y2="8" stroke="white"/>
+          <line x1="110.5" y1="0" x2="110.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="120.5" y1="0" x2="120.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="130.5" y1="0" x2="130.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="140.5" y1="0" x2="140.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="150.5" y1="0" x2="150.5" y2="8" stroke="white"/>
+          <line x1="160.5" y1="0" x2="160.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="170.5" y1="0" x2="170.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="180.5" y1="0" x2="180.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="190.5" y1="0" x2="190.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="200.5" y1="0" x2="200.5" y2="8" stroke="white"/>
+          <line x1="210.5" y1="0" x2="210.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="220.5" y1="0" x2="220.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="230.5" y1="0" x2="230.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="240.5" y1="0" x2="240.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="250.5" y1="0" x2="250.5" y2="8" stroke="white"/>
+          <line x1="260.5" y1="0" x2="260.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="270.5" y1="0" x2="270.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="280.5" y1="0" x2="280.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="290.5" y1="0" x2="290.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="300.5" y1="0" x2="300.5" y2="8" stroke="white"/>
+          <line x1="310.5" y1="0" x2="310.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="320.5" y1="0" x2="320.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="330.5" y1="0" x2="330.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="340.5" y1="0" x2="340.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="350.5" y1="0" x2="350.5" y2="8" stroke="white"/>
+          <line x1="360.5" y1="0" x2="360.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="370.5" y1="0" x2="370.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="380.5" y1="0" x2="380.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="390.5" y1="0" x2="390.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="400.5" y1="0" x2="400.5" y2="14" stroke="white"/>
+          <line x1="410.5" y1="0" x2="410.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="420.5" y1="0" x2="420.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="430.5" y1="0" x2="430.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="440.5" y1="0" x2="440.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="450.5" y1="0" x2="450.5" y2="8" stroke="white"/>
+          <line x1="460.5" y1="0" x2="460.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="470.5" y1="0" x2="470.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="480.5" y1="0" x2="480.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="490.5" y1="0" x2="490.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="500.5" y1="0" x2="500.5" y2="8" stroke="white"/>
+          <line x1="510.5" y1="0" x2="510.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="520.5" y1="0" x2="520.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="530.5" y1="0" x2="530.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="540.5" y1="0" x2="540.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="550.5" y1="0" x2="550.5" y2="8" stroke="white"/>
+          <line x1="560.5" y1="0" x2="560.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="570.5" y1="0" x2="570.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="580.5" y1="0" x2="580.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="590.5" y1="0" x2="590.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="600.5" y1="0" x2="600.5" y2="8" stroke="white"/>
+          <line x1="610.5" y1="0" x2="610.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="620.5" y1="0" x2="620.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="630.5" y1="0" x2="630.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="640.5" y1="0" x2="640.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="650.5" y1="0" x2="650.5" y2="8" stroke="white"/>
+          <line x1="660.5" y1="0" x2="660.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="670.5" y1="0" x2="670.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="680.5" y1="0" x2="680.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="690.5" y1="0" x2="690.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="700.5" y1="0" x2="700.5" y2="8" stroke="white"/>
+          <line x1="710.5" y1="0" x2="710.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="720.5" y1="0" x2="720.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="730.5" y1="0" x2="730.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="740.5" y1="0" x2="740.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="750.5" y1="0" x2="750.5" y2="8" stroke="white"/>
+          <line x1="760.5" y1="0" x2="760.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="770.5" y1="0" x2="770.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="780.5" y1="0" x2="780.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="790.5" y1="0" x2="790.5" y2="6" stroke="#7A7A7A"/>
+          <line x1="800.5" y1="0" x2="800.5" y2="8" stroke="white"/>
         </svg>
       </div>
     </div>
@@ -111,14 +114,24 @@ export function RulerPicker({
 
   // 1. Measure widths on mount or when options change
   useEffect(() => {
-    // Measure only the middle set of items for baseline
-    const measured = itemRefs.current
-      .slice(options.length, options.length * 2)
-      .map(ref => ref?.getBoundingClientRect().width || 0);
-    
-    if (measured.length > 0 && measured.every(w => w > 0)) {
-      setItemWidths(measured);
-    }
+    // Small delay to ensure the browser has laid out the text and fonts are ready
+    const timer = setTimeout(() => {
+      const measured = itemRefs.current
+        .slice(options.length, options.length * 2)
+        .map((ref, idx) => {
+          if (!ref) return 0;
+          const rect = ref.getBoundingClientRect();
+          // Calculate if this specific item in the middle set is the currently active one
+          const isActive = idx === internalIndex; 
+          // If it's active, it's scaled by 1.25. We need the layout (base) width.
+          return isActive ? rect.width / 1.25 : rect.width;
+        });
+      
+      if (measured.length > 0 && measured.every(w => w > 0)) {
+        setItemWidths(measured);
+      }
+    }, 100);
+    return () => clearTimeout(timer);
   }, [options]);
 
   // 2. Calculate offsets based on measured widths
@@ -245,7 +258,7 @@ export function RulerPicker({
   const infiniteOptions = [...options, ...options, ...options];
 
   return (
-    <div className="flex flex-col gap-[4px] items-center w-full max-w-[504px] pointer-events-auto">
+    <div className="flex flex-col gap-[8px] items-center w-full max-w-[504px] overflow-hidden pointer-events-auto">
       <RulerTicks />
       
       <div className="relative w-full overflow-hidden py-2">
@@ -267,17 +280,19 @@ export function RulerPicker({
                 ref={el => itemRefs.current[index] = el}
                 className={`
                   relative shrink-0 w-auto text-center
-                  font-['Helvetica_Neue_LT_Std',_sans-serif] 
+                  font-['Helvetica_Neue',_sans-serif] 
                   font-bold uppercase not-italic
                   leading-[100%] transition-all duration-300 whitespace-nowrap
                   cursor-pointer
                   text-white
+                  [text-box-trim:trim-both] [text-box-edge:cap_alphabetic]
                 `}
                 style={{
-                  fontFamily: '"Helvetica Neue LT Std", sans-serif',
+                  fontFamily: '"Helvetica Neue", sans-serif',
                   fontWeight: 700,
-                  fontSize: isCurrent ? '28px' : '22.4px',
-                  letterSpacing: isCurrent ? '-0.84px' : '-0.672px',
+                  fontSize: '22.4px', // Fixed font size for stable layout
+                  letterSpacing: '-0.03em', // Constant letter spacing to prevent layout shifts
+                  scale: isCurrent ? 1.25 : 1, // Use scale for visual prominence
                   opacity: isCurrent ? 1 : 0.3,
                 }}
                 onClick={() => animateToIndex(realIndex)}

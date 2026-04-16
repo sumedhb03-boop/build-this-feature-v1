@@ -100,7 +100,6 @@ export default function MobileHero({ skipAnimations }: { skipAnimations: boolean
                  <motion.div
                     key={item.id}
                     className="absolute aspect-[9/11]"
-                    style={{ width: '312px', x: '-50%' }}
                     animate={{
                        left: `calc(50% + ${xOffset}px)`,
                        scale: isActive ? 1 : 0.8,

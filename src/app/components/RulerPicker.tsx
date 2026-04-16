@@ -258,7 +258,7 @@ export function RulerPicker({
   const infiniteOptions = [...options, ...options, ...options];
 
   return (
-    <div className="flex flex-col gap-[8px] items-center w-full max-w-[504px] overflow-hidden pointer-events-auto">
+    <div className="flex flex-col gap-[8px] items-center w-full overflow-hidden pointer-events-auto">
       <RulerTicks />
       
       <div className="relative w-full overflow-hidden py-2">

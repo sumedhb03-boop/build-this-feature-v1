@@ -183,7 +183,7 @@ export default function MobileHero({ skipAnimations }: { skipAnimations: boolean
       <div className="flex flex-col gap-6 shrink-0 w-full z-10 pb-4">
         
         {/* The New Ruler Picker */}
-        <div className="w-full flex justify-center py-4">
+        <div className="w-[calc(100%+2rem)] -mx-4 flex justify-center py-4">
             <RulerPicker 
                 options={BASE_ITEMS.map(item => item.title)}
                 currentIndex={activeIndex % 5}

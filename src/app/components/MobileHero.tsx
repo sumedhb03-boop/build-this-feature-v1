@@ -65,7 +65,7 @@ export default function MobileHero({ skipAnimations }: { skipAnimations: boolean
 
   return (
     <motion.div 
-      className="w-full h-full relative flex flex-col overflow-hidden px-4 pb-6 pt-0" 
+      className="w-full h-full relative flex flex-col overflow-hidden px-4 pb-[30px] pt-0" 
       style={{ background: "#000" }}
       onPanEnd={handlePanEnd}
     >
@@ -186,10 +186,10 @@ export default function MobileHero({ skipAnimations }: { skipAnimations: boolean
       </div>
 
       {/* BOTTOM NAVIGATION */}
-      <div className="flex flex-col gap-2 shrink-0 w-full z-10 pb-0">
+      <div className="flex flex-col shrink-0 w-full z-10 pb-0">
         
         {/* The New Ruler Picker */}
-        <div className="w-[calc(100%+2rem)] -mx-4 flex justify-center py-4">
+        <div className="w-[calc(100%+2rem)] -mx-4 flex justify-center pt-4 pb-0">
             <RulerPicker 
                 options={BASE_ITEMS.map(item => item.title)}
                 currentIndex={activeIndex % 5}
@@ -198,7 +198,7 @@ export default function MobileHero({ skipAnimations }: { skipAnimations: boolean
         </div>
 
         {/* Bottom Index - Flattened for perfectly equal spacing */}
-        <div className="flex w-full items-center justify-between px-[40px] pt-4 text-white text-xs font-['Geist_Mono',sans-serif]">
+        <div className="flex w-full items-center justify-between px-[40px] pt-[30px] text-white text-xs font-['Geist_Mono',sans-serif]">
             <button 
                 onClick={stepPrev}
                 className="hover:opacity-100 transition-opacity p-2"

@@ -64,13 +64,17 @@ export default function CaseStudyHero({
             <div className="w-full h-[100px] shrink-0" />
 
             {/* Hero Content */}
-            <div className="flex flex-col items-center w-full max-w-[968px] mx-auto z-10">
+            <div className="flex flex-col items-center w-full max-w-[968px] mx-auto z-10 px-4 md:px-0">
                 {/* Title */}
                 <div className="relative mb-20 w-full flex justify-center">
                     {/* Base text (dimmed) */}
                     <h1 
-                        className="font-['Helvetica_Neue',_'Helvetica',_sans-serif] text-[8vw] leading-none md:text-[128px] font-bold tracking-[-5.12px] uppercase text-center w-full"
-                        style={{ opacity: scrollProgress ? 0.4 : 1 }}
+                        className="font-['Helvetica_Neue',_'Helvetica',_sans-serif] md:text-[128px] leading-[0.9] font-bold uppercase text-center w-auto px-4"
+                        style={{ 
+                            opacity: scrollProgress ? 0.4 : 1, 
+                            letterSpacing: '-4%',
+                            fontSize: 'clamp(40px, 18vw, 14vh)'
+                        }}
                     >
                         {projectTitle}
                     </h1>
@@ -78,9 +82,11 @@ export default function CaseStudyHero({
                     {/* Filled text overlay (revealed by scroll) */}
                     {scrollProgress && (
                         <motion.h1 
-                            className="absolute inset-0 font-['Helvetica_Neue',_'Helvetica',_sans-serif] text-[8vw] leading-none md:text-[128px] font-bold tracking-[-5.12px] uppercase text-center w-full pointer-events-none select-none"
+                            className="absolute inset-0 font-['Helvetica_Neue',_'Helvetica',_sans-serif] md:text-[128px] leading-[0.9] font-bold uppercase text-center w-auto px-4 pointer-events-none select-none"
                             style={{ 
                                 opacity: 1,
+                                letterSpacing: '-4%',
+                                fontSize: 'clamp(40px, 18vw, 14vh)',
                                 // Clip from the bottom up. 
                                 // `inset(top right bottom left)`
                                 // `100 - val` on the top property means the top is clipped heavily when val is 0.

@@ -24,10 +24,10 @@ export default function CaseStudy() {
 
     const getNextId = (currentId: string) => {
         switch (currentId) {
-            case 'scorecric': return 'lucrente';
             case 'lucrente': return 'cyhex';
-            case 'cyhex': return 'originally-raw';
-            case 'originally-raw': return 'scorecric';
+            case 'cyhex': return 'scorecric';
+            case 'scorecric': return 'originally-raw';
+            case 'originally-raw': return 'lucrente';
             default: return 'lucrente';
         }
     };
@@ -100,9 +100,19 @@ export default function CaseStudy() {
     const trackHeight = 270;
 
     useEffect(() => {
+        if ('scrollRestoration' in window.history) {
+            window.history.scrollRestoration = 'manual';
+        }
         window.scrollTo(0, 0);
         const lenis = new Lenis();
         lenisRef.current = lenis;
+
+        // Start with scroll stopped to prevent momentum bleed
+        lenis.stop();
+        setTimeout(() => {
+            lenis.start();
+            window.scrollTo(0, 0); // Second reset after settle
+        }, 150); // 150ms buffer for browser momentum to clear
 
         function raf(time: number) {
             lenis.raf(time);
@@ -477,34 +487,29 @@ export default function CaseStudy() {
 
             {/* 2. Left Nav (Home + Next Project) - Refactored Component */}
             {(() => {
-                const getNextId = (currentId: string) => {
-                    switch (currentId) {
-                        case 'scorecric': return 'lucrente';
-                        case 'lucrente': return 'cyhex';
-                        case 'cyhex': return 'originally-raw';
-                        case 'originally-raw': return 'scorecric';
-                        default: return 'lucrente';
-                    }
-                };
-                const nextProject = CASE_STUDIES[getNextId(project.id)];
+                const nextId = getNextId(project.id);
+                const nextProjectData = CASE_STUDIES[nextId];
                 return (
-                    <SidebarNav 
-                        id={id} 
-                        iconColor={project.sidebarIconColor}
-                        bgColor={project.sidebarBgColor}
-                        hoverColor={project.sidebarHoverColor}
-                        nextIconColor={nextProject.sidebarIconColor}
-                        nextBgColor={nextProject.sidebarBgColor}
-                        nextHoverColor={nextProject.sidebarHoverColor}
-                        exitColorProgress={exitColorProgress}
-                        scrollProgress={footerScrollValue}
-                        mainScrollY={localScrollY}
-                    />
+                    <div className="hidden md:block">
+                        <SidebarNav 
+                            id={id} 
+                            iconColor={project.sidebarIconColor}
+                            bgColor={project.sidebarBgColor}
+                            hoverColor={project.sidebarHoverColor}
+                            nextIconColor={nextProjectData.sidebarIconColor}
+                            nextBgColor={nextProjectData.sidebarBgColor}
+                            nextHoverColor={nextProjectData.sidebarHoverColor}
+                            exitColorProgress={exitColorProgress}
+                            scrollProgress={footerScrollValue}
+                            mainScrollY={localScrollY}
+                            nextId={nextId}
+                        />
+                    </div>
                 );
             })()}
 
             {/* 3. Scroll Bar Progress - Interactive */}
-            <div className="fixed right-[32px] top-1/2 -translate-y-1/2 h-[270px] w-[52px] flex flex-col items-center justify-center z-50">
+            <div className="hidden md:flex fixed right-[32px] top-1/2 -translate-y-1/2 h-[270px] w-[52px] flex-col items-center justify-center z-50">
                 <div
                     className="w-px h-full relative cursor-pointer"
                     style={{ backgroundColor: activeIndicatorColor === "#ffffff" ? "rgba(255, 255, 255, 0.2)" : "rgba(23, 20, 18, 0.2)" }}
@@ -562,7 +567,7 @@ export default function CaseStudy() {
                 }}
             >
                 {/* Description Grid */}
-                <div className="w-full max-w-[905px] flex flex-col md:flex-row gap-[60px] md:gap-[120px] mb-[140px]">
+                <div className="w-full max-w-[905px] flex flex-col md:flex-row gap-[60px] md:gap-[120px] mb-[140px] px-4 md:px-0">
                     {/* Metadata Column */}
                     <div className="flex flex-row md:flex-col gap-[32px] md:gap-[40px] min-w-fit md:min-w-[150px]">
                         {project.role && (
@@ -618,7 +623,7 @@ export default function CaseStudy() {
                 </div>
 
                 {/* Snippets Header */}
-                <div className="w-full max-w-[905px] flex justify-start items-center gap-2 mb-[32px]">
+                <div className="w-full max-w-[905px] flex justify-start items-center gap-2 mb-[32px] px-4 md:px-0">
                     <h3
                         className="text-[20px] font-['Geist',sans-serif] font-light tracking-[-0.4px] m-0 leading-[1.4]"
                         style={{ color: project.headingColor }}
@@ -632,7 +637,7 @@ export default function CaseStudy() {
                 </div>
 
                 {/* Visuals Grid */}
-                <div className="w-full max-w-[905px] flex flex-col gap-[20px] items-center">
+                <div className="w-full max-w-[905px] flex flex-col gap-[20px] items-center px-4 md:px-0">
                     {project.visuals.map((visual, index) => renderVisual(visual, index))}
                 </div>
             </motion.section>
@@ -645,6 +650,7 @@ export default function CaseStudy() {
                 onPointerLeave={() => setIsHoveringFooter(false)}
                 onClick={() => {
                     const nextId = nextProject.id;
+                    lenisRef.current?.stop();
                     window.scrollTo(0, 0);
                     navigate(`/case-study/${nextId}`);
                 }}
@@ -661,6 +667,7 @@ export default function CaseStudy() {
                         scrollProgress={footerScrollValue}
                         onFillComplete={() => {
                             const nextId = nextProject.id;
+                            lenisRef.current?.stop();
                             window.scrollTo(0, 0);
                             navigate(`/case-study/${nextId}`);
                         }}
@@ -669,11 +676,11 @@ export default function CaseStudy() {
             </motion.div>
             <AboutOverlay />
 
-            {/* Custom Cursor for Footer */}
+            {/* Custom Cursor for Footer - Desktop Only */}
             <AnimatePresence>
                 {isHoveringFooter && isTransitionComplete && (
                     <motion.div
-                        className="fixed top-0 left-0 pointer-events-none z-[9999]"
+                        className="hidden md:block fixed top-0 left-0 pointer-events-none z-[9999]"
                         style={{
                             x: smoothMouseX,
                             y: smoothMouseY,

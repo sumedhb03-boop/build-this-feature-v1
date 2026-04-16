@@ -3,6 +3,7 @@ import { motion, useMotionValue, useTransform, animate } from "motion/react";
 import { BASE_ITEMS } from "../data/homeItems";
 import { useNavigate } from "react-router-dom";
 import { RulerPicker } from "./RulerPicker";
+import Header from "./Header";
 
 export default function MobileHero({ skipAnimations }: { skipAnimations: boolean }) {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -69,16 +70,7 @@ export default function MobileHero({ skipAnimations }: { skipAnimations: boolean
       onPanEnd={handlePanEnd}
     >
       
-      {/* HEADER */}
-      <div className="flex justify-between items-start z-10 w-full shrink-0">
-        <div className="flex flex-col gap-0.5 items-start">
-          <p className="font-['Geist',sans-serif] font-medium text-white text-[13px]">Hello, I'm Sumedh</p>
-          <p className="font-['Geist',sans-serif] font-normal text-gray-400 text-[10px] leading-none tracking-tight whitespace-nowrap">Product designer, currently working freelance.</p>
-        </div>
-        <div>
-          <p className="font-['Geist_Mono',sans-serif] text-white text-sm tracking-tight">// MENU</p>
-        </div>
-      </div>
+      <Header />
 
       {/* CENTER CAROUSEL & HERO FRAME */}
       <div className="relative flex-grow flex items-center justify-center -mx-4 w-[calc(100%+2rem)] overflow-hidden">
@@ -105,7 +97,7 @@ export default function MobileHero({ skipAnimations }: { skipAnimations: boolean
                        scale: isActive ? 1 : 0.8,
                        opacity: (slotIndex >= 1 && slotIndex <= 3) ? 1 : 0,
                        zIndex: isActive ? 10 : 0,
-                       filter: isActive ? "blur(0px)" : "blur(2px)"
+                       filter: "blur(0px)"
                     }}
                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
                     style={{ 
@@ -159,7 +151,14 @@ export default function MobileHero({ skipAnimations }: { skipAnimations: boolean
 
                          <motion.div 
                             className="w-full h-full relative cursor-pointer"
-                            onClick={() => item.slug && navigate(`/case-study/${item.slug}`)}
+                             onClick={() => {
+                               // Only navigate if this item is actually the one in the center (slot 2)
+                               // slotIndex is (i - activeIndex + 2 + 10) % 10
+                               const currentSlot = (i - activeIndex + 2 + 10) % 10;
+                               if (currentSlot === 2 && item.slug) {
+                                 navigate(`/case-study/${item.slug}`);
+                               }
+                             }}
                             animate={{
                               x: (slotIndex - 2) * -40, // Counter-movement for parallax
                               scale: 1.1 // Slight over-scale to allow movement bleed

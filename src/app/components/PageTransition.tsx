@@ -1,7 +1,17 @@
 import { motion } from "motion/react";
 import React from "react";
 
+import { useLocation } from "react-router-dom";
+
 export default function PageTransition({ children }: { children: React.ReactNode }) {
+    const location = useLocation();
+
+    // Fail-safe: Ensure scroll lock is removed whenever we change routes
+    React.useEffect(() => {
+        document.documentElement.classList.remove('no-scroll');
+        document.body.classList.remove('no-scroll');
+    }, [location.pathname]);
+
     return (
         <>
             {/* The Wipe Overlay - Single Dark Layer */}

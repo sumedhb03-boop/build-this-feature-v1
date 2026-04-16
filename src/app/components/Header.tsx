@@ -174,23 +174,53 @@ function NavLinks({ color }: { color: string }) {
     );
 }
 
-export default function Header({ color = "#ffffff", scrollY = 0, showScrollAnimation = false }: HeaderProps) {
+function MobileHeader({ color }: { color: string }) {
+    const navigate = useNavigate();
+    const { toggleAbout } = useUI();
+
     return (
-        <div
-            className="fixed z-50 pointer-events-none content-stretch flex items-start justify-between left-0 right-0 top-0 transition-colors duration-200"
-            style={{
-                paddingTop: '2.667vh',
-                paddingLeft: '2.222vw',
-                paddingRight: '2.222vw',
-                pointerEvents: 'none'
-            }}
-        >
-            <div className="pointer-events-auto">
-                <IntroSection color={color} scrollY={scrollY} showScrollAnimation={showScrollAnimation} />
+        <div className="flex justify-between items-start w-full px-4 pt-4">
+            <div 
+                className="flex flex-col gap-0.5 items-start cursor-pointer transition-opacity active:opacity-60"
+                onClick={() => navigate('/')}
+            >
+                <p className="font-['Geist',sans-serif] font-medium text-[13px]" style={{ color }}>Hello, I'm Sumedh</p>
+                <p className="font-['Geist',sans-serif] font-normal text-[12px] leading-none tracking-tight whitespace-nowrap opacity-70" style={{ color }}>Product designer, currently working freelance.</p>
             </div>
-            <div className="pointer-events-auto">
-                <NavLinks color={color} />
+            <div 
+                className="cursor-pointer transition-opacity active:opacity-60"
+                onClick={toggleAbout}
+            >
+                <p className="font-['Geist_Mono',sans-serif] text-sm tracking-tight" style={{ color }}>// MENU</p>
             </div>
         </div>
+    );
+}
+
+export default function Header({ color = "#ffffff", scrollY = 0, showScrollAnimation = false }: HeaderProps) {
+    return (
+        <header className="fixed z-50 w-full left-0 top-0 pointer-events-none transition-colors duration-200">
+            {/* Desktop Header */}
+            <div
+                className="hidden md:flex items-start justify-between w-full"
+                style={{
+                    paddingTop: '2.667vh',
+                    paddingLeft: '2.222vw',
+                    paddingRight: '2.222vw',
+                }}
+            >
+                <div className="pointer-events-auto">
+                    <IntroSection color={color} scrollY={scrollY} showScrollAnimation={showScrollAnimation} />
+                </div>
+                <div className="pointer-events-auto">
+                    <NavLinks color={color} />
+                </div>
+            </div>
+
+            {/* Mobile Header */}
+            <div className="flex md:hidden w-full pointer-events-auto">
+                <MobileHeader color={color} />
+            </div>
+        </header>
     );
 }

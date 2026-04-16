@@ -404,6 +404,19 @@ interface Frame30Props {
 
 function Frame30({ onEntranceDone, isEntranceReady, skipAnimations = false }: Frame30Props) {
   const [activeIndex, setActiveIndex] = useState(0);
+
+  // Apply scroll lock to body when on Home page
+  useEffect(() => {
+    // Add no-scroll class to BOTH html and body for best cross-browser support
+    document.documentElement.classList.add('no-scroll');
+    document.body.classList.add('no-scroll');
+    
+    // Immediate cleanup on unmount
+    return () => {
+      document.documentElement.classList.remove('no-scroll');
+      document.body.classList.remove('no-scroll');
+    };
+  }, []);
   const [isHovered, setIsHovered] = useState(false);
   const [isEntranceDone, setIsEntranceDone] = useState(false);
   const lastScrollTime = useRef(0);

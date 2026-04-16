@@ -13,6 +13,7 @@ interface SidebarNavProps {
     scrollProgress: MotionValue<number>; // Footer overscroll progress
     mainScrollY: MotionValue<number>;     // Global window scroll
     exitColorProgress: MotionValue<number>; // Smooth transition before footer
+    nextId?: string;
 }
 
 export default function SidebarNav({
@@ -25,7 +26,8 @@ export default function SidebarNav({
     nextHoverColor,
     scrollProgress,
     mainScrollY,
-    exitColorProgress
+    exitColorProgress,
+    nextId
 }: SidebarNavProps) {
     const navigate = useNavigate();
     const [hoveredButton, setHoveredButton] = useState<string | null>(null);
@@ -154,8 +156,12 @@ export default function SidebarNav({
                     onHoverStart={() => setHoveredButton('next')}
                     onHoverEnd={() => setHoveredButton(null)}
                     onClick={() => {
-                        navigate("/");
-                        window.scrollTo(0, 0);
+                        if (nextId) {
+                            window.scrollTo(0, 0);
+                            navigate(`/case-study/${nextId}`);
+                        } else {
+                            navigate("/");
+                        }
                     }}
                     className="w-[52px] h-[52px] rounded-full flex items-center justify-center cursor-pointer transition-shadow duration-300"
                     style={{ 

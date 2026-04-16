@@ -1,8 +1,8 @@
 import React from "react";
-import imgFreeHandHoldingIPhone16ProMockup2 from "../../assets/cb404150f92e88ed4a66f5525a525988047fb537.png";
-import imgLucrenteHomepage1 from "../../assets/934e76980decd08a547dbf8807403b703fd07584.png";
-import imgShotsMockups21 from "../../assets/f0cf51fe902c49e33273901f4d5947d40e8551e8.png";
-import imgShotsMockups131 from "../../assets/8b29ebd34c3524dbc7989b4884ebd904c19ff803.png";
+import imgLucrenteThumbnail from "../../assets/Lucrente visuaal 1.webp";
+import imgCyhexThumbnail from "../../assets/CY 01.webp";
+import imgScoreCricThumbnail from "../../assets/PNG to WEBP 1.webp";
+import imgOriginallyRawThumbnail from "../../assets/OR 01.webp";
 
 export const BASE_ITEMS = [
   {
@@ -17,11 +17,11 @@ export const BASE_ITEMS = [
     id: 1,
     slug: "lucrente",
     srNo: "02",
-    title: "Lucrente",
+    title: "LUCRENTE",
     categories: ["Brand", "Product", "Web"],
     content: (
       <div className="absolute inset-0 overflow-hidden pointer-events-none flex items-center justify-center bg-black">
-        <img alt="iphone mockup" className="w-full h-full object-cover" src={imgFreeHandHoldingIPhone16ProMockup2} />
+        <img alt="Lucrente Thumbnail" className="w-full h-full object-cover" src={imgLucrenteThumbnail} />
       </div>
     )
   },
@@ -29,11 +29,11 @@ export const BASE_ITEMS = [
     id: 2,
     slug: "cyhex",
     srNo: "03",
-    title: "Cyhex",
+    title: "CYHEX",
     categories: ["Web App", "Website"],
     content: (
       <div className="absolute inset-0 overflow-hidden pointer-events-none flex items-center justify-center bg-black">
-        <img alt="Project mockup" className="w-full h-full object-cover" src={imgShotsMockups131} />
+        <img alt="Cyhex Thumbnail" className="w-full h-full object-cover" src={imgCyhexThumbnail} />
       </div>
     )
   },
@@ -41,11 +41,11 @@ export const BASE_ITEMS = [
     id: 3,
     slug: "scorecric",
     srNo: "04",
-    title: "Scorecric",
+    title: "SCORECRIC",
     categories: ["Brand", "Product"],
     content: (
       <div className="absolute inset-0 overflow-hidden pointer-events-none flex items-center justify-center bg-black">
-        <img alt="Project mockup" className="w-full h-full object-cover" src={imgShotsMockups21} />
+        <img alt="ScoreCric Thumbnail" className="w-full h-full object-cover" src={imgScoreCricThumbnail} />
       </div>
     )
   },
@@ -57,7 +57,7 @@ export const BASE_ITEMS = [
     categories: ["E-commerce"],
     content: (
       <div className="absolute inset-0 overflow-hidden pointer-events-none flex items-center justify-center bg-black">
-        <img alt="Lucrente homepage" className="w-full h-full object-cover" src={imgLucrenteHomepage1} />
+        <img alt="Originally Raw Thumbnail" className="w-full h-full object-cover" src={imgOriginallyRawThumbnail} />
       </div>
     )
   }

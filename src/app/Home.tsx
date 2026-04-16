@@ -1,17 +1,12 @@
-import imgFreeHandHoldingIPhone16ProMockup2 from "../assets/cb404150f92e88ed4a66f5525a525988047fb537.png";
-import imgLucrenteHomepage1 from "../assets/934e76980decd08a547dbf8807403b703fd07584.png";
-import imgShotsMockups21 from "../assets/f0cf51fe902c49e33273901f4d5947d40e8551e8.png";
-import imgShotsMockups131 from "../assets/8b29ebd34c3524dbc7989b4884ebd904c19ff803.png";
-import imgShotsMockups51 from "../assets/4f162cf32622d4dfcb2e70aa9a67a7097d9ee1f5.png";
-import imgShotsMockups111 from "../assets/7292e05d82287909056e88cc3881368921d19f29.png";
-import imgShotsMockups161 from "../assets/b38b430a823043dace439426de6370f44cbbb53f.png";
 import { motion, AnimatePresence } from "motion/react";
 import { useState, useEffect, useRef } from "react";
 import Header from "./components/Header";
 import LoadingScreen from "./components/LoadingScreen";
 import AboutOverlay from "./components/AboutOverlay";
+import MobileHero from "./components/MobileHero";
 import { useNavigate } from "react-router-dom";
 import { useUI } from "./context/UIContext";
+import { BASE_ITEMS } from "./data/homeItems";
 
 function Group1() {
   return (
@@ -192,71 +187,7 @@ const SLOTS = [
   { left: 'calc(50% - 60vw)', top: '60vh', scale: 0.33, zIndex: 0, opacity: 0 },
 ];
 
-const BASE_ITEMS = [
-  {
-    id: 0,
-    slug: "scorecric",
-    srNo: "01",
-    title: "Scorecric",
-    categories: ["Brand", "Product"],
-    content: (
-      <div className="absolute inset-0 overflow-hidden pointer-events-none flex items-center justify-center">
-        <img alt="Project mockup" className="w-full h-full object-cover" src={imgShotsMockups21} />
-      </div>
-    )
-  },
-  {
-    id: 1,
-    slug: "lucrente",
-    srNo: "02",
-    title: "Lucrente",
-    categories: ["Brand", "Product", "Web"],
-    content: (
-      <div className="absolute inset-0 overflow-hidden pointer-events-none flex items-center justify-center">
-        <img alt="iPhone mockup" className="w-full h-full object-cover" src={imgFreeHandHoldingIPhone16ProMockup2} />
-      </div>
-    )
-  },
-  {
-    id: 2,
-    slug: "cyhex",
-    srNo: "03",
-    title: "Cyhex",
-    categories: ["Web App", "Website"],
-    content: (
-      <div className="absolute inset-0 overflow-hidden pointer-events-none flex items-center justify-center">
-        <img alt="Project mockup" className="w-full h-full object-cover" src={imgShotsMockups131} />
-      </div>
-    )
-  },
-  {
-    id: 3,
-    slug: "originally-raw",
-    srNo: "04",
-    title: "ORIGINALLY RAW",
-    categories: ["E-commerce"],
-    content: (
-      <div className="absolute inset-0 overflow-hidden pointer-events-none flex items-center justify-center">
-        <img alt="Lucrente homepage" className="w-full h-full object-cover" src={imgLucrenteHomepage1} />
-      </div>
-    )
-  },
-  {
-    id: 4,
-    slug: "scorecric", // Placeholder for Playground
-    srNo: "05",
-    title: "Playground",
-    categories: ["Design", "Experiments"],
-    content: (
-      <div className="w-full h-full bg-[#ff4c11] relative overflow-clip">
-        <div className="absolute flex flex-col items-end leading-[0.98] text-white whitespace-pre-wrap" style={{ left: '7.4vw', top: '13vh', width: '19.1vw' }}>
-          <p className="font-['Times_New_Roman',serif] italic relative shrink-0 text-right w-full" style={{ fontSize: '3.08vw', letterSpacing: '-0.031vw' }}>My</p>
-          <p className="font-['Helvetica_Neue',_'Helvetica',_sans-serif] font-bold not-italic opacity-40 relative shrink-0 w-full" style={{ fontSize: '3.7vw', letterSpacing: '-0.0375vw' }}>Playground</p>
-        </div>
-      </div>
-    )
-  }
-];
+
 
 // Duplicate items to ensure smooth infinite sliding across 10 slots
 const CAROUSEL_ITEMS = [
@@ -616,6 +547,7 @@ export default function App() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
           >
+            <div className="hidden md:block w-full h-full">
             {/* 1. Top Guide Line */}
             <motion.div
               initial={skipAnimations ? false : { opacity: 0 }}
@@ -683,6 +615,10 @@ export default function App() {
             </motion.div>
  
             <Frame18 skipAnimations={skipAnimations} />
+            </div>
+            <div className="block md:hidden w-full h-full relative z-10">
+              <MobileHero skipAnimations={skipAnimations} />
+            </div>
             <AboutOverlay />
           </motion.div>
         )}

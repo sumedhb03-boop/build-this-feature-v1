@@ -529,7 +529,7 @@ export default function App() {
   const skipAnimations = hasLoaded;
 
   return (
-    <div className="bg-black relative overflow-hidden" style={{ width: '100vw', height: '100vh' }} data-name="51">
+    <div className="bg-black relative overflow-hidden" style={{ width: '100vw', height: '100dvh' }} data-name="51">
       <AnimatePresence mode="wait">
         {isLoading ? (
           <LoadingScreen 

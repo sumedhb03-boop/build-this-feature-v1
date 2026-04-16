@@ -109,7 +109,7 @@ export default function AboutOverlay() {
                     
                     <div className="flex flex-col gap-[1.5vh] md:gap-[2vh] opacity-90 max-w-full md:max-w-[95%] overflow-y-auto pr-2 custom-scrollbar">
                         {paragraphs.map((paragraph, i) => (
-                            <p key={i} className="font-['Geist',_sans-serif] text-[clamp(13px,0.9vw,16px)] font-normal leading-[1.45] tracking-tight text-justify">
+                            <p key={i} className="font-['Geist',_sans-serif] text-[clamp(14px,0.9vw,16px)] leading-[1.5] text-left px-1 font-[450] md:font-normal">
                                 {paragraph}
                             </p>
                         ))}
@@ -123,7 +123,7 @@ export default function AboutOverlay() {
                             href="/resume.pdf" 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="font-['Geist',_sans-serif] text-[clamp(12px,0.9vw,15px)] font-normal opacity-90 transition-opacity relative group"
+                            className="font-['Geist',_sans-serif] text-[clamp(12px,0.9vw,15px)] opacity-90 transition-opacity relative group font-[450] md:font-normal"
                             initial="initial"
                             whileHover="hover"
                         >
@@ -143,7 +143,7 @@ export default function AboutOverlay() {
                     <div className="flex items-center gap-[4vw] md:gap-[2vw]">
                         <motion.a 
                             href="mailto:hello@sumedh.design" 
-                            className="group flex items-center font-['Geist',_sans-serif] text-[clamp(12px,0.9vw,15px)] font-normal opacity-90 relative"
+                            className="group flex items-center font-['Geist',_sans-serif] text-[clamp(12px,0.9vw,15px)] opacity-90 relative font-[450] md:font-normal"
                             initial="initial"
                             whileHover="hover"
                         >
@@ -163,7 +163,7 @@ export default function AboutOverlay() {
                             href="https://www.linkedin.com/in/sumedh-bambal" 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="font-['Geist',_sans-serif] text-[clamp(12px,0.9vw,15px)] font-normal opacity-90 transition-opacity relative group"
+                            className="font-['Geist',_sans-serif] text-[clamp(12px,0.9vw,15px)] opacity-90 transition-opacity relative group font-[450] md:font-normal"
                             initial="initial"
                             whileHover="hover"
                         >
@@ -181,7 +181,7 @@ export default function AboutOverlay() {
                             href="https://x.com/sumedhb03" 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="font-['Geist',_sans-serif] text-[clamp(12px,0.9vw,15px)] font-normal opacity-90 transition-opacity relative group"
+                            className="font-['Geist',_sans-serif] text-[clamp(12px,0.9vw,15px)] opacity-90 transition-opacity relative group font-[450] md:font-normal"
                             initial="initial"
                             whileHover="hover"
                         >

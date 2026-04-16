@@ -45,7 +45,7 @@ export default function Contact() {
                         transition={{ delay: 0.1 }}
                         className="flex flex-col pt-10"
                     >
-                        <h1 className="font-['Helvetica_Neue_LT_Std',sans-serif] uppercase text-[42px] md:text-[70px] lg:text-[84px] xl:text-[94px] text-[#e2e2e2] leading-[0.95] tracking-tight font-light flex flex-col items-start justify-start">
+                        <h1 className="font-['Helvetica_Neue',sans-serif] font-bold uppercase text-[15vw] md:text-[70px] lg:text-[84px] xl:text-[94px] text-[#e2e2e2] leading-[0.95] tracking-tight flex flex-col items-start justify-start">
                             <div className="flex items-center gap-[0.15em] h-[1.1em] overflow-hidden">
                                 <span>LET'S</span>
                                 <span className="relative inline-grid text-[#FF4C11] h-full items-center">

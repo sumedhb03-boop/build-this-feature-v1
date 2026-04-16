@@ -65,12 +65,15 @@ export default function MobileHero({ skipAnimations }: { skipAnimations: boolean
 
   return (
     <motion.div 
-      className="w-full h-full relative flex flex-col justify-between overflow-hidden px-4 pb-6 pt-4" 
+      className="w-full h-full relative flex flex-col overflow-hidden px-4 pb-6 pt-0" 
       style={{ background: "#000" }}
       onPanEnd={handlePanEnd}
     >
       
       <Header />
+      
+      {/* Header Spacer - Accounts for fixed header height in flex layout */}
+      <div className="h-[60px] shrink-0 pointer-events-none" />
 
       {/* CENTER CAROUSEL & HERO FRAME */}
       <div className="relative flex-grow flex items-center justify-center -mx-4 w-[calc(100%+2rem)] overflow-hidden">
@@ -141,11 +144,14 @@ export default function MobileHero({ skipAnimations }: { skipAnimations: boolean
                                 STARTUPS &<br/>
                                 TEAMS
                              </h1>
-                             <div className="mt-8 pointer-events-auto cursor-pointer" onClick={() => console.log('Book a call clicked')}>
-                                <div className="bg-[#fbf9ef] text-black px-6 py-2.5 flex items-center justify-center gap-2">
-                                   <span className="font-['Geist_Mono',sans-serif] text-xs font-semibold leading-none tracking-tight pt-[1px]">// BOOK A CALL</span>
-                                </div>
-                             </div>
+                              <div className="mt-8 pointer-events-auto cursor-pointer" onClick={() => navigate('/contact')}>
+                                 <div className="bg-[#fbf9ef] text-black px-6 py-2.5 flex items-center justify-center gap-2">
+                                    <span className="font-['Geist_Mono',sans-serif] text-xs font-semibold leading-none tracking-tight pt-[1px] flex items-center">
+                                       <span className="tracking-[-0.3em] font-['Geist_Mono',sans-serif] mr-[0.5em]">//</span>
+                                       <span>BOOK A CALL</span>
+                                    </span>
+                                 </div>
+                              </div>
                           </div>
                         ) : (
 
@@ -179,8 +185,8 @@ export default function MobileHero({ skipAnimations }: { skipAnimations: boolean
 
       </div>
 
-      {/* BOTTOM SECTION */}
-      <div className="flex flex-col gap-6 shrink-0 w-full z-10 pb-4">
+      {/* BOTTOM NAVIGATION */}
+      <div className="flex flex-col gap-2 shrink-0 w-full z-10 pb-0">
         
         {/* The New Ruler Picker */}
         <div className="w-[calc(100%+2rem)] -mx-4 flex justify-center py-4">
@@ -195,19 +201,19 @@ export default function MobileHero({ skipAnimations }: { skipAnimations: boolean
         <div className="flex w-full items-center justify-between px-[40px] pt-4 text-white text-xs font-['Geist_Mono',sans-serif]">
             <button 
                 onClick={stepPrev}
-                className="opacity-60 hover:opacity-100 transition-opacity p-2"
+                className="hover:opacity-100 transition-opacity p-2"
             >
                 <svg width="22" height="12" viewBox="0 0 22 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M19 2.50002C19 2.34309 18.8046 2.20276 18.5102 2.14831C18.2159 2.09386 17.8848 2.13682 17.6806 2.25597L11.6806 5.75599C11.4398 5.89639 11.4398 6.10364 11.6806 6.24404L17.6806 9.74404C17.8848 9.86319 18.2159 9.90619 18.5102 9.85174C18.8046 9.79729 19 9.65694 19 9.49999V2.50002Z" fill="white"/>
                     <path d="M10.75 2.08925C10.75 1.93232 10.5546 1.79199 10.2602 1.73755C9.96585 1.6831 9.63481 1.72606 9.43056 1.84521L3.4306 5.34523C3.1898 5.48563 3.1898 5.69288 3.4306 5.83328L9.43056 9.33328C9.63481 9.45243 9.96585 9.49543 10.2602 9.44098C10.5546 9.38653 10.75 9.24618 10.75 9.08923V2.08925Z" fill="white"/>
                 </svg>
             </button>
-            <span className="opacity-60 tracking-widest">{CAROUSEL_ITEMS[activeIndex].srNo}</span>
-            <span className="opacity-30 tracking-widest">//</span>
-            <span className="opacity-60 tracking-widest">{CAROUSEL_ITEMS[4].srNo}</span>
+            <span className="tracking-widest">{CAROUSEL_ITEMS[activeIndex].srNo}</span>
+            <span className="opacity-100 tracking-[-0.3em] font-['Geist_Mono',sans-serif]">//</span>
+            <span className="tracking-widest">{CAROUSEL_ITEMS[4].srNo}</span>
             <button 
                 onClick={stepNext}
-                className="opacity-60 hover:opacity-100 transition-opacity p-2"
+                className="hover:opacity-100 transition-opacity p-2"
             >
                 <svg width="22" height="12" viewBox="0 0 22 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="rotate-180">
                     <path d="M19 2.50002C19 2.34309 18.8046 2.20276 18.5102 2.14831C18.2159 2.09386 17.8848 2.13682 17.6806 2.25597L11.6806 5.75599C11.4398 5.89639 11.4398 6.10364 11.6806 6.24404L17.6806 9.74404C17.8848 9.86319 18.2159 9.90619 18.5102 9.85174C18.8046 9.79729 19 9.65694 19 9.49999V2.50002Z" fill="white"/>

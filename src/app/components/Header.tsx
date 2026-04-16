@@ -191,7 +191,10 @@ function MobileHeader({ color }: { color: string }) {
                 className="cursor-pointer transition-opacity active:opacity-60"
                 onClick={toggleAbout}
             >
-                <p className="font-['Geist_Mono',sans-serif] text-sm tracking-tight" style={{ color }}>// MENU</p>
+                <p className="font-['Geist_Mono',sans-serif] text-sm shrink-0 flex items-center" style={{ color }}>
+                    <span className="tracking-[-0.3em]">//</span>
+                    <span className="tracking-tight ml-[0.5em]">ABOUT</span>
+                </p>
             </div>
         </div>
     );

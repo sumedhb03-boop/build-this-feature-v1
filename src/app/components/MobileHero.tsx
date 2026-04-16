@@ -158,15 +158,16 @@ export default function MobileHero({ skipAnimations }: { skipAnimations: boolean
                         ) : (
 
                          <motion.div 
-                           className="w-full h-full relative"
-                           animate={{
-                             x: (slotIndex - 2) * -40, // Counter-movement for parallax
-                             scale: 1.1 // Slight over-scale to allow movement bleed
-                           }}
-                           transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                         >
-                           {item.content}
-                         </motion.div>
+                            className="w-full h-full relative cursor-pointer"
+                            onClick={() => item.slug && navigate(`/case-study/${item.slug}`)}
+                            animate={{
+                              x: (slotIndex - 2) * -40, // Counter-movement for parallax
+                              scale: 1.1 // Slight over-scale to allow movement bleed
+                            }}
+                            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                          >
+                            {item.content}
+                          </motion.div>
                        )}
 
                     </div>

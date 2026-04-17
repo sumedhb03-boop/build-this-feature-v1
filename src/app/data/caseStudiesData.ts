@@ -1,16 +1,15 @@
-import imgLucrenteHomepage2 from "../../assets/1d77d66ff6b45fa2d2226a141a9e634ce5327a61.png";
-import imgShotsMockups171 from "../../assets/fcb9c5216992368da81368867fa77e03f1e9618e.png";
-import imgShotsMockups51 from "../../assets/4f162cf32622d4dfcb2e70aa9a67a7097d9ee1f5.png";
-import imgShotsMockups161 from "../../assets/b38b430a823043dace439426de6370f44cbbb53f.png";
-import imgShotsMockups111 from "../../assets/7292e05d82287909056e88cc3881368921d19f29.png";
-import imgFrame20856631201 from "../../assets/fdca36244b9d48ef4d9c01a80a95c75c31a83452.png";
-import imgShotsMockups21 from "../../assets/f0cf51fe902c49e33273901f4d5947d40e8551e8.png";
-import imgGrid1 from "../../assets/b67d14d76aba74947169a7a21d07218ec1db1d44.png";
-import imgTypography1 from "../../assets/75b341d239b30523b250b3bafb2f129e4945c291.png";
-import img73 from "../../assets/bfe61e94ef2acd77eb43463530da3d3698e50670.png";
-import imgLucrenteVisual1 from "../../assets/Lucrente visuaal 1.webp";
-import imgShotsMockups131 from "../../assets/8b29ebd34c3524dbc7989b4884ebd904c19ff803.png";
-import imgScoreCric1 from "../../assets/PNG to WEBP 1.webp";
+import imgLucrente02 from "../../assets/lucrente_02.png";
+import imgLucrente03 from "../../assets/lucrente_03.png";
+import imgLucrente04 from "../../assets/lucrente_04.png";
+import imgLucrente05 from "../../assets/lucrente_05.png";
+import imgLucrente06 from "../../assets/lucrente_06.png";
+import imgLucrente07 from "../../assets/lucrente_07.png";
+import imgLucrente08 from "../../assets/lucrente_08.png";
+import imgLucrente09 from "../../assets/lucrente_09.png";
+import imgLucrente10 from "../../assets/lucrente_10.png";
+import imgLucrente11 from "../../assets/lucrente_11.png";
+import imgLucrente01 from "../../assets/lucrente_01.webp";
+import imgScoreCric1 from "../../assets/Scorecric Thumbnail.webp";
 import imgScoreCric2 from "../../assets/PNG to WEBP 2.webp";
 import imgScoreCric3 from "../../assets/PNG to WEBP 3.webp";
 import imgScoreCric4 from "../../assets/PNG to WEBP 4.webp";
@@ -132,25 +131,25 @@ export const CASE_STUDIES: Record<string, CaseStudyData> = {
         heroDescription: "Redefining how rent payments work\n--> simple, rewarding, and seamless.",
         mainDescription: "I partnered with Lucrente from the earliest stages, helping define the product, user experience, and initial brand direction.\n\nLucrente enables users to earn rewards on rent payments, navigating a highly regulated space where clarity is essential. Every design decision prioritised trust, simplicity, and ease of use, ensuring the product felt credible from the first interaction.",
         visuals: [
-            { type: 'single', src: imgLucrenteVisual1, alt: "Lucrente Visual 1", bgColor: "#fbf9ef" },
-            { type: 'single', src: imgLucrenteHomepage2, alt: "Lucrente Demo", bgColor: "#f2e7f0", height: "675px" },
-            { type: 'single', src: imgShotsMockups171, alt: "Mockup 3", bgColor: "#feeaf1", height: "675px" },
-            { type: 'single', src: imgShotsMockups51, alt: "Mockup 5", bgColor: "#231b26", aspectRatio: "900/632" },
-            { type: 'single', src: imgShotsMockups161, alt: "Mockup 16", bgColor: "#f8e1eb", height: "724px" },
+            { type: 'single', src: imgLucrente01, alt: "Lucrente 01", bgColor: "#fbf9ef" },
+            { type: 'single', src: imgLucrente02, alt: "Lucrente 02", bgColor: "#f2e7f0", height: "675px" },
+            { type: 'single', src: imgLucrente03, alt: "Lucrente 03", bgColor: "#feeaf1", height: "675px" },
+            { type: 'single', src: imgLucrente04, alt: "Lucrente 04", bgColor: "#231b26", aspectRatio: "900/632" },
+            { type: 'single', src: imgLucrente05, alt: "Lucrente 05", bgColor: "#f8e1eb", height: "724px" },
             { 
                 type: 'split', 
-                leftSrc: imgShotsMockups111, leftAlt: "Mockup 11", leftBgColor: "#f1efe9",
-                rightSrc: imgFrame20856631201, rightAlt: "Mockup Frame", rightBgColor: "#0c0005",
+                leftSrc: imgLucrente06, leftAlt: "Lucrente 06", leftBgColor: "#f1efe9",
+                rightSrc: imgLucrente07, rightAlt: "Lucrente 07", rightBgColor: "#0c0005",
                 height: "620px"
             },
-            { type: 'single', src: imgShotsMockups21, alt: "Mockup 2", bgColor: "#feeef9", height: "600px" },
+            { type: 'single', src: imgLucrente08, alt: "Lucrente 08", bgColor: "#feeef9", height: "600px" },
             { 
                 type: 'split', 
-                leftSrc: imgGrid1, leftAlt: "Grid", leftBgColor: "#f4f2ef",
-                rightSrc: imgTypography1, rightAlt: "Typography", rightBgColor: "#1a1c1d",
+                leftSrc: imgLucrente09, leftAlt: "Lucrente 09", leftBgColor: "#f4f2ef",
+                rightSrc: imgLucrente10, rightAlt: "Lucrente 10", rightBgColor: "#1a1c1d",
                 height: "662px"
             },
-            { type: 'single', src: img73, alt: "Colors", bgColor: "#f2f1ec", height: "660px" },
+            { type: 'single', src: imgLucrente11, alt: "Lucrente 11", bgColor: "#f2f1ec", height: "660px" },
         ]
     },
     "scorecric": {
@@ -219,7 +218,7 @@ export const CASE_STUDIES: Record<string, CaseStudyData> = {
             { type: 'single', src: imgCY03, alt: "Cyhex 03", bgColor: "#0D3330" },
             { type: 'single', src: imgCY04, alt: "Cyhex 04", bgColor: "#0D3330" },
             { type: 'single', src: imgCY05, alt: "Cyhex 05", bgColor: "#0D3330" },
-            { type: 'single', src: imgCY06, alt: "Cyhex 06", bgColor: "#0D3330" },
+            { type: 'single', src: imgCY06, alt: "Cyhex 06", bgColor: "transparent" },
             { type: 'single', src: imgCY07, alt: "Cyhex 07", bgColor: "#0D3330" },
             { 
                 type: 'placeholder', 
@@ -227,7 +226,7 @@ export const CASE_STUDIES: Record<string, CaseStudyData> = {
                 bgColor: '#EBEDE2', 
                 bgImage: imgBricks,
                 height: '680px',
-                imageScale: 1.2,
+                imageScale: 1.0,
                 images: [
                     imgNewCampaign,
                     imgNewCampaign2,
@@ -239,7 +238,7 @@ export const CASE_STUDIES: Record<string, CaseStudyData> = {
                 ]
             },
             { type: 'single', src: imgCY08, alt: "Cyhex 08", bgColor: "#0D3330" },
-            { type: 'single', src: imgCY09, alt: "Cyhex 09", bgColor: "#0D3330" }
+            { type: 'single', src: imgCY09, alt: "Cyhex 09", bgColor: "transparent" }
         ]
     },
     "originally-raw": {
@@ -269,7 +268,7 @@ export const CASE_STUDIES: Record<string, CaseStudyData> = {
                 type: 'placeholder', 
                 label: 'Profile Pages', 
                 bgColor: '#EBEDE2', 
-                bgImage: imgBricks,
+                bgImage: imgConcrete,
                 height: '654px',
                 images: [imgOrders, imgAddresses, imgPersonalDetails, imgOrderDetails]
             },
@@ -285,7 +284,7 @@ export const CASE_STUDIES: Record<string, CaseStudyData> = {
                 type: 'placeholder', 
                 label: 'Shopping Cart', 
                 bgColor: '#EBEDE2', 
-                bgImage: imgBricks,
+                bgImage: imgConcrete,
                 height: '654px',
                 images: [imgCart1, imgCart2, imgCart3, imgCart4]
             },

@@ -274,18 +274,18 @@ export default function CaseStudy() {
                     className="w-full relative overflow-hidden"
                     style={{
                         backgroundColor: visual.bgColor || project.contentBgColor,
-                        height: visual.height || 'auto',
+                        height: typeof window !== 'undefined' && window.innerWidth < 768 ? 'auto' : (visual.height || 'auto'),
                         aspectRatio: visual.aspectRatio || 'auto'
                     }}
                 >
                     <img 
                         src={visual.src} 
                         alt={visual.alt} 
-                        className="w-full h-full object-cover" 
+                        className="w-full h-auto md:h-full object-contain md:object-cover" 
                         onLoad={() => lenisRef.current?.resize()}
                     />
                     {visual.overlaySrc && (
-                        <div className="absolute inset-0 overflow-hidden flex items-center justify-center p-[40px] pointer-events-none">
+                        <div className="absolute inset-0 overflow-hidden flex items-center justify-center p-[20px] md:p-[40px] pointer-events-none">
                             {visual.overlayAnimation === 'scroll-up' ? (
                                 <motion.img 
                                     src={visual.overlaySrc} 
@@ -306,6 +306,7 @@ export default function CaseStudy() {
                 </div>
             );
         } else if (visual.type === 'placeholder') {
+            const isOriginallyRaw = project.id === 'originally-raw';
             return (
                 <div
                     key={index}
@@ -315,11 +316,11 @@ export default function CaseStudy() {
                         backgroundImage: visual.bgImage ? `url(${visual.bgImage})` : 'none',
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
-                        height: visual.height || '90vh',
+                        height: typeof window !== 'undefined' && window.innerWidth < 768 ? '300px' : (visual.height || '90vh'),
                     }}
                 >
                     {/* Carousel Content */}
-                    <div className="w-full flex items-start min-h-0">
+                    <div className="w-full flex items-center justify-center min-h-0">
                         {visual.images && visual.images.length > 0 && (
                             <Carousel 
                                 className="w-full"
@@ -335,26 +336,32 @@ export default function CaseStudy() {
                                     }),
                                 ]}
                             >
-                                <CarouselContent className="-ml-[32px]">
+                                <CarouselContent className="-ml-[16px] md:-ml-[32px]">
                                     {visual.images.map((image, i) => {
-                                        const baseBasis = { mobile: 93.15, md: 81.65, lg: 76.5 };
+                                        // Use desktop-inspired basis for Originally Raw on mobile if requested
+                                        const baseBasis = { 
+                                            mobile: isOriginallyRaw ? 81.65 : 90, 
+                                            md: 81.65, 
+                                            lg: 76.5 
+                                        };
                                         const scale = visual.imageScale || 1;
                                         
                                         return (
                                             <CarouselItem 
                                                 key={i} 
-                                                className="pl-[32px] basis-[var(--item-basis-mobile)] md:basis-[var(--item-basis-md)] lg:basis-[var(--item-basis-lg)]"
+                                                className="pl-[16px] md:pl-[32px] basis-[var(--item-basis-mobile)] md:basis-[var(--item-basis-md)] lg:basis-[var(--item-basis-lg)]"
                                                 style={{ 
                                                     '--item-basis-mobile': `${baseBasis.mobile * scale}%`,
                                                     '--item-basis-md': `${baseBasis.md * scale}%`,
                                                     '--item-basis-lg': `${baseBasis.lg * scale}%`
                                                 } as React.CSSProperties}
                                             >
-                                                <div className="relative group flex justify-center">
+                                                <div className="relative group flex justify-center items-center">
                                                     <img 
                                                         src={image} 
                                                         alt={`${visual.label} ${i + 1}`} 
-                                                        className="w-full h-auto object-contain"
+                                                        className="max-w-full h-auto object-contain"
+                                                        style={{ maxHeight: typeof window !== 'undefined' && window.innerWidth < 768 ? '55vh' : 'auto' }}
                                                         onLoad={() => lenisRef.current?.resize()}
                                                     />
                                                 </div>
@@ -369,27 +376,27 @@ export default function CaseStudy() {
             );
         } else if (visual.type === 'trio') {
             return (
-                <div key={index} className="w-full flex gap-[20px]" style={{ height: visual.height || '940px' }}>
+                <div key={index} className="w-full flex flex-col md:flex-row gap-[10px] md:gap-[20px]" style={{ height: typeof window !== 'undefined' && window.innerWidth < 768 ? 'auto' : (visual.height || '940px') }}>
                     <div className="flex-1 relative overflow-hidden" style={{ backgroundColor: visual.leftBgColor || '#fbf9ef' }}>
-                        {visual.leftSrc && <img src={visual.leftSrc} alt={visual.leftAlt} className="w-full h-full object-contain" onLoad={() => lenisRef.current?.resize()} />}
+                        {visual.leftSrc && <img src={visual.leftSrc} alt={visual.leftAlt} className="w-full h-auto md:h-full object-contain md:object-cover" onLoad={() => lenisRef.current?.resize()} />}
                         {visual.leftOverlaySrc && (
-                            <div className="absolute inset-0 flex items-center justify-center p-[40px]">
+                            <div className="absolute inset-0 flex items-center justify-center p-[20px] md:p-[40px]">
                                 <img src={visual.leftOverlaySrc} alt="Overlay" className="max-w-full max-h-full object-contain" onLoad={() => lenisRef.current?.resize()} />
                             </div>
                         )}
                     </div>
                     <div className="flex-1 relative overflow-hidden" style={{ backgroundColor: visual.centerBgColor || '#fbf9ef' }}>
-                        {visual.centerSrc && <img src={visual.centerSrc} alt={visual.centerAlt} className="w-full h-full object-contain" onLoad={() => lenisRef.current?.resize()} />}
+                        {visual.centerSrc && <img src={visual.centerSrc} alt={visual.centerAlt} className="w-full h-auto md:h-full object-contain md:object-cover" onLoad={() => lenisRef.current?.resize()} />}
                         {visual.centerOverlaySrc && (
-                            <div className="absolute inset-0 flex items-center justify-center p-[40px]">
+                            <div className="absolute inset-0 flex items-center justify-center p-[20px] md:p-[40px]">
                                 <img src={visual.centerOverlaySrc} alt="Overlay" className="max-w-full max-h-full object-contain" onLoad={() => lenisRef.current?.resize()} />
                             </div>
                         )}
                     </div>
                     <div className="flex-1 relative overflow-hidden" style={{ backgroundColor: visual.rightBgColor || '#fbf9ef' }}>
-                        {visual.rightSrc && <img src={visual.rightSrc} alt={visual.rightAlt} className="w-full h-full object-contain" onLoad={() => lenisRef.current?.resize()} />}
+                        {visual.rightSrc && <img src={visual.rightSrc} alt={visual.rightAlt} className="w-full h-auto md:h-full object-contain md:object-cover" onLoad={() => lenisRef.current?.resize()} />}
                         {visual.rightOverlaySrc && (
-                            <div className="absolute inset-0 flex items-center justify-center p-[40px]">
+                            <div className="absolute inset-0 flex items-center justify-center p-[20px] md:p-[40px]">
                                 <img src={visual.rightOverlaySrc} alt="Overlay" className="max-w-full max-h-full object-contain" onLoad={() => lenisRef.current?.resize()} />
                             </div>
                         )}
@@ -397,19 +404,20 @@ export default function CaseStudy() {
                 </div>
             );
         } else {
+            const isOriginallyRaw = project.id === 'originally-raw';
             return (
-                <div key={index} className="w-full flex gap-[20px]" style={{ height: visual.height || 'auto' }}>
+                <div key={index} className={`w-full flex ${isOriginallyRaw ? 'flex-row' : 'flex-col md:flex-row'} gap-[10px] md:gap-[20px]`} style={{ height: typeof window !== 'undefined' && window.innerWidth < 768 && !isOriginallyRaw ? 'auto' : (visual.height || 'auto') }}>
                     <div className="flex-1 relative overflow-hidden flex flex-col" style={{ backgroundColor: visual.leftBgColor || '#fbf9ef' }}>
                         {visual.leftSrc && (
                             <img 
                                 src={visual.leftSrc} 
                                 alt={visual.leftAlt} 
-                                className="w-full h-full object-cover flex-1" 
+                                className="w-full h-auto md:h-full object-contain md:object-cover flex-1" 
                                 onLoad={() => lenisRef.current?.resize()}
                             />
                         )}
                         {visual.leftOverlaySrc && (
-                            <div className="absolute inset-0 overflow-hidden flex items-center justify-center p-[40px] pointer-events-none">
+                            <div className="absolute inset-0 overflow-hidden flex items-center justify-center p-[20px] md:p-[40px] pointer-events-none">
                                 {visual.overlayAnimation === 'scroll-up' ? (
                                     <div className="absolute inset-0 overflow-hidden pointer-events-none">
                                         <motion.img 
@@ -454,12 +462,12 @@ export default function CaseStudy() {
                             <img 
                                 src={visual.rightSrc} 
                                 alt={visual.rightAlt} 
-                                className="w-full h-full object-cover flex-1" 
+                                className="w-full h-auto md:h-full object-contain md:object-cover flex-1" 
                                 onLoad={() => lenisRef.current?.resize()}
                             />
                         )}
                         {visual.rightOverlaySrc && (
-                            <div className="absolute inset-0 flex items-center justify-center p-[40px]">
+                            <div className="absolute inset-0 flex items-center justify-center p-[20px] md:p-[40px]">
                                 <img 
                                     src={visual.rightOverlaySrc} 
                                     alt="Overlay" 

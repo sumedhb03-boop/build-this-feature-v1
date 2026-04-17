@@ -1,7 +1,6 @@
 import imgFreeHandHoldingIPhone16ProMockup2 from "figma:asset/cb404150f92e88ed4a66f5525a525988047fb537.png";
 import imgLucrenteHomepage1 from "figma:asset/934e76980decd08a547dbf8807403b703fd07584.png";
-import imgShotsMockups21 from "figma:asset/f0cf51fe902c49e33273901f4d5947d40e8551e8.png";
-import imgShotsMockups131 from "figma:asset/8b29ebd34c3524dbc7989b4884ebd904c19ff803.png";
+import imgLucrente08 from "../assets/lucrente_08.png";
 
 function Group1() {
   return (
@@ -201,7 +200,7 @@ function Frame10() {
   return (
     <div className="-translate-x-1/2 absolute bg-[#121212] h-[81.75px] left-[calc(50%-566.5px)] overflow-clip top-[404px] w-[135px]">
       <div className="absolute h-[90px] left-0 top-[-3.75px] w-[135px]" data-name="Shots Mockups (2) 1">
-        <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgShotsMockups21} />
+        <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgLucrente08} />
       </div>
     </div>
   );
@@ -310,9 +309,6 @@ function Frame24() {
 function Frame13() {
   return (
     <div className="bg-[#121212] h-[220px] mr-[-3px] overflow-clip relative shrink-0 w-[400px]">
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute h-[502px] left-[calc(50%-0.5px)] top-[calc(50%+122px)] w-[401px]" data-name="Shots Mockups (13) 1">
-        <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgShotsMockups131} />
-      </div>
       <div className="-translate-x-1/2 absolute h-[221px] left-[calc(50%-112px)] top-[-18px] w-[294px]" data-name="Free_Hand_Holding_iPhone_16_Pro_Mockup 1" />
     </div>
   );

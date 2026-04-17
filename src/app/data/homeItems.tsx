@@ -1,7 +1,8 @@
 import React from "react";
-import imgLucrenteThumbnail from "../../assets/Lucrente visuaal 1.webp";
+import imgLucrenteThumbnail from "../../assets/lucrente_01.webp";
 import imgCyhexThumbnail from "../../assets/CY 01.webp";
-import imgScoreCricThumbnail from "../../assets/PNG to WEBP 1.webp";
+import imgScoreCricThumbnail from "../../assets/Scorecric Thumbnail.webp";
+import imgScoreCricDesktopThumbnail from "../../assets/Scorecric Desktop Thumbnail.webp";
 import imgOriginallyRawThumbnail from "../../assets/OR 01.webp";
 
 export const BASE_ITEMS = [
@@ -45,7 +46,8 @@ export const BASE_ITEMS = [
     categories: ["Brand", "Product"],
     content: (
       <div className="absolute inset-0 overflow-hidden pointer-events-none flex items-center justify-center bg-black">
-        <img alt="ScoreCric Thumbnail" className="w-full h-full object-cover" src={imgScoreCricThumbnail} />
+        <img alt="ScoreCric Thumbnail" className="w-full h-full object-cover md:hidden" src={imgScoreCricThumbnail} />
+        <img alt="ScoreCric Desktop Thumbnail" className="w-full h-full object-cover object-top hidden md:block" src={imgScoreCricDesktopThumbnail} />
       </div>
     )
   },

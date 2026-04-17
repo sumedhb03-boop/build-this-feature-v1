@@ -10,10 +10,11 @@ export default function MobileHero({ skipAnimations }: { skipAnimations: boolean
   const totalItems = BASE_ITEMS.length;
   const navigate = useNavigate();
   
-  // Duplicate items to ensure smooth infinite sliding across 10 slots
+  // Duplicate items to ensure smooth infinite sliding across 15 slots
   const CAROUSEL_ITEMS = [
     ...BASE_ITEMS.map((item) => ({ ...item, id: `${item.id}-1` })),
-    ...BASE_ITEMS.map((item) => ({ ...item, id: `${item.id}-2` }))
+    ...BASE_ITEMS.map((item) => ({ ...item, id: `${item.id}-2` })),
+    ...BASE_ITEMS.map((item) => ({ ...item, id: `${item.id}-3` }))
   ];
 
 
@@ -23,8 +24,8 @@ export default function MobileHero({ skipAnimations }: { skipAnimations: boolean
 
   const lastScrollTime = useRef(0);
 
-  const stepNext = () => setActiveIndex((prev) => (prev + 1) % 10);
-  const stepPrev = () => setActiveIndex((prev) => (prev - 1 + 10) % 10);
+  const stepNext = () => setActiveIndex((prev) => (prev + 1) % 15);
+  const stepPrev = () => setActiveIndex((prev) => (prev - 1 + 15) % 15);
 
   // Wheel listener for desktop-like scrolling
   useEffect(() => {
@@ -56,10 +57,18 @@ export default function MobileHero({ skipAnimations }: { skipAnimations: boolean
   };
 
   const handlePickerSelect = (option: string, index: number) => {
-    // If we're at activeIndex 5-9, we should stay in that range if possible to avoid big jumps,
-    // or just use normalized index.
-    const isSecondSet = activeIndex >= 5;
-    const targetIndex = isSecondSet ? index + 5 : index;
+    // Determine which set (0, 1, or 2) the activeIndex currently belongs to
+    const currentSet = Math.floor(activeIndex / 5);
+    let targetIndex = index + (currentSet * 5);
+    
+    // Smooth boundary handling: if clicking index 0 while on the end of a set (e.g. 4), 
+    // it's better to step into the next set to avoid backwards animation
+    if (index === 0 && activeIndex % 5 === 4) {
+       targetIndex = (index + ((currentSet + 1) % 3) * 5);
+    } else if (index === 4 && activeIndex % 5 === 0) {
+       targetIndex = (index + ((currentSet - 1 + 3) % 3) * 5);
+    }
+    
     setActiveIndex(targetIndex);
   };
 
@@ -84,7 +93,7 @@ export default function MobileHero({ skipAnimations }: { skipAnimations: boolean
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
            {CAROUSEL_ITEMS.map((item: any, i) => {
               // Calculate which slot this item belongs to (slot 2 is the center)
-              const slotIndex = (i - activeIndex + 2 + 10) % 10;
+              const slotIndex = (i - activeIndex + 2 + 15) % 15;
               const isActive = slotIndex === 2;
               
               // Calculate horizontal position relative to the center (50%)
@@ -160,7 +169,7 @@ export default function MobileHero({ skipAnimations }: { skipAnimations: boolean
                              onClick={() => {
                                // Only navigate if this item is actually the one in the center (slot 2)
                                // slotIndex is (i - activeIndex + 2 + 10) % 10
-                               const currentSlot = (i - activeIndex + 2 + 10) % 10;
+                               const currentSlot = (i - activeIndex + 2 + 15) % 15;
                                if (currentSlot === 2 && item.slug) {
                                  navigate(`/case-study/${item.slug}`);
                                }
@@ -191,7 +200,7 @@ export default function MobileHero({ skipAnimations }: { skipAnimations: boolean
         {/* The New Ruler Picker */}
         <div className="w-[calc(100%+2rem)] -mx-4 flex justify-center pt-4 pb-0">
             <RulerPicker 
-                options={BASE_ITEMS.map(item => item.title)}
+                options={BASE_ITEMS.map(item => item.id === 'hero' ? 'MY WORK' : item.title)}
                 currentIndex={activeIndex % 5}
                 onSelect={(opt, idx) => handlePickerSelect(opt, idx)}
             />

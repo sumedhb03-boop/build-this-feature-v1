@@ -1,18 +1,24 @@
 import React from "react";
-import imgLucrenteThumbnail from "../../assets/lucrente_01.webp";
+import imgLucrenteThumbnail from "../../assets/lucrente_02.png";
 import imgCyhexThumbnail from "../../assets/CY 01.webp";
 import imgScoreCricThumbnail from "../../assets/Scorecric Thumbnail.webp";
 import imgScoreCricDesktopThumbnail from "../../assets/Scorecric Desktop Thumbnail.webp";
-import imgOriginallyRawThumbnail from "../../assets/OR 01.webp";
+import imgOriginallyRawThumbnail from "../../assets/OR Mockup.webp";
 
 export const BASE_ITEMS = [
   {
     id: "hero",
     type: "hero",
     srNo: "01",
-    title: "MY WORK",
+    title: "PLAYGROUND",
     categories: [],
-    content: null // Handled specially in MobileHero
+    content: (
+      <div className="absolute inset-0 flex items-center justify-center bg-[#FF4C11]">
+        <div className="font-['Times_New_Roman',_Times,_serif] text-white text-center leading-[1] tracking-[-0.04em] text-[1.8vw]">
+          A sandbox of<br />experimental ideas
+        </div>
+      </div>
+    )
   },
   {
     id: 1,
@@ -22,7 +28,7 @@ export const BASE_ITEMS = [
     categories: ["Brand", "Product", "Web"],
     content: (
       <div className="absolute inset-0 overflow-hidden pointer-events-none flex items-center justify-center bg-black">
-        <img alt="Lucrente Thumbnail" className="w-full h-full object-cover" src={imgLucrenteThumbnail} />
+        <img alt="Lucrente Thumbnail" className="w-full h-full object-cover scale-[1.2] md:scale-100" src={imgLucrenteThumbnail} />
       </div>
     )
   },
@@ -46,7 +52,7 @@ export const BASE_ITEMS = [
     categories: ["Brand", "Product"],
     content: (
       <div className="absolute inset-0 overflow-hidden pointer-events-none flex items-center justify-center bg-black">
-        <img alt="ScoreCric Thumbnail" className="w-full h-full object-cover md:hidden" src={imgScoreCricThumbnail} />
+        <img alt="ScoreCric Thumbnail" className="w-full h-full object-cover scale-[1.1] md:hidden" src={imgScoreCricThumbnail} />
         <img alt="ScoreCric Desktop Thumbnail" className="w-full h-full object-cover object-top hidden md:block" src={imgScoreCricDesktopThumbnail} />
       </div>
     )
@@ -59,7 +65,7 @@ export const BASE_ITEMS = [
     categories: ["E-commerce"],
     content: (
       <div className="absolute inset-0 overflow-hidden pointer-events-none flex items-center justify-center bg-black">
-        <img alt="Originally Raw Thumbnail" className="w-full h-full object-cover" src={imgOriginallyRawThumbnail} />
+        <img alt="Originally Raw Thumbnail" className="w-full h-full object-cover scale-[0.85] md:scale-100" src={imgOriginallyRawThumbnail} />
       </div>
     )
   }

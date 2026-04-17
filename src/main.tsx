@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "motion/react";
 import Home from "./app/Home.tsx";
 import CaseStudy from "./app/CaseStudy.tsx";
+import Playground from "./app/Playground.tsx";
 import Contact from "./app/Contact.tsx";
 import PageTransition from "./app/components/PageTransition.tsx";
 import "./styles/index.css";
@@ -19,6 +20,7 @@ function AppRoutes() {
     <AnimatePresence mode="wait" initial={false}>
       <Routes location={location} key={routeKey}>
         <Route path="/" element={<PageTransition><Home /></PageTransition>} />
+        <Route path="/playground" element={<PageTransition><Playground /></PageTransition>} />
         <Route path="/case-study/:id" element={<PageTransition><CaseStudy /></PageTransition>} />
         <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
       </Routes>

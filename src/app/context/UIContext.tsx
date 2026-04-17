@@ -13,7 +13,11 @@ const UIContext = createContext<UIContextType | undefined>(undefined);
 
 export function UIProvider({ children }: { children: ReactNode }) {
     const [isAboutOpen, setIsAboutOpen] = useState(false);
-    const [hasLoaded, setHasLoaded] = useState(false);
+    const [hasLoaded, setHasLoaded] = useState(() => {
+        // If the user first lands on the site via a subpage (e.g., /case-study/...),
+        // bypass the boot sequence entirely.
+        return typeof window !== 'undefined' && window.location.pathname !== '/';
+    });
 
     const openAbout = () => setIsAboutOpen(true);
     const closeAbout = () => setIsAboutOpen(false);

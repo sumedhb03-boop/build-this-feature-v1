@@ -253,6 +253,9 @@ export function RulerPicker({
     }).then(() => {
       checkAndLoop(targetIdx);
     });
+
+    setInternalIndex(targetRealIndex);
+    onSelect?.(options[targetRealIndex], targetRealIndex);
   };
 
   const infiniteOptions = [...options, ...options, ...options];

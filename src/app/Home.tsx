@@ -491,7 +491,11 @@ function Frame30({ onEntranceDone, isEntranceReady, skipAnimations = false }: Fr
             } : false}
             onClick={() => {
               if (isCenter) {
-                navigate(`/case-study/${activeItem.slug}`);
+                if (activeItem.type === "hero") {
+                  navigate(`/playground`);
+                } else {
+                  navigate(`/case-study/${activeItem.slug}`);
+                }
               }
             }}
             onMouseEnter={() => {

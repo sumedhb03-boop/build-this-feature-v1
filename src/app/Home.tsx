@@ -285,7 +285,7 @@ function Frame13() {
   return (
     <div
       className="relative shrink-0"
-      style={{ height: '13.889vw', marginRight: '-0.208vw', width: '27.778vw' }}
+      style={{ height: '16.667vw', marginRight: '-0.208vw', width: '27.778vw' }}
     />
   );
 }
@@ -477,7 +477,7 @@ function Frame30({ onEntranceDone, isEntranceReady, skipAnimations = false }: Fr
             key={item.id}
             className="absolute overflow-visible"
             style={{
-              width: '27.778vw', height: '13.889vw',
+              width: '27.778vw', height: '16.667vw',
               transformOrigin: 'center center',
               pointerEvents: isCenter ? 'auto' : 'none',
               cursor: isCenter ? 'pointer' : 'default',

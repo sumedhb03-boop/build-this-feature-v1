@@ -256,10 +256,10 @@ function Frame14() {
 
 function Frame24({ isHovered }: { isHovered: boolean }) {
   return (
-    <div className="content-stretch flex flex-col items-start justify-between relative shrink-0" style={{ height: '16.667vw', marginRight: '-0.208vw', width: '1.181vw' }}>
+    <div className="content-stretch flex flex-col items-start relative shrink-0" style={{ gap: '16.212vw', marginRight: '-0.208vw', width: '1.181vw' }}>
       <motion.div
         className="flex items-center justify-center relative shrink-0 w-full"
-        style={{ height: '1.889vh' }}
+        style={{ height: '1.288vw' }}
         animate={{ x: isHovered ? -8 : 0, y: isHovered ? -8 : 0 }}
         transition={{ duration: 0.3, ease: 'easeOut' }}
       >
@@ -269,7 +269,7 @@ function Frame24({ isHovered }: { isHovered: boolean }) {
       </motion.div>
       <motion.div
         className="flex items-center justify-center relative shrink-0 w-full"
-        style={{ height: '1.889vh' }}
+        style={{ height: '1.288vw' }}
         animate={{ x: isHovered ? -8 : 0, y: isHovered ? 8 : 0 }}
         transition={{ duration: 0.3, ease: 'easeOut' }}
       >
@@ -316,10 +316,10 @@ function Frame16() {
 
 function Frame25({ isHovered }: { isHovered: boolean }) {
   return (
-    <div className="content-stretch flex flex-col items-start justify-between relative shrink-0" style={{ height: '16.667vw', marginRight: '-0.208vw', width: '1.181vw' }}>
+    <div className="content-stretch flex flex-col items-start relative shrink-0" style={{ gap: '16.212vw', marginRight: '-0.208vw', width: '1.181vw' }}>
       <motion.div
         className="flex items-center justify-center relative shrink-0 w-full"
-        style={{ height: '1.889vh' }}
+        style={{ height: '1.288vw' }}
         animate={{ x: isHovered ? 8 : 0, y: isHovered ? -8 : 0 }}
         transition={{ duration: 0.3, ease: 'easeOut' }}
       >
@@ -329,7 +329,7 @@ function Frame25({ isHovered }: { isHovered: boolean }) {
       </motion.div>
       <motion.div
         className="flex items-center justify-center relative shrink-0 w-full"
-        style={{ height: '1.889vh' }}
+        style={{ height: '1.288vw' }}
         animate={{ x: isHovered ? 8 : 0, y: isHovered ? 8 : 0 }}
         transition={{ duration: 0.3, ease: 'easeOut' }}
       >
@@ -381,11 +381,9 @@ function Frame28({ srNo, categories, isHovered }: Omit<CaseStudyProps, 'title'> 
 
 function Frame29({ srNo, categories, title, isHovered }: CaseStudyProps & { isHovered: boolean }) {
   return (
-    <div className="absolute content-stretch flex flex-col items-center pointer-events-none z-20" style={{ left: '26.042vw', width: '35.833vw', top: '13.78vh' }}>
-      <div style={{ transform: 'translateY(-50%)' }} className="w-full flex flex-col items-center">
-        <Frame28 srNo={srNo} categories={categories} isHovered={isHovered} />
-      </div>
-      <div className="w-full text-center overflow-hidden flex justify-center" style={{ marginTop: '2vh' }}>
+    <div className="absolute content-stretch flex flex-col items-center top-0 pointer-events-none z-20" style={{ left: '26.042vw', width: '35.833vw' }}>
+      <Frame28 srNo={srNo} categories={categories} isHovered={isHovered} />
+      <div className="w-full text-center overflow-hidden flex justify-center" style={{ marginTop: 0, marginBottom: '2vh' }}>
         <LetterReveal
           text={title}
           value={title}

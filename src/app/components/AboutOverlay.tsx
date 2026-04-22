@@ -4,9 +4,7 @@ import { useUI } from "../context/UIContext";
 import { X, ArrowUpRight } from "lucide-react";
 import birdsImg from "../../assets/about_photo.jpg";
 
-import MobileAboutOverlay from "./MobileAboutOverlay";
-
-function DesktopAboutOverlay() {
+export default function AboutOverlay() {
     const { isAboutOpen, closeAbout } = useUI();
 
     const paragraphs = [
@@ -105,13 +103,13 @@ function DesktopAboutOverlay() {
             {/* Right Side: Content */}
             <div className="flex-1 flex flex-col justify-between p-[24px] md:p-[4vw] text-[#0047AB] z-10 min-h-0">
                 <div className="flex flex-col min-h-0 overflow-hidden">
-                    <h1 className="font-['Times_New_Roman',_serif] text-[clamp(32px,4.5vw,64px)] font-medium leading-[0.95] tracking-[-0.05em] mb-4 md:mb-[3vh] shrink-0">
+                    <h1 className="font-['Times_New_Roman',_serif] text-[clamp(24px,4.5vw,64px)] font-medium leading-[0.95] tracking-[-0.05em] mb-4 md:mb-[3vh] shrink-0">
                         Hello, World!
                     </h1>
                     
                     <div className="flex flex-col gap-[1.5vh] md:gap-[2vh] opacity-90 max-w-full md:max-w-[95%] overflow-y-auto pr-2 custom-scrollbar">
                         {paragraphs.map((paragraph, i) => (
-                            <p key={i} className="font-['Geist',_sans-serif] text-[clamp(14px,0.9vw,16px)] leading-[1.5] text-left px-1 font-[450] md:font-normal">
+                            <p key={i} className="font-['Geist',_sans-serif] text-[clamp(13px,0.9vw,16px)] leading-[1.5] text-left px-1 font-[450] md:font-normal">
                                 {paragraph}
                             </p>
                         ))}
@@ -125,7 +123,7 @@ function DesktopAboutOverlay() {
                             href="/resume.pdf" 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="font-['Geist',_sans-serif] text-[clamp(12px,0.9vw,15px)] opacity-90 transition-opacity relative group font-[450] md:font-normal"
+                            className="font-['Geist',_sans-serif] text-[clamp(11px,0.9vw,15px)] opacity-90 transition-opacity relative group font-[450] md:font-normal"
                             initial="initial"
                             whileHover="hover"
                         >
@@ -145,7 +143,7 @@ function DesktopAboutOverlay() {
                     <div className="flex items-center gap-[4vw] md:gap-[2vw]">
                         <motion.a 
                             href="mailto:hello@sumedh.design" 
-                            className="group flex items-center font-['Geist',_sans-serif] text-[clamp(12px,0.9vw,15px)] opacity-90 relative font-[450] md:font-normal"
+                            className="group flex items-center font-['Geist',_sans-serif] text-[clamp(11px,0.9vw,15px)] opacity-90 relative font-[450] md:font-normal"
                             initial="initial"
                             whileHover="hover"
                         >
@@ -165,7 +163,7 @@ function DesktopAboutOverlay() {
                             href="https://www.linkedin.com/in/sumedh-bambal" 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="font-['Geist',_sans-serif] text-[clamp(12px,0.9vw,15px)] opacity-90 transition-opacity relative group font-[450] md:font-normal"
+                            className="font-['Geist',_sans-serif] text-[clamp(11px,0.9vw,15px)] opacity-90 transition-opacity relative group font-[450] md:font-normal"
                             initial="initial"
                             whileHover="hover"
                         >
@@ -183,7 +181,7 @@ function DesktopAboutOverlay() {
                             href="https://x.com/sumedhb03" 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="font-['Geist',_sans-serif] text-[clamp(12px,0.9vw,15px)] opacity-90 transition-opacity relative group font-[450] md:font-normal"
+                            className="font-['Geist',_sans-serif] text-[clamp(11px,0.9vw,15px)] opacity-90 transition-opacity relative group font-[450] md:font-normal"
                             initial="initial"
                             whileHover="hover"
                         >
@@ -226,7 +224,7 @@ function DesktopAboutOverlay() {
                         animate={{ y: 0 }}
                         exit={{ y: "120vh", transition: { delay: 0, duration: 0.8, ease: [0.33, 1, 0.68, 1] } }}
                         transition={{ y: { delay: 0.3, duration: 1, ease: [0.16, 1, 0.3, 1] } }}
-                        className="relative grid w-full max-w-[75vw] h-[min(85vh,720px)] aspect-auto md:aspect-[1.65/1] drop-shadow-[0_40px_80px_rgba(0,0,0,0.4)]"
+                        className="relative grid w-full max-w-[95vw] md:max-w-[75vw] h-[min(85vh,720px)] aspect-auto md:aspect-[1.65/1] drop-shadow-[0_40px_80px_rgba(0,0,0,0.4)]"
                     >
                         {/* 3 Columns for the map fold */}
                         <div className="grid grid-cols-3 [grid-area:1/1] w-full h-full">
@@ -266,7 +264,7 @@ function DesktopAboutOverlay() {
                         {isFolded && (
                             <motion.div
                                 drag="x"
-                                _dragX={xDrag}
+                                dragX={xDrag}
                                 dragConstraints={{ left: 0, right: 300 }}
                                 dragTransition={{ 
                                     modifyTarget: (target) => target > 150 ? 300 : 0, 
@@ -279,18 +277,5 @@ function DesktopAboutOverlay() {
                 </motion.div>
             )}
         </AnimatePresence>
-    );
-}
-
-export default function AboutOverlay() {
-    return (
-        <>
-            <div className="hidden md:block">
-                <DesktopAboutOverlay />
-            </div>
-            <div className="block md:hidden pointer-events-none">
-                <MobileAboutOverlay />
-            </div>
-        </>
     );
 }

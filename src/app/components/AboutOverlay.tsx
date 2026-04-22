@@ -53,7 +53,7 @@ export default function AboutOverlay() {
 
     // The inner UI of the card rendered inside the 3 columns
     const CardContentInner = () => (
-        <div className="relative w-full h-full flex bg-[#F5F0E6] border border-white/5">
+        <div className="relative w-full h-full flex bg-[#F5F0E6]">
             {/* Noise Texture Overlay */}
             <div 
                 className="absolute inset-0 pointer-events-none opacity-[0.75] mix-blend-multiply z-20" 
@@ -227,14 +227,14 @@ export default function AboutOverlay() {
                         className="relative grid w-full max-w-[95vw] md:max-w-[75vw] h-[min(85vh,720px)] aspect-auto md:aspect-[1.65/1] drop-shadow-[0_40px_80px_rgba(0,0,0,0.4)]"
                     >
                         {/* 3 Columns for the map fold */}
-                        <div className="grid grid-cols-3 [grid-area:1/1] w-full h-full">
+                        <div className="grid grid-cols-3 [grid-area:1/1] w-full h-full overflow-hidden">
                             
                             {/* Left Section (Column 1) */}
                             <motion.div 
                                 style={{ x: xLeftSection, skewY: leftSkew }}
-                                className="relative overflow-hidden origin-bottom-right z-30 border-r border-[#0047AB]/10 shadow-[20px_0_40px_rgba(0,0,0,0.15)] bg-[#F5F0E6]"
+                                className="relative overflow-hidden origin-bottom-right z-30 shadow-[20px_0_40px_rgba(0,0,0,0.15)] bg-[#F5F0E6] will-change-transform"
                             >
-                                <div className="absolute top-0 left-0 w-[300%] h-full">
+                                <div className="absolute top-0 left-0 w-[300.1%] h-full">
                                     <CardContentInner />
                                 </div>
                             </motion.div>
@@ -242,9 +242,9 @@ export default function AboutOverlay() {
                             {/* Center Section (Column 2) */}
                             <motion.div 
                                 style={{ scaleX: centerScale, "--brightness": centerBrightness } as any}
-                                className="relative overflow-hidden origin-center z-10 brightness-[--brightness] bg-[#F5F0E6]"
+                                className="relative overflow-hidden origin-center z-10 brightness-[--brightness] bg-[#F5F0E6] will-change-transform"
                             >
-                                <div className="absolute top-0 left-[-100%] w-[300%] h-full">
+                                <div className="absolute top-0 left-[-100%] w-[300.1%] h-full">
                                     <CardContentInner />
                                 </div>
                             </motion.div>
@@ -252,9 +252,9 @@ export default function AboutOverlay() {
                             {/* Right Section (Column 3) */}
                             <motion.div 
                                 style={{ x: xRightSection, skewY: rightSkew }}
-                                className="relative overflow-hidden origin-bottom-left z-20 border-l border-[#0047AB]/10 shadow-[-20px_0_40px_rgba(0,0,0,0.15)] bg-[#F5F0E6]"
+                                className="relative overflow-hidden origin-bottom-left z-20 shadow-[-20px_0_40px_rgba(0,0,0,0.15)] bg-[#F5F0E6] will-change-transform"
                             >
-                                <div className="absolute top-0 left-[-200%] w-[300%] h-full">
+                                <div className="absolute top-0 left-[-200%] w-[300.1%] h-full">
                                     <CardContentInner />
                                 </div>
                             </motion.div>

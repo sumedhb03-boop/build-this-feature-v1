@@ -32,7 +32,7 @@ function Frame18({ skipAnimations }: { skipAnimations: boolean }) {
   ];
 
   return (
-    <div className="-translate-x-1/2 absolute bg-black left-1/2 flex items-center justify-center z-10" style={{ height: '39.67vh', top: '55.33vh', width: '51.81vw' }}>
+    <div className="-translate-x-1/2 absolute left-1/2 flex items-center justify-center z-10" style={{ height: '39.67vh', top: '55.33vh', width: '51.81vw' }}>
       <div className="font-['Helvetica_Neue',_'Helvetica',_sans-serif] font-bold not-italic flex flex-col items-center justify-center h-full w-full text-center text-white uppercase whitespace-pre-wrap" style={{ fontSize: '5.556vw', lineHeight: '90%', letterSpacing: '-4%' }}>
         <div className="m-0 text-center">
           {lines.map((line, i) => (
@@ -168,7 +168,7 @@ const SLOTS = [
   // 1: Mid Left
   { left: 'calc(50% + -25.5vw)', top: '22.75vw', scale: 0.45, zIndex: 5, opacity: 1 },
   // 2: Center
-  { left: 'calc(50% + 0.001vw)', top: '9.394vw', scale: 1, zIndex: 10, opacity: 1 },
+  { left: 'calc(50% + 0.001vw)', top: '9.394vw', scale: 0.9, zIndex: 10, opacity: 1 },
   // 3: Mid Right
   { left: 'calc(50% + 25.5vw)', top: '22.75vw', scale: 0.45, zIndex: 5, opacity: 1 },
   // 4: Far Right

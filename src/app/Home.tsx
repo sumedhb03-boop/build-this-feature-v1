@@ -164,11 +164,11 @@ function Group() {
 
 const SLOTS = [
   // 0: Far Left
-  { left: 'calc(50% - 39.34vw)', top: '49.43vh', scale: 0.33, zIndex: 1, opacity: 1 },
+  { left: 'calc(50% + -39.34vw)', top: '49.43vh', scale: 0.33, zIndex: 1, opacity: 1 },
   // 1: Mid Left
-  { left: 'calc(50% - 25.5vw)', top: '35.16vh', scale: 0.45, zIndex: 5, opacity: 1 },
+  { left: 'calc(50% + -25.5vw)', top: '35.16vh', scale: 0.45, zIndex: 5, opacity: 1 },
   // 2: Center
-  { left: '50%', top: '13.78vh', scale: 1, zIndex: 10, opacity: 1 },
+  { left: 'calc(50% + 0.001vw)', top: '13.78vh', scale: 1, zIndex: 10, opacity: 1 },
   // 3: Mid Right
   { left: 'calc(50% + 25.5vw)', top: '35.16vh', scale: 0.45, zIndex: 5, opacity: 1 },
   // 4: Far Right
@@ -180,11 +180,11 @@ const SLOTS = [
   // 6: Offscreen Right 2
   { left: 'calc(50% + 80vw)', top: '70vh', scale: 0.33, zIndex: 0, opacity: 0 },
   // 7: Back Middle (Fully hidden)
-  { left: '50%', top: '80vh', scale: 0.33, zIndex: 0, opacity: 0 },
+  { left: 'calc(50% + 0.001vw)', top: '80vh', scale: 0.33, zIndex: 0, opacity: 0 },
   // 8: Offscreen Left 2
-  { left: 'calc(50% - 80vw)', top: '70vh', scale: 0.33, zIndex: 0, opacity: 0 },
+  { left: 'calc(50% + -80vw)', top: '70vh', scale: 0.33, zIndex: 0, opacity: 0 },
   // 9: Offscreen Left 1
-  { left: 'calc(50% - 60vw)', top: '60vh', scale: 0.33, zIndex: 0, opacity: 0 },
+  { left: 'calc(50% + -60vw)', top: '60vh', scale: 0.33, zIndex: 0, opacity: 0 },
 ];
 
 
@@ -484,11 +484,12 @@ function Frame30({ onEntranceDone, isEntranceReady, skipAnimations = false }: Fr
               x: '-50%',
               y: '-50%'
             }}
-            initial={(!isEntranceDone && !skipAnimations) ? {
+            initial={!skipAnimations ? {
               ...slot,
               opacity: 0,
               y: '50%' // Start slightly lower for a slide-up effect
             } : false}
+            // ... (click and hover handlers remain identical)
             onClick={() => {
               if (isCenter) {
                 if (activeItem.type === "hero") {
@@ -516,8 +517,9 @@ function Frame30({ onEntranceDone, isEntranceReady, skipAnimations = false }: Fr
               type: "spring",
               stiffness: 120,
               damping: 20,
-              // Stagger delay based on distance from center slot (slotIndex 2)
-              delay: (isEntranceDone || skipAnimations) ? 0 : (0.6 + Math.abs(slotIndex - 2) * 0.15)
+              // Only apply stagger delay initially on mount based on the ORIGINAL item index distance from center.
+              // We use `i` (mount index position) instead of `slotIndex` (dynamic scroll position) to prevent mid-animation delay changes!
+              delay: (isEntranceDone || skipAnimations) ? 0 : (0.6 + Math.abs(((i + 2 + 10) % 10) - 2) * 0.15)
             }}
           >
             <div className="w-full h-full relative overflow-clip bg-[#121212]">

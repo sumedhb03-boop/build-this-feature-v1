@@ -93,7 +93,7 @@ export default function Contact() {
 
                             <div className="grid grid-cols-[100px_1fr] items-start mb-3">
                                 <span className="text-[#FF4C11]">STATUS</span>
-                                <span className="text-[#e2e2e2] text-right md:text-left"><span className="text-[#FF4C11] mr-2">&gt;</span>TRANSMITTING...</span>
+                                <span className="text-[#e2e2e2] text-right md:text-left"><span className="text-[#FF4C11] mr-2">&gt;</span>LOOKING FOR FULL-TIME ROLES</span>
                             </div>
                             <div className="grid grid-cols-[100px_1fr] items-start mb-14">
                                 <span className="text-[#FF4C11]">OPEN TO</span>
@@ -146,7 +146,7 @@ export default function Contact() {
                     className="w-full max-w-[1000px] flex flex-col h-full min-h-[600px]"
                 >
                     <div className="mb-6 flex items-center justify-between text-[#FF4C11]">
-                        <span className="text-[11px] md:text-[12px] uppercase tracking-widest font-light border border-[#FF4C11]/30 py-2 px-6 rounded-none inline-block text-center w-full md:w-auto">EXECUTE: SCHEDULE_MEETING.SH</span>
+                        <span className="text-[11px] md:text-[12px] uppercase tracking-widest font-light border border-[#FF4C11]/30 py-2 px-6 rounded-none inline-block text-center w-full md:w-auto">BOOK A CALL</span>
                     </div>
                     <div className="flex-1 relative w-full border-none">
                         {/* Wrapper for the calendar embed */}

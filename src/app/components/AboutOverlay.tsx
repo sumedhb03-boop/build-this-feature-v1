@@ -4,7 +4,9 @@ import { useUI } from "../context/UIContext";
 import { X, ArrowUpRight } from "lucide-react";
 import birdsImg from "../../assets/about_photo.jpg";
 
-export default function AboutOverlay() {
+import MobileAboutOverlay from "./MobileAboutOverlay";
+
+function DesktopAboutOverlay() {
     const { isAboutOpen, closeAbout } = useUI();
 
     const paragraphs = [
@@ -277,5 +279,18 @@ export default function AboutOverlay() {
                 </motion.div>
             )}
         </AnimatePresence>
+    );
+}
+
+export default function AboutOverlay() {
+    return (
+        <>
+            <div className="hidden md:block">
+                <DesktopAboutOverlay />
+            </div>
+            <div className="block md:hidden pointer-events-none">
+                <MobileAboutOverlay />
+            </div>
+        </>
     );
 }

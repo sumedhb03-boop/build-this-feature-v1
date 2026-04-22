@@ -404,9 +404,9 @@ export default function CaseStudy() {
                 </div>
             );
         } else {
-            const isOriginallyRaw = project.id === 'originally-raw';
+            const forceRow = project.id === 'originally-raw' || project.id === 'scorecric';
             return (
-                <div key={index} className={`w-full flex ${isOriginallyRaw ? 'flex-row' : 'flex-col md:flex-row'} gap-[10px] md:gap-[20px]`} style={{ height: typeof window !== 'undefined' && window.innerWidth < 768 && !isOriginallyRaw ? 'auto' : (visual.height || 'auto') }}>
+                <div key={index} className={`w-full flex ${forceRow ? 'flex-row' : 'flex-col md:flex-row'} gap-[10px] md:gap-[20px]`} style={{ height: typeof window !== 'undefined' && window.innerWidth < 768 && !forceRow ? 'auto' : (visual.height || 'auto') }}>
                     <div className="flex-1 relative overflow-hidden flex flex-col" style={{ backgroundColor: visual.leftBgColor || '#fbf9ef' }}>
                         {visual.leftSrc && (
                             <img 
@@ -645,7 +645,7 @@ export default function CaseStudy() {
                 </div>
 
                 {/* Visuals Grid */}
-                <div className="w-full max-w-[905px] flex flex-col gap-[20px] items-center px-4 md:px-0">
+                <div className="w-full max-w-[905px] flex flex-col gap-[10px] md:gap-[20px] items-center px-4 md:px-0">
                     {project.visuals.map((visual, index) => renderVisual(visual, index))}
                 </div>
             </motion.section>

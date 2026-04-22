@@ -185,8 +185,7 @@ export const CASE_STUDIES: Record<string, CaseStudyData> = {
             { 
                 type: 'split', 
                 leftSrc: imgScoreCricColor, leftAlt: "ScoreCric Color", leftBgColor: "#bf0b33",
-                rightSrc: imgScoreCricType, rightAlt: "ScoreCric Typography", rightBgColor: "#bf0b33",
-                height: "90vh"
+                rightSrc: imgScoreCricType, rightAlt: "ScoreCric Typography", rightBgColor: "#bf0b33"
             }
         ]
     },

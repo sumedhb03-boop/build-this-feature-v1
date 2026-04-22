@@ -343,11 +343,16 @@ function Frame25({ isHovered }: { isHovered: boolean }) {
 
 function Frame26({ isHovered }: { isHovered: boolean }) {
   return (
-    <div className="content-stretch flex items-center relative shrink-0" style={{ paddingRight: '0.208vw', width: '29.722vw' }}>
+    <motion.div 
+      animate={{ scale: isHovered ? 0.82 : 0.9 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      className="content-stretch flex items-center relative shrink-0" 
+      style={{ paddingRight: '0.208vw', width: '29.722vw', transformOrigin: 'center center' }}
+    >
       <Frame24 isHovered={isHovered} />
       <Frame13 />
       <Frame25 isHovered={isHovered} />
-    </div>
+    </motion.div>
   );
 }
 
@@ -508,7 +513,7 @@ function Frame30({ onEntranceDone, isEntranceReady, skipAnimations = false }: Fr
             animate={{
               left: slot.left,
               top: slot.top,
-              scale: isCenter && isHovered ? 0.9 : slot.scale,
+              scale: isCenter && isHovered ? 0.82 : slot.scale,
               zIndex: slot.zIndex,
               opacity: slot.opacity,
               y: '-50%' // Animate to its correct centered Y position

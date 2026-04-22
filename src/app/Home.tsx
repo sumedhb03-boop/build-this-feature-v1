@@ -381,9 +381,9 @@ function Frame28({ srNo, categories, isHovered }: Omit<CaseStudyProps, 'title'> 
 
 function Frame29({ srNo, categories, title, isHovered }: CaseStudyProps & { isHovered: boolean }) {
   return (
-    <div className="absolute content-stretch flex flex-col items-center top-0 pointer-events-none z-20" style={{ left: '27.715vw', width: '42vw' }}>
+    <div className="absolute content-stretch flex flex-col items-start top-0 pointer-events-none z-20" style={{ left: '27.715vw', width: '42vw' }}>
       <Frame28 srNo={srNo} categories={categories} isHovered={isHovered} />
-      <div className="w-full text-center overflow-hidden flex justify-center" style={{ marginTop: 0, marginBottom: '2vh' }}>
+      <div className="flex justify-center overflow-hidden" style={{ width: '27.126vw', marginLeft: '2.75vw', marginTop: 0, marginBottom: '2vh' }}>
         <LetterReveal
           text={title}
           value={title}

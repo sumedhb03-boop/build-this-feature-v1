@@ -164,27 +164,27 @@ function Group() {
 
 const SLOTS = [
   // 0: Far Left
-  { left: 'calc(50% + -39.34vw)', top: '49.43vh', scale: 0.33, zIndex: 1, opacity: 1 },
+  { left: 'calc(50% + -39.34vw)', top: '31.67vw', scale: 0.33, zIndex: 1, opacity: 1 },
   // 1: Mid Left
-  { left: 'calc(50% + -25.5vw)', top: '35.16vh', scale: 0.45, zIndex: 5, opacity: 1 },
+  { left: 'calc(50% + -25.5vw)', top: '22.75vw', scale: 0.45, zIndex: 5, opacity: 1 },
   // 2: Center
-  { left: 'calc(50% + 0.001vw)', top: '13.78vh', scale: 1, zIndex: 10, opacity: 1 },
+  { left: 'calc(50% + 0.001vw)', top: '9.394vw', scale: 1, zIndex: 10, opacity: 1 },
   // 3: Mid Right
-  { left: 'calc(50% + 25.5vw)', top: '35.16vh', scale: 0.45, zIndex: 5, opacity: 1 },
+  { left: 'calc(50% + 25.5vw)', top: '22.75vw', scale: 0.45, zIndex: 5, opacity: 1 },
   // 4: Far Right
-  { left: 'calc(50% + 39.34vw)', top: '49.43vh', scale: 0.33, zIndex: 1, opacity: 1 },
+  { left: 'calc(50% + 39.34vw)', top: '31.67vw', scale: 0.33, zIndex: 1, opacity: 1 },
 
   // --- Offscreen Buffers extending the Parabola Downwards ---
   // 5: Offscreen Right 1
-  { left: 'calc(50% + 60vw)', top: '60vh', scale: 0.33, zIndex: 0, opacity: 0 },
+  { left: 'calc(50% + 60vw)', top: '40vw', scale: 0.33, zIndex: 0, opacity: 0 },
   // 6: Offscreen Right 2
-  { left: 'calc(50% + 80vw)', top: '70vh', scale: 0.33, zIndex: 0, opacity: 0 },
+  { left: 'calc(50% + 80vw)', top: '50vw', scale: 0.33, zIndex: 0, opacity: 0 },
   // 7: Back Middle (Fully hidden)
-  { left: 'calc(50% + 0.001vw)', top: '80vh', scale: 0.33, zIndex: 0, opacity: 0 },
+  { left: 'calc(50% + 0.001vw)', top: '60vw', scale: 0.33, zIndex: 0, opacity: 0 },
   // 8: Offscreen Left 2
-  { left: 'calc(50% + -80vw)', top: '70vh', scale: 0.33, zIndex: 0, opacity: 0 },
+  { left: 'calc(50% + -80vw)', top: '50vw', scale: 0.33, zIndex: 0, opacity: 0 },
   // 9: Offscreen Left 1
-  { left: 'calc(50% + -60vw)', top: '60vh', scale: 0.33, zIndex: 0, opacity: 0 },
+  { left: 'calc(50% + -60vw)', top: '40vw', scale: 0.33, zIndex: 0, opacity: 0 },
 ];
 
 

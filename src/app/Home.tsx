@@ -164,27 +164,27 @@ function Group() {
 
 const SLOTS = [
   // 0: Far Left
-  { left: 'calc(50% + -39.34vw)', top: '31.67vw', scale: 0.33, zIndex: 1, opacity: 1 },
+  { left: 'calc(50% + -39.34vw)', top: '30.73vw', scale: 0.33, zIndex: 1, opacity: 1 },
   // 1: Mid Left
-  { left: 'calc(50% + -25.5vw)', top: '22.75vw', scale: 0.45, zIndex: 5, opacity: 1 },
+  { left: 'calc(50% + -25.5vw)', top: '21.81vw', scale: 0.45, zIndex: 5, opacity: 1 },
   // 2: Center
-  { left: 'calc(50% + 0.001vw)', top: '9.394vw', scale: 0.9, zIndex: 10, opacity: 1 },
+  { left: 'calc(50% + 0.001vw)', top: '8.455vw', scale: 0.9, zIndex: 10, opacity: 1 },
   // 3: Mid Right
-  { left: 'calc(50% + 25.5vw)', top: '22.75vw', scale: 0.45, zIndex: 5, opacity: 1 },
+  { left: 'calc(50% + 25.5vw)', top: '21.81vw', scale: 0.45, zIndex: 5, opacity: 1 },
   // 4: Far Right
-  { left: 'calc(50% + 39.34vw)', top: '31.67vw', scale: 0.33, zIndex: 1, opacity: 1 },
+  { left: 'calc(50% + 39.34vw)', top: '30.73vw', scale: 0.33, zIndex: 1, opacity: 1 },
 
   // --- Offscreen Buffers extending the Parabola Downwards ---
   // 5: Offscreen Right 1
-  { left: 'calc(50% + 60vw)', top: '40vw', scale: 0.33, zIndex: 0, opacity: 0 },
+  { left: 'calc(50% + 60vw)', top: '39vw', scale: 0.33, zIndex: 0, opacity: 0 },
   // 6: Offscreen Right 2
-  { left: 'calc(50% + 80vw)', top: '50vw', scale: 0.33, zIndex: 0, opacity: 0 },
+  { left: 'calc(50% + 80vw)', top: '49vw', scale: 0.33, zIndex: 0, opacity: 0 },
   // 7: Back Middle (Fully hidden)
-  { left: 'calc(50% + 0.001vw)', top: '60vw', scale: 0.33, zIndex: 0, opacity: 0 },
+  { left: 'calc(50% + 0.001vw)', top: '59vw', scale: 0.33, zIndex: 0, opacity: 0 },
   // 8: Offscreen Left 2
-  { left: 'calc(50% + -80vw)', top: '50vw', scale: 0.33, zIndex: 0, opacity: 0 },
+  { left: 'calc(50% + -80vw)', top: '49vw', scale: 0.33, zIndex: 0, opacity: 0 },
   // 9: Offscreen Left 1
-  { left: 'calc(50% + -60vw)', top: '40vw', scale: 0.33, zIndex: 0, opacity: 0 },
+  { left: 'calc(50% + -60vw)', top: '39vw', scale: 0.33, zIndex: 0, opacity: 0 },
 ];
 
 
@@ -219,12 +219,12 @@ function LetterReveal({ text, value, className, delay = 0, duration = 0.4, style
 
 function Frame27({ srNo }: { srNo: string }) {
   return (
-    <div className="content-stretch flex items-start justify-end relative shrink-0" style={{ paddingTop: '5.333vh', width: '2.5vw' }}>
+    <div className="content-stretch flex items-start justify-end relative shrink-0" style={{ paddingTop: '4.8vh', width: '2.75vw' }}>
       <LetterReveal
         text={srNo}
         value={srNo}
         className="justify-end w-full font-['Geist_Mono',sans-serif] font-normal leading-[0.98] opacity-40 text-right text-white"
-        style={{ fontSize: '0.833vw' }}
+        style={{ fontSize: '0.75vw' }}
       />
     </div>
   );
@@ -256,10 +256,10 @@ function Frame14() {
 
 function Frame24({ isHovered }: { isHovered: boolean }) {
   return (
-    <div className="content-stretch flex flex-col items-start relative shrink-0" style={{ gap: '16.212vw', marginRight: '-0.208vw', width: '1.181vw' }}>
+    <div className="content-stretch flex flex-col items-start relative shrink-0" style={{ gap: '14.591vw', marginRight: '-0.208vw', width: '1.063vw' }}>
       <motion.div
         className="flex items-center justify-center relative shrink-0 w-full"
-        style={{ height: '1.288vw' }}
+        style={{ height: '1.159vw' }}
         animate={{ x: isHovered ? -8 : 0, y: isHovered ? -8 : 0 }}
         transition={{ duration: 0.3, ease: 'easeOut' }}
       >
@@ -269,7 +269,7 @@ function Frame24({ isHovered }: { isHovered: boolean }) {
       </motion.div>
       <motion.div
         className="flex items-center justify-center relative shrink-0 w-full"
-        style={{ height: '1.288vw' }}
+        style={{ height: '1.159vw' }}
         animate={{ x: isHovered ? -8 : 0, y: isHovered ? 8 : 0 }}
         transition={{ duration: 0.3, ease: 'easeOut' }}
       >
@@ -285,7 +285,7 @@ function Frame13() {
   return (
     <div
       className="relative shrink-0"
-      style={{ height: '16.667vw', marginRight: '-0.208vw', width: '27.778vw' }}
+      style={{ height: '15.00vw', marginRight: '-0.208vw', width: '25.00vw' }}
     />
   );
 }
@@ -316,10 +316,10 @@ function Frame16() {
 
 function Frame25({ isHovered }: { isHovered: boolean }) {
   return (
-    <div className="content-stretch flex flex-col items-start relative shrink-0" style={{ gap: '16.212vw', marginRight: '-0.208vw', width: '1.181vw' }}>
+    <div className="content-stretch flex flex-col items-start relative shrink-0" style={{ gap: '14.591vw', marginRight: '-0.208vw', width: '1.063vw' }}>
       <motion.div
         className="flex items-center justify-center relative shrink-0 w-full"
-        style={{ height: '1.288vw' }}
+        style={{ height: '1.159vw' }}
         animate={{ x: isHovered ? 8 : 0, y: isHovered ? -8 : 0 }}
         transition={{ duration: 0.3, ease: 'easeOut' }}
       >
@@ -329,7 +329,7 @@ function Frame25({ isHovered }: { isHovered: boolean }) {
       </motion.div>
       <motion.div
         className="flex items-center justify-center relative shrink-0 w-full"
-        style={{ height: '1.288vw' }}
+        style={{ height: '1.159vw' }}
         animate={{ x: isHovered ? 8 : 0, y: isHovered ? 8 : 0 }}
         transition={{ duration: 0.3, ease: 'easeOut' }}
       >
@@ -343,22 +343,17 @@ function Frame25({ isHovered }: { isHovered: boolean }) {
 
 function Frame26({ isHovered }: { isHovered: boolean }) {
   return (
-    <motion.div 
-      animate={{ scale: isHovered ? 0.82 : 0.9 }}
-      transition={{ duration: 0.4, ease: "easeOut" }}
-      className="content-stretch flex items-center relative shrink-0" 
-      style={{ paddingRight: 0, width: '29.722vw', transformOrigin: 'center center' }}
-    >
+    <div className="content-stretch flex items-center relative shrink-0" style={{ paddingRight: '0.208vw', width: '26.75vw' }}>
       <Frame24 isHovered={isHovered} />
       <Frame13 />
       <Frame25 isHovered={isHovered} />
-    </motion.div>
+    </div>
   );
 }
 
 function Frame19({ categories }: { categories: string[] }) {
   return (
-    <div className="content-stretch flex flex-col font-['Geist',sans-serif] font-normal items-start leading-[0.98] opacity-40 relative shrink-0 text-white whitespace-pre-wrap" style={{ gap: '0.444vh', paddingTop: '5.333vh', fontSize: '0.833vw', width: '8vw', marginLeft: '-0.3vw' }}>
+    <div className="content-stretch flex flex-col font-['Geist',sans-serif] font-normal items-start leading-[0.98] opacity-40 relative shrink-0 text-white whitespace-pre-wrap" style={{ gap: '0.4vh', paddingTop: '4.8vh', fontSize: '0.75vw', width: '7.2vw' }}>
       {categories.map((cat, i) => (
         <LetterReveal key={i} text={cat} value={cat} delay={0.05 + (i * 0.05)} />
       ))}
@@ -386,7 +381,7 @@ function Frame28({ srNo, categories, isHovered }: Omit<CaseStudyProps, 'title'> 
 
 function Frame29({ srNo, categories, title, isHovered }: CaseStudyProps & { isHovered: boolean }) {
   return (
-    <div className="absolute content-stretch flex flex-col items-center top-0 pointer-events-none z-20" style={{ left: '26.042vw', width: '35.833vw' }}>
+    <div className="absolute content-stretch flex flex-col items-center top-0 pointer-events-none z-20" style={{ left: '25.66vw', width: '36.75vw' }}>
       <Frame28 srNo={srNo} categories={categories} isHovered={isHovered} />
       <div className="w-full text-center overflow-hidden flex justify-center" style={{ marginTop: 0, marginBottom: '2vh' }}>
         <LetterReveal
@@ -394,7 +389,7 @@ function Frame29({ srNo, categories, title, isHovered }: CaseStudyProps & { isHo
           value={title}
           delay={0.1}
           className="font-['Geist_Mono',sans-serif] font-normal leading-[0.98] relative shrink-0 text-white whitespace-pre-wrap uppercase"
-          style={{ fontSize: '0.833vw' }}
+          style={{ fontSize: '0.75vw' }}
         />
       </div>
     </div>
@@ -513,7 +508,7 @@ function Frame30({ onEntranceDone, isEntranceReady, skipAnimations = false }: Fr
             animate={{
               left: slot.left,
               top: slot.top,
-              scale: isCenter && isHovered ? 0.82 : slot.scale,
+              scale: isCenter && isHovered ? 0.9 : slot.scale,
               zIndex: slot.zIndex,
               opacity: slot.opacity,
               y: '-50%' // Animate to its correct centered Y position

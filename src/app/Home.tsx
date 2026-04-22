@@ -219,7 +219,7 @@ function LetterReveal({ text, value, className, delay = 0, duration = 0.4, style
 
 function Frame27({ srNo }: { srNo: string }) {
   return (
-    <div className="content-stretch flex items-start justify-end relative shrink-0" style={{ paddingTop: '5.333vh', width: '2.75vw' }}>
+    <div className="content-stretch flex items-start justify-end relative shrink-0" style={{ paddingTop: '5.333vh', width: '8vw' }}>
       <LetterReveal
         text={srNo}
         value={srNo}
@@ -343,7 +343,7 @@ function Frame25({ isHovered }: { isHovered: boolean }) {
 
 function Frame26({ isHovered }: { isHovered: boolean }) {
   return (
-    <div className="content-stretch flex items-center relative shrink-0" style={{ paddingRight: '0.208vw', width: '27.126vw' }}>
+    <div className="content-stretch flex items-center relative shrink-0" style={{ width: '27.126vw' }}>
       <Frame24 isHovered={isHovered} />
       <Frame13 />
       <Frame25 isHovered={isHovered} />
@@ -353,7 +353,7 @@ function Frame26({ isHovered }: { isHovered: boolean }) {
 
 function Frame19({ categories }: { categories: string[] }) {
   return (
-    <div className="content-stretch flex flex-col font-['Geist',sans-serif] font-normal items-start leading-[0.98] opacity-40 relative shrink-0 text-white whitespace-pre-wrap" style={{ gap: '0.4vh', paddingTop: '5.333vh', fontSize: '0.75vw', width: '7.2vw' }}>
+    <div className="content-stretch flex flex-col font-['Geist',sans-serif] font-normal items-start leading-[0.98] opacity-40 relative shrink-0 text-white whitespace-pre-wrap" style={{ gap: '0.4vh', paddingTop: '5.333vh', fontSize: '0.75vw', width: '8vw' }}>
       {categories.map((cat, i) => (
         <LetterReveal key={i} text={cat} value={cat} delay={0.05 + (i * 0.05)} />
       ))}
@@ -381,9 +381,9 @@ function Frame28({ srNo, categories, isHovered }: Omit<CaseStudyProps, 'title'> 
 
 function Frame29({ srNo, categories, title, isHovered }: CaseStudyProps & { isHovered: boolean }) {
   return (
-    <div className="absolute content-stretch flex flex-col items-start top-0 pointer-events-none z-20" style={{ left: '27.715vw', width: '42vw' }}>
+    <div className="absolute content-stretch flex flex-col items-start top-0 pointer-events-none z-20" style={{ left: '22.465vw', width: '45vw' }}>
       <Frame28 srNo={srNo} categories={categories} isHovered={isHovered} />
-      <div className="flex justify-center overflow-hidden" style={{ width: '27.126vw', marginLeft: '2.75vw', marginTop: 0, marginBottom: '2vh' }}>
+      <div className="flex justify-center overflow-hidden" style={{ width: '27.126vw', marginLeft: '8vw', marginTop: 0, marginBottom: '2vh' }}>
         <LetterReveal
           text={title}
           value={title}

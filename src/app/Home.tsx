@@ -256,7 +256,7 @@ function Frame14() {
 
 function Frame24({ isHovered }: { isHovered: boolean }) {
   return (
-    <div className="content-stretch flex flex-col items-start relative shrink-0" style={{ gap: '23.778vh', marginRight: '-0.208vw', width: '1.181vw' }}>
+    <div className="content-stretch flex flex-col items-start justify-between relative shrink-0" style={{ height: '16.667vw', marginRight: '-0.208vw', width: '1.181vw' }}>
       <motion.div
         className="flex items-center justify-center relative shrink-0 w-full"
         style={{ height: '1.889vh' }}
@@ -316,7 +316,7 @@ function Frame16() {
 
 function Frame25({ isHovered }: { isHovered: boolean }) {
   return (
-    <div className="content-stretch flex flex-col items-start relative shrink-0" style={{ gap: '23.778vh', marginRight: '-0.208vw', width: '1.181vw' }}>
+    <div className="content-stretch flex flex-col items-start justify-between relative shrink-0" style={{ height: '16.667vw', marginRight: '-0.208vw', width: '1.181vw' }}>
       <motion.div
         className="flex items-center justify-center relative shrink-0 w-full"
         style={{ height: '1.889vh' }}

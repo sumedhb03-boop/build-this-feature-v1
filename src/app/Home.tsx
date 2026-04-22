@@ -347,7 +347,7 @@ function Frame26({ isHovered }: { isHovered: boolean }) {
       animate={{ scale: isHovered ? 0.82 : 0.9 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
       className="content-stretch flex items-center relative shrink-0" 
-      style={{ paddingRight: '0.208vw', width: '29.722vw', transformOrigin: 'center center' }}
+      style={{ width: '26.75vw', transformOrigin: 'center center' }}
     >
       <Frame24 isHovered={isHovered} />
       <Frame13 />
@@ -358,7 +358,7 @@ function Frame26({ isHovered }: { isHovered: boolean }) {
 
 function Frame19({ categories }: { categories: string[] }) {
   return (
-    <div className="content-stretch flex flex-col font-['Geist',sans-serif] font-normal items-start leading-[0.98] opacity-40 relative shrink-0 text-white whitespace-pre-wrap" style={{ gap: '0.444vh', paddingTop: '5.333vh', fontSize: '0.833vw', width: '8vw' }}>
+    <div className="content-stretch flex flex-col font-['Geist',sans-serif] font-normal items-start leading-[0.98] opacity-40 relative shrink-0 text-white whitespace-pre-wrap" style={{ gap: '0.444vh', paddingTop: '5.333vh', fontSize: '0.833vw', width: '6vw' }}>
       {categories.map((cat, i) => (
         <LetterReveal key={i} text={cat} value={cat} delay={0.05 + (i * 0.05)} />
       ))}
@@ -375,7 +375,8 @@ interface CaseStudyProps {
 function Frame28({ srNo, categories, isHovered }: Omit<CaseStudyProps, 'title'> & { isHovered: boolean }) {
   return (
     <div
-      className="content-stretch flex items-start relative shrink-0 w-full z-20 pointer-events-none"
+      className="content-stretch flex items-start justify-center relative shrink-0 w-full z-20 pointer-events-none"
+      style={{ gap: '0.5vw' }}
     >
       <Frame27 srNo={srNo} />
       <Frame26 isHovered={isHovered} />

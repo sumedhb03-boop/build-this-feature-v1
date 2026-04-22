@@ -573,7 +573,7 @@ export default function App() {
               animate={{ opacity: 1 }}
               transition={{ duration: 1.2, delay: skipAnimations ? 0 : 0.8 }}
             >
-              <Group />
+              {/* Top Guide Line Removed */}
             </motion.div>
  
             {/* 2. Header */}
@@ -630,7 +630,7 @@ export default function App() {
               animate={{ opacity: 1 }}
               transition={{ duration: 1.5, delay: skipAnimations ? 0 : 1.2 }}
             >
-              <Group1 />
+              {/* Bottom Guide Line Removed */}
             </motion.div>
  
             <Frame18 skipAnimations={skipAnimations} />

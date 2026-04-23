@@ -15,6 +15,16 @@ export default function AboutOverlay() {
 
     const xDrag = useMotionValue(0);
     const [isFolded, setIsFolded] = useState(true);
+    const [isCopied, setIsCopied] = useState(false);
+
+    const handleEmailClick = (e: React.MouseEvent) => {
+        e.preventDefault();
+        navigator.clipboard.writeText("hello@sumedh.design");
+        setIsCopied(true);
+        setTimeout(() => {
+            setIsCopied(false);
+        }, 4000);
+    };
 
     // Map drag coordinate (0-300) to section transforms
     const xLeftSection = useTransform(xDrag, [0, 300], ["100%", "0%"]);
@@ -120,7 +130,7 @@ export default function AboutOverlay() {
                     {/* Primary Link: View CV */}
                     <div className="flex items-center">
                         <motion.a 
-                            href="/resume.pdf" 
+                            href="https://drive.google.com/file/d/18FcZUbh_vNYW4HD57msNhrXJwwEv_uIU/view?usp=sharing" 
                             target="_blank" 
                             rel="noopener noreferrer"
                             className="font-['Geist',_sans-serif] text-[clamp(11px,0.9vw,15px)] opacity-90 transition-opacity relative group font-[450] md:font-normal"
@@ -141,9 +151,9 @@ export default function AboutOverlay() {
 
                     {/* Contact & Social Links: Email, Linked, X */}
                     <div className="flex items-center gap-[4vw] md:gap-[2vw]">
-                        <motion.a 
-                            href="mailto:hello@sumedh.design" 
-                            className="group flex items-center font-['Geist',_sans-serif] text-[clamp(11px,0.9vw,15px)] opacity-90 relative font-[450] md:font-normal"
+                        <motion.button 
+                            onClick={handleEmailClick}
+                            className="group flex items-center font-['Geist',_sans-serif] text-[clamp(11px,0.9vw,15px)] opacity-90 relative font-[450] md:font-normal cursor-pointer"
                             initial="initial"
                             whileHover="hover"
                         >
@@ -158,7 +168,19 @@ export default function AboutOverlay() {
                                     transition={{ duration: 0.3, ease: "easeInOut" }}
                                 />
                             </span>
-                        </motion.a>
+                            <AnimatePresence>
+                                {isCopied && (
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -10 }}
+                                        className="absolute -top-8 left-1/2 -translate-x-1/2 bg-[#0047AB] text-[#F5F0E6] text-[10px] px-2 py-1 rounded whitespace-nowrap z-50 pointer-events-none"
+                                    >
+                                        Email copied!
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </motion.button>
                         <motion.a 
                             href="https://www.linkedin.com/in/sumedh-bambal" 
                             target="_blank" 

@@ -189,10 +189,19 @@ const SLOTS = [
 
 
 
+// Reorder items for desktop: Playground goes last
+const DESKTOP_ITEMS = [
+  ...BASE_ITEMS.filter(item => item.id !== "hero"),
+  BASE_ITEMS.find(item => item.id === "hero")
+].map((item, index) => ({
+  ...item as any,
+  srNo: `0${index + 1}`
+}));
+
 // Duplicate items to ensure smooth infinite sliding across 10 slots
 const CAROUSEL_ITEMS = [
-  ...BASE_ITEMS.map((item) => ({ ...item, id: `${item.id}-1` })),
-  ...BASE_ITEMS.map((item) => ({ ...item, id: `${item.id}-2` }))
+  ...DESKTOP_ITEMS.map((item) => ({ ...item, id: `${item.id}-1` })),
+  ...DESKTOP_ITEMS.map((item) => ({ ...item, id: `${item.id}-2` }))
 ];
 
 function LetterReveal({ text, value, className, delay = 0, duration = 0.4, style }: { text: string, value: any, className?: string, delay?: number, duration?: number, style?: React.CSSProperties }) {

@@ -50,8 +50,8 @@ export default function AboutOverlayV1() {
                                     Sumedh Bambal
                                 </p>
                             </div>
-                            
-                            <button 
+
+                            <button
                                 onClick={closeAbout}
                                 className="group flex items-center gap-3 font-['Geist_Mono',sans-serif] text-[#fbf9ef]/60 text-[0.833vw] uppercase hover:text-[#fbf9ef] transition-colors"
                             >
@@ -72,8 +72,8 @@ export default function AboutOverlayV1() {
                                             <motion.p
                                                 initial={{ y: "100%" }}
                                                 animate={{ y: 0 }}
-                                                transition={{ 
-                                                    duration: 0.8, 
+                                                transition={{
+                                                    duration: 0.8,
                                                     delay: 0.4 + (i * 0.1),
                                                     ease: [0.33, 1, 0.68, 1]
                                                 }}
@@ -85,15 +85,15 @@ export default function AboutOverlayV1() {
                                     ))}
                                 </div>
 
-                                <motion.div 
+                                <motion.div
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 0.6, y: 0 }}
                                     transition={{ duration: 1, delay: 1 }}
                                     className="max-w-[35vw]"
                                 >
                                     <p className="font-['Geist',sans-serif] text-[#fbf9ef] text-[1.1vw] leading-[1.6] font-light">
-                                        Based in Mumbai, India. I specialize in designing scalable product experiences 
-                                        and visual identities for startups that want to stand out. My approach combines 
+                                        Based in Mumbai, India. I specialize in designing scalable product experiences
+                                        and visual identities for startups that want to stand out. My approach combines
                                         technical precision with expressive aesthetics.
                                     </p>
                                 </motion.div>
@@ -101,7 +101,7 @@ export default function AboutOverlayV1() {
 
                             {/* Right: Status / Location Widget */}
                             <div className="hidden lg:col-span-4 lg:flex flex-col items-end gap-6 pointer-events-auto">
-                                <motion.div 
+                                <motion.div
                                     initial={{ opacity: 0, scale: 0.9 }}
                                     animate={{ opacity: 1, scale: 1 }}
                                     transition={{ duration: 0.8, delay: 1.2 }}
@@ -138,7 +138,7 @@ export default function AboutOverlayV1() {
                                 <span className="font-['Geist_Mono',sans-serif] text-[#fbf9ef]/20 text-[0.7vw] uppercase">Availability</span>
                                 <p className="font-['Geist',sans-serif] text-[#fbf9ef] text-[0.9vw]">Open for freelance projects from May 2024</p>
                             </div>
-                            
+
                             <div className="flex gap-[4vw]">
                                 <div className="flex flex-col gap-1 text-right">
                                     <span className="font-['Geist_Mono',sans-serif] text-[#fbf9ef]/20 text-[0.7vw] uppercase">Email</span>

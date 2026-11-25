@@ -1,6 +1,7 @@
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "motion/react";
+import { Analytics } from "@vercel/analytics/react";
 import Home from "./app/Home.tsx";
 import CaseStudy from "./app/CaseStudy.tsx";
 import Playground from "./app/Playground.tsx";
@@ -33,5 +34,6 @@ createRoot(document.getElementById("root")!).render(
     <UIProvider>
       <AppRoutes />
     </UIProvider>
+    <Analytics />
   </BrowserRouter>
 );
